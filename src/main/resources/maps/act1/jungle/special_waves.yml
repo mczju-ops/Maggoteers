@@ -1,0 +1,5 @@
+# 丛林特色波 — strategy 定义见 waves.yml（全部进强怪池）
+strong:
+  - { strategy: s1_jungle_shadows, weight: 2 }
+  - { strategy: s1_jungle_spider_swap, weight: 2 }
+  - { strategy: s1_jungle_spider_falls, weight: 2 }

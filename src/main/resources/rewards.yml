@@ -1,0 +1,4608 @@
+# 奖励池（3 选 1 / 开局职业）— 由 rewardplan 生成
+
+reward_pools:
+  class:
+    cost: 0
+    options:
+      -
+        id: class_vanguard
+        display: "<gold>先锋信物"
+        grants:
+          -
+            id: class_vanguard_axe
+            display: "<gold>初心者战斧"
+            category: WEAPON
+            item: "maggoteers:class_vanguard_axe"
+          -
+            id: class_vanguard_token
+            display: "<red>先锋信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: PERCENT
+              value: 0.5
+            unique: true
+            stack: ADD
+          -
+            id: class_vanguard_token_hp
+            display: "<red>先锋信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAX_HEALTH
+              op: FLAT
+              value: 24.0
+            unique: true
+            stack: ADD
+          -
+            id: class_vanguard_token_reach
+            display: "<red>先锋信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ENTITY_INTERACTION_RANGE
+              op: FLAT
+              value: 1.0
+            unique: true
+            stack: ADD
+          -
+            id: class_vanguard_token_wave_heal
+            display: "<red>先锋信物"
+            category: STAT
+            trigger: ON_WAVE_CLEAR
+            effect: HEAL
+            params:
+              amount: 10.0
+            unique: true
+            stack: IGNORE
+          -
+            id: class_vanguard_token_kill_heal
+            display: "<red>先锋信物"
+            category: STAT
+            trigger: ON_KILL
+            effect: HEAL
+            params:
+              amount: 1.0
+            unique: true
+            stack: IGNORE
+          -
+            id: wave_atk5
+            display: "<gray>清算名单"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: PERCENT
+              value: 0.05
+            unique: true
+            stack: ADD
+            trigger: ON_WAVE_CLEAR
+      -
+        id: class_mage
+        display: "<green>术师信物"
+        grants:
+          -
+            id: class_mage_sword
+            display: "<green>初心者魔剑"
+            category: WEAPON
+            item: "maggoteers:class_mage_sword"
+          -
+            id: class_mage_token_atk
+            display: "<green>术师信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: PERCENT
+              value: 0.3
+            unique: true
+            stack: ADD
+          -
+            id: class_mage_token_mag
+            display: "<green>术师信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAGIC_DAMAGE
+              op: PERCENT
+              value: 0.3
+            unique: true
+            stack: ADD
+          -
+            id: class_mage_token_hp
+            display: "<green>术师信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAX_HEALTH
+              op: FLAT
+              value: 20.0
+            unique: true
+            stack: ADD
+          -
+            id: class_mage_token_reach
+            display: "<green>术师信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ENTITY_INTERACTION_RANGE
+              op: FLAT
+              value: 1.0
+            unique: true
+            stack: ADD
+          -
+            id: class_mage_token_wave_heal
+            display: "<green>术师信物"
+            category: STAT
+            trigger: ON_WAVE_CLEAR
+            effect: HEAL
+            params:
+              amount: 20.0
+            unique: true
+            stack: IGNORE
+          -
+            id: wave_atk_mag_atk
+            display: "<dark_purple>稳定的原石祭坛"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: PERCENT
+              value: 0.03
+            unique: true
+            stack: ADD
+            trigger: ON_WAVE_CLEAR
+          -
+            id: wave_atk_mag_mag
+            display: "<dark_purple>稳定的原石祭坛"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAGIC_DAMAGE
+              op: PERCENT
+              value: 0.03
+            unique: true
+            stack: ADD
+            trigger: ON_WAVE_CLEAR
+      -
+        id: class_heavy
+        display: "<blue>重装信物"
+        grants:
+          -
+            id: holy_city_shelter
+            display: "<gold>圣城庇护"
+            category: STAT
+            effect: AURA
+            unique: true
+            stack: IGNORE
+            params:
+              radius: 5.0
+              targets: allies
+              include_self: true
+              grant_pulse_sec: 4
+              grant:
+                effect: HEAL
+                amount: 2.0
+              carrier_fx:
+                preset: SMOOTH_EXPAND_RING
+                particle: WAX_ON
+                radius: 5.0
+                expand_steps: 10
+                density: 96
+          -
+            id: class_heavy_sword
+            display: "<blue>初心者圣剑"
+            category: WEAPON
+            item: "maggoteers:class_heavy_sword"
+          -
+            id: class_heavy_token_atk
+            display: "<gray>重装信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: PERCENT
+              value: 0.2
+            unique: true
+            stack: ADD
+          -
+            id: class_heavy_token_hp
+            display: "<gray>重装信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAX_HEALTH
+              op: FLAT
+              value: 28.0
+            unique: true
+            stack: ADD
+          -
+            id: class_heavy_token_reach
+            display: "<gray>重装信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ENTITY_INTERACTION_RANGE
+              op: FLAT
+              value: 1.0
+            unique: true
+            stack: ADD
+          -
+            id: class_heavy_token_wave_heal
+            display: "<gray>重装信物"
+            category: STAT
+            trigger: ON_WAVE_CLEAR
+            effect: HEAL
+            params:
+              amount: 10.0
+            unique: true
+            stack: IGNORE
+      -
+        id: class_sniper
+        display: "<aqua>狙击信物"
+        grants:
+          -
+            id: class_sniper_bow
+            display: "<aqua>初心者之弓"
+            category: WEAPON
+            item: "maggoteers:class_sniper_bow"
+          -
+            id: wave_mag5
+            display: "<light_purple>灵魂立方"
+            category: STAT
+            trigger: ON_WAVE_CLEAR
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAGIC_DAMAGE
+              op: PERCENT
+              value: 0.05
+            unique: true
+            stack: ADD
+          -
+            id: class_sniper_token_mag
+            display: "<aqua>狙击信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAGIC_DAMAGE
+              op: PERCENT
+              value: 0.5
+            unique: true
+            stack: ADD
+          -
+            id: class_sniper_token_spd
+            display: "<aqua>狙击信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MOVEMENT_SPEED
+              op: PERCENT
+              value: 0.08
+            unique: true
+            stack: ADD
+          -
+            id: class_sniper_token_hp
+            display: "<aqua>狙击信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAX_HEALTH
+              op: FLAT
+              value: 12.0
+            unique: true
+            stack: ADD
+          -
+            id: class_sniper_token_reach
+            display: "<aqua>狙击信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ENTITY_INTERACTION_RANGE
+              op: FLAT
+              value: 1.0
+            unique: true
+            stack: ADD
+          -
+            id: class_sniper_token_wave_heal
+            display: "<aqua>狙击信物"
+            category: STAT
+            trigger: ON_WAVE_CLEAR
+            effect: HEAL
+            params:
+              amount: 10.0
+            unique: true
+            stack: IGNORE
+      -
+        id: class_guard
+        display: "<yellow>近卫信物"
+        grants:
+          -
+            id: turbo_charger
+            display: "<aqua>涡轮增压机"
+            category: STAT
+            trigger: ON_WAVE_CLEAR
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MOVEMENT_SPEED
+              op: PERCENT
+              value: 0.02
+            unique: true
+            stack: ADD
+          -
+            id: class_guard_spear
+            display: "<yellow>初心者长矛"
+            category: WEAPON
+            item: "maggoteers:class_guard_spear"
+          -
+            id: class_guard_token_reach
+            display: "<yellow>近卫信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ENTITY_INTERACTION_RANGE
+              op: FLAT
+              value: 2.0
+            unique: true
+            stack: ADD
+          -
+            id: class_guard_token_atk
+            display: "<yellow>近卫信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: PERCENT
+              value: 1.0
+            unique: true
+            stack: ADD
+          -
+            id: class_guard_token_hp
+            display: "<yellow>近卫信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAX_HEALTH
+              op: FLAT
+              value: 12.0
+            unique: true
+            stack: ADD
+          -
+            id: class_guard_token_wave_heal
+            display: "<yellow>近卫信物"
+            category: STAT
+            trigger: ON_WAVE_CLEAR
+            effect: HEAL
+            params:
+              amount: 10.0
+            unique: true
+            stack: IGNORE
+      -
+        id: class_medical
+        display: "<light_purple>医疗信物"
+        grants:
+          -
+            id: pure_core
+            display: "<aqua>纯净核心"
+            category: STAT
+            trigger: ON_WAVE_CLEAR
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: HEAL
+              op: ADD
+              value: 5
+            unique: true
+            stack: ADD
+          -
+            id: class_medical_staff
+            display: "<light_purple>初心者双蛇杖"
+            category: WEAPON
+            item: "maggoteers:class_medical_staff"
+          -
+            id: class_medical_token_spd
+            display: "<light_purple>医疗信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MOVEMENT_SPEED
+              op: PERCENT
+              value: 0.10
+            unique: true
+            stack: ADD
+          -
+            id: class_medical_token_hp
+            display: "<light_purple>医疗信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAX_HEALTH
+              op: FLAT
+              value: 22.0
+            unique: true
+            stack: ADD
+          -
+            id: class_medical_token_act_revive
+            display: "<light_purple>医疗信物"
+            category: STAT
+            trigger: ON_ACT_ENTER
+            effect: GRANT_ITEM
+            params:
+              item: "maggoteers:revive_coin"
+              count: 1
+            unique: true
+            stack: IGNORE
+          -
+            id: class_medical_token_reach
+            display: "<light_purple>医疗信物"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ENTITY_INTERACTION_RANGE
+              op: FLAT
+              value: 1.0
+            unique: true
+            stack: ADD
+          -
+            id: class_medical_token_wave_heal 
+            display: "<light_purple>医疗信物"
+            category: STAT
+            trigger: ON_WAVE_CLEAR
+            effect: HEAL
+            params:
+              amount: 10.0
+            unique: true
+            stack: IGNORE
+  act1_weak:
+    cost: 1
+    upgrade_level_cap: 2
+    options:
+      -
+        id: holy_city_shelter
+        display: "<gold>圣城庇护"
+        category: STAT
+        effect: AURA
+        unique: true
+        stack: IGNORE
+        params:
+          radius: 5.0
+          targets: allies
+          include_self: true
+          grant_pulse_sec: 1
+          grant:
+            effect: HEAL
+            amount: 1.0
+          carrier_fx:
+            preset: SMOOTH_EXPAND_RING
+            particle: WAX_ON
+            radius: 5.0
+            # 2026-10-28（圣城庇护反馈）：扩散时"半径增长点"稀疏（28→10 步），但每个圆周更密集
+            # （density 96 = 3 点/格周长，见 MagicFxPresets.smoothExpandRing）。
+            expand_steps: 10
+            density: 96
+      -
+        id: pure_core
+        display: "<aqua>纯净核心"
+        category: STAT
+        trigger: ON_WAVE_CLEAR
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: HEAL
+          op: ADD
+          value: 5
+        unique: true
+        stack: ADD
+      -
+        id: turbo_charger
+        display: "<aqua>涡轮增压机"
+        category: STAT
+        trigger: ON_WAVE_CLEAR
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: PERCENT
+          value: 0.01
+        unique: true
+        stack: ADD
+      -
+        id: kaze_blade
+        display: "<white>岚刀 · 一字切"
+        category: WEAPON
+        item: maggoteers:kaze_blade
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: iron_guard_atk
+        display: "<red>铁卫-侵略"
+        grants:
+          -
+            id: iron_guard_atk_up
+            display: "<red>铁卫-侵略"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: PERCENT
+              value: 1.5
+            unique: true
+            stack: ADD
+          -
+            id: iron_guard_atk_hp
+            display: "<red>铁卫-侵略"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAX_HEALTH
+              op: FLAT
+              value: -20.0
+            unique: true
+            stack: ADD
+      -
+        id: 20ran
+        display: "<yellow>铜增幅器"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RANGE
+          op: ADD
+          value: 20
+        unique: true
+        stack: ADD
+      -
+        id: 15heal
+        display: "<green>胎生苗"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: HEAL
+          op: ADD
+          value: 15
+        unique: true
+        stack: ADD
+      -
+        id: 22mag
+        display: "<light_purple>支柱-勤奋"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.22
+        unique: true
+        stack: ADD
+      -
+        id: 22atk
+        display: "<red>折戟-锋刃"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.22
+        unique: true
+        stack: ADD
+      -
+        id: heart_vine
+        display: "<dark_red>恋心草"
+        requires_unlock: true
+        unlock_cost: 100
+        grants:
+          -
+            id: heart_vine_pain
+            display: "<dark_red>恋心草"
+            category: STAT
+            trigger: ON_DAMAGE_TAKEN
+            effect: HEAL
+            params:
+              amount: -10.0
+            unique: true
+            stack: IGNORE
+          -
+            id: heart_vine_coin
+            display: "<dark_red>恋心草"
+            category: STAT
+            trigger: ON_WAVE_CLEAR
+            effect: GRANT_ITEM
+            params:
+              item: maggoteers:currency_normal
+              count: 1
+            unique: true
+            stack: IGNORE
+      -
+        id: coin_toy
+        display: "<gold>投币玩具"
+        category: STAT
+        trigger: ON_COUNTER
+        effect: ADD_ATTRIBUTE
+        params:
+          counter: {id: coin_toy_waves, count: wave_clear, amount: 1}
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 3
+        unique: true
+        stack: ADD
+      -
+        id: 12cd
+        display: "<gold>青色墨水囊"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 14
+        unique: true
+        stack: ADD
+      -
+        id: 10cd
+        display: "<gold>青色火炬"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 11
+        unique: true
+        stack: ADD
+      -
+        id: ascetic
+        display: "<aqua>苦修"
+        grants:
+          -
+            id: ascetic_slow
+            display: "<aqua>苦修"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MOVEMENT_SPEED
+              op: PERCENT
+              value: -0.20
+            unique: true
+            stack: ADD
+          -
+            id: ascetic_finish_slow
+            display: "<aqua>苦修"
+            category: STAT
+            trigger: ON_COUNTER
+            effect: ADD_ATTRIBUTE
+            params:
+              counter:
+                id: ascetic_waves
+                count: wave_clear
+                amount: 5
+              op: REVOKE_GRANTS
+              source_id: ascetic_slow
+            unique: true
+            stack: IGNORE
+          -
+            id: ascetic_finish_spd
+            display: "<aqua>苦修"
+            category: STAT
+            trigger: ON_COUNTER
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MOVEMENT_SPEED
+              op: PERCENT
+              value: 0.4
+              counter: {id: ascetic_waves, count: wave_clear, amount: 5}
+            unique: true
+            stack: ADD
+          -
+            id: ascetic_finish_hp
+            display: "<aqua>苦修"
+            category: STAT
+            trigger: ON_COUNTER
+            effect: ADD_ATTRIBUTE
+            params:
+              counter:
+                id: ascetic_waves
+                count: wave_clear
+                amount: 5
+              attr: MAX_HEALTH
+              op: FLAT
+              value: 20.0
+            unique: true
+            stack: ADD
+        description: 移动速度-20，累计经过5个回合后移除移动速度惩罚，获得20点速度加成和20点生命值上限
+      -
+        id: atk15
+        display: "<red>严重损坏的铁砧"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.15
+        unique: true
+        stack: ADD
+      -
+        id: atk20
+        display: "<red>铜剑刃碎片"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.2
+        unique: true
+        stack: ADD
+      -
+        id: atk25
+        display: "<red>受潮的力量粉末"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.25
+        unique: true
+        stack: ADD
+      -
+        id: mag15
+        display: "<light_purple>浑浊的魔晶"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.15
+        unique: true
+        stack: ADD
+      -
+        id: mag20
+        display: "<light_purple>磨损的杖芯"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.2
+        unique: true
+        stack: ADD
+      -
+        id: mag25
+        display: "<light_purple>平凡的药剂"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.25
+        unique: true
+        stack: ADD
+      -
+        id: hp4a
+        display: "<green>热水壶"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: 8.0
+        unique: true
+        stack: ADD
+      -
+        id: hp4b
+        display: "<green>干硬的面包"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: 8.0
+        unique: true
+        stack: ADD
+      -
+        id: hp4c
+        display: "<green>皮革甲片"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: 8.0
+        unique: true
+        stack: ADD
+      -
+        id: spd4a
+        display: "<blue>炒鸡肉"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: PERCENT
+          value: 0.04
+        unique: true
+        stack: ADD
+      -
+        id: spd4b
+        display: "<blue>微风精华"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: PERCENT
+          value: 0.04
+        unique: true
+        stack: ADD
+      -
+        id: fire_res
+        display: "<gold>烈焰人突变诱发物"
+        category: STAT
+        effect: ADD_POTION
+        params:
+          potion: FIRE_RESISTANCE
+          amp: 0
+          duration_ticks: 0
+        unique: true
+        stack: IGNORE
+      -
+        id: str1
+        display: "<red>猪灵蛮兵突变诱发物"
+        category: STAT
+        effect: ADD_POTION
+        params:
+          potion: STRENGTH
+          amp: 0
+          duration_ticks: 0
+        unique: true
+        stack: UPGRADE_LEVEL
+        upgrade_max: 1
+      -
+        id: fangs
+        display: "<dark_purple>黑暗宝珠"
+        category: STAT
+        trigger: ON_DAMAGE_DEALT
+        effect: SUMMON
+        params:
+          entity: EVOKER_FANGS
+          anchor: hit_target
+          cleanup: wave_clear
+          friendly_fire: false
+        unique: true
+        stack: IGNORE
+      -
+        id: kill_invis
+        display: "<gray>瓶装怨灵"
+        category: STAT
+        trigger: ON_KILL
+        effect: BUFF_AREA
+        params:
+          targets: self
+          potions:
+            -
+              potion: INVISIBILITY
+              amp: 0
+              duration_ticks: 60
+            -
+              potion: speed
+              amp: 2
+              duration_ticks: 60
+          fx:
+            preset: DOT_ABOVE
+            particle: SMOKE
+        unique: true
+        stack: IGNORE
+      -
+        id: mark_glow
+        display: "<yellow>照明弹"
+        category: STAT
+        trigger: ON_COUNTER
+        effect: BUFF_AREA
+        params:
+          # 2026-10-28：改为"每 10 秒把场上所有敌人标出来，**永续**发光"（原为攻击时给命中目标 60s 发光）
+          # ⚠️ counter{count: tick} 的 amount 单位是**秒**（每秒心跳推进 1 次），不是 tick
+          counter:
+            id: mark_glow_10s
+            count: tick
+            amount: 10
+          targets: enemies
+          enemy_scope: tracked
+          radius: 128.0
+          potions:
+            -
+              potion: GLOWING
+              amp: 0
+              # 1 小时：效果上等于"永续"（每 10 秒还会对全场补一次，新刷的怪也会被标上）
+              duration_ticks: 72000
+        unique: true
+        stack: IGNORE
+      -
+        id: hit_splash
+        display: "<red>狂战斧"
+        category: STAT
+        trigger: ON_DAMAGE_DEALT
+        effect: DAMAGE_AREA
+        params:
+          damage: 3.0
+          radius: 3.0
+          targets: enemies
+          enemy_scope: tracked
+        unique: true
+        stack: IGNORE
+      -
+        id: wave_bone
+        display: "<gray>《德鲁伊入门》"
+        category: STAT
+        trigger: ON_WAVE_CLEAR
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: 1.0
+        unique: true
+        stack: ADD
+      -
+        id: parting_gift
+        display: "<dark_red>临别赠礼"
+        grants:
+          -
+            id: parting_tnt
+            display: "<dark_red>临别赠礼"
+            category: STAT
+            trigger: ON_DEATH
+            effect: SUMMON
+            params:
+              entity: TNT
+              anchor: death_site
+              count: 5
+              cleanup: duration
+              duration_sec: 10
+              friendly_fire: false
+          -
+            id: parting_slow
+            display: "<dark_red>临别赠礼"
+            category: STAT
+            trigger: ON_DEATH
+            effect: BUFF_AREA
+            params:
+              radius: 6.0
+              targets: enemies
+              enemy_scope: tracked
+              potions:
+                -
+                  potion: SLOWNESS
+                  amp: 9
+                  duration_ticks: 100
+      -
+        id: act_revive
+        display: "<green>增生藤甲"
+        category: STAT
+        trigger: ON_ACT_ENTER
+        effect: GRANT_REVIVE
+        params:
+          count: 1
+        unique: true
+        stack: IGNORE
+      -
+        id: past_fine
+        display: "<gold>昔日精品"
+        category: WEAPON
+        item: "maggoteers:past_fine"
+      -
+        id: heat_cutter
+        display: "<red>热熔切割器"
+        category: WEAPON
+        item: "maggoteers:heat_cutter_a1"
+      -
+        id: blast_unit
+        display: "<green>爆破单元"
+        category: WEAPON
+        item: "maggoteers:blast_unit"
+      -
+        id: jet
+        display: "<aqua>J.E.T"
+        category: WEAPON
+        item: "maggoteers:jet_a1"
+      -
+        id: wedge
+        display: "<blue>楔子"
+        category: WEAPON
+        item: "maggoteers:wedge"
+      -
+        id: portable_fort
+        display: "<gray>便携要塞"
+        category: WEAPON
+        item: "maggoteers:portable_fort"
+      -
+        id: cat_hammer
+        display: "<light_purple>充气猫猫锤"
+        category: WEAPON
+        item: "maggoteers:cat_hammer"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: bio_field_controller
+        display: "<green>生化立场控制器"
+        category: WEAPON
+        item: "maggoteers:bio_field_controller"
+      -
+        id: amethyst_eggplant
+        display: "<light_purple>紫水晶茄子"
+        category: STAT
+        effect: GRANT_ITEM
+        trigger: ON_COUNTER
+        params:
+          item: maggoteers:currency_normal
+          count: 1
+          counter:
+            id: amethyst_eggplant_kill100
+            count: kill
+            amount: 100
+        unique: true
+        stack: IGNORE
+      -
+        id: king_armor
+        display: "<gold>国王的铠甲"
+        category: STAT
+        effect: MAX_HEALTH_PER_REVIVE
+        params:
+          value: 10
+        unique: true
+        stack: ADD
+      # 2026-10-28：猪灵存钱罐——每回合多拿 1 枚金币，但第一次花掉金币时失效（ON_SPEND，见 Trigger）
+      -
+        id: piggy_bank
+        display: "<gold>猪灵存钱罐"
+        requires_unlock: true
+        unlock_cost: 100
+        category: STAT
+        trigger: ON_WAVE_CLEAR
+        effect: GRANT_ITEM
+        params:
+          item: maggoteers:currency_normal
+          count: 1
+        expiry: {trigger: ON_SPEND, charges: 1}
+        unique: true
+        stack: IGNORE
+      -
+        id: pitcher_plant
+        display: "<green>食虫植物"
+        category: WEAPON
+        item: "maggoteers:pitcher_plant"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: frost_grasp
+        display: "<aqua>寒霜之握"
+        category: WEAPON
+        item: "maggoteers:frost_grasp"
+  act1_strong:
+    cost: 1
+    upgrade_level_cap: 3
+    options:
+      -
+        id: holy_city_shelter
+        display: "<gold>圣城庇护"
+        category: STAT
+        effect: AURA
+        unique: true
+        stack: IGNORE
+        params:
+          radius: 5.0
+          targets: allies
+          include_self: true
+          grant_pulse_sec: 4
+          grant:
+            effect: HEAL
+            amount: 2.0
+          carrier_fx:
+            preset: SMOOTH_EXPAND_RING
+            particle: WAX_ON
+            radius: 5.0
+            expand_steps: 10
+            density: 96
+      -
+        id: pure_core
+        display: "<aqua>纯净核心"
+        category: STAT
+        trigger: ON_WAVE_CLEAR
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: HEAL
+          op: ADD
+          value: 5
+        unique: true
+        stack: ADD
+      -
+        id: turbo_charger
+        display: "<aqua>涡轮增压机"
+        category: STAT
+        trigger: ON_WAVE_CLEAR
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: PERCENT
+          value: 0.02
+        unique: true
+        stack: ADD
+      -
+        id: kaze_blade
+        display: "<white>岚刀 · 一字切"
+        category: WEAPON
+        item: maggoteers:kaze_blade
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: 25cd
+        display: "<gold>青铜历石"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 33
+        unique: true
+        stack: ADD
+      -
+        id: 20ran
+        display: "<yellow>铜增幅器"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RANGE
+          op: ADD
+          value: 20
+        unique: true
+        stack: ADD
+      -
+        id: 15heal
+        display: "<green>胎生苗"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: HEAL
+          op: ADD
+          value: 15
+        unique: true
+        stack: ADD
+      -
+        id: 22mag
+        display: "<light_purple>支柱-勤奋"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.22
+        unique: true
+        stack: ADD
+      -
+        id: 22atk
+        display: "<red>折戟-锋刃"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.22
+        unique: true
+        stack: ADD
+      -
+        id: heart_vine
+        display: "<dark_red>恋心草"
+        requires_unlock: true
+        unlock_cost: 100
+        grants:
+          -
+            id: heart_vine_pain
+            display: "<dark_red>恋心草"
+            category: STAT
+            trigger: ON_DAMAGE_TAKEN
+            effect: HEAL
+            params:
+              amount: -10.0
+            unique: true
+            stack: IGNORE
+          -
+            id: heart_vine_coin
+            display: "<dark_red>恋心草"
+            category: STAT
+            trigger: ON_WAVE_CLEAR
+            effect: GRANT_ITEM
+            params:
+              item: maggoteers:currency_normal
+              count: 1
+            unique: true
+            stack: IGNORE
+      -
+        id: coin_toy
+        display: "<gold>投币玩具"
+        category: STAT
+        trigger: ON_COUNTER
+        effect: ADD_ATTRIBUTE
+        params:
+          counter: {id: coin_toy_waves, count: wave_clear, amount: 1}
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 3
+        unique: true
+        stack: ADD
+      -
+        id: 12cd
+        display: "<gold>青色墨水囊"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 14
+        unique: true
+        stack: ADD
+      -
+        id: 10cd
+        display: "<gold>青色火炬"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 11
+        unique: true
+        stack: ADD
+      -
+        id: atk25
+        display: "<red>受潮的力量粉末"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.25
+        unique: true
+        stack: ADD
+      -
+        id: atk35
+        display: "<red>开裂的铁砧"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.35
+        unique: true
+        stack: ADD
+      -
+        id: mag25
+        display: "<light_purple>平凡的药剂"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.25
+        unique: true
+        stack: ADD
+      -
+        id: mag35
+        display: "<light_purple>纯净的魔晶"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.35
+        unique: true
+        stack: ADD
+      -
+        id: hp4a
+        display: "<green>热水壶"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: 8.0
+        unique: true
+        stack: ADD
+      -
+        id: hp6
+        display: "<green>解渴的西瓜汁"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: 12.0
+        unique: true
+        stack: ADD
+      -
+        id: spd5
+        display: "<blue>捕风网"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: PERCENT
+          value: 0.05
+        unique: true
+        stack: ADD
+      -
+        id: fire_res
+        display: "<gold>烈焰人突变诱发物"
+        category: STAT
+        effect: ADD_POTION
+        params:
+          potion: FIRE_RESISTANCE
+          amp: 0
+          duration_ticks: 0
+        unique: true
+        stack: IGNORE
+      -
+        id: str1
+        display: "<red>猪灵蛮兵突变诱发物"
+        category: STAT
+        effect: ADD_POTION
+        params:
+          potion: STRENGTH
+          amp: 0
+          duration_ticks: 0
+        unique: true
+        stack: UPGRADE_LEVEL
+        upgrade_max: 1
+      -
+        id: regen1
+        display: "<green>悦灵突变诱发物"
+        category: STAT
+        effect: ADD_POTION
+        params:
+          potion: REGENERATION
+          amp: 0
+          duration_ticks: 0
+        unique: true
+        stack: UPGRADE_LEVEL
+        upgrade_max: 1
+      -
+        id: wave_full_heal
+        display: "<gold>温暖的篝火"
+        category: STAT
+        trigger: ON_WAVE_CLEAR
+        effect: HEAL
+        params:
+          amount: 9999.0
+        unique: true
+        stack: IGNORE
+      -
+        id: lost_key
+        display: "<gold>失落之钥"
+        grants:
+          -
+            id: act_atk20
+            display: "<gold>失落之钥"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: PERCENT
+              value: 0.4
+            unique: true
+            stack: ADD
+            trigger: ON_ACT_ENTER
+          -
+            id: act_mag20
+            display: "<gold>失落之钥"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAGIC_DAMAGE
+              op: PERCENT
+              value: 0.4
+            unique: true
+            stack: ADD
+            trigger: ON_ACT_ENTER
+      -
+        id: hit_slow
+        display: "<yellow>懒惰护符"
+        category: STAT
+        trigger: ON_DAMAGE_DEALT
+        effect: BUFF_AREA
+        params:
+          targets: hit_target
+          potions:
+            -
+              potion: SLOWNESS
+              amp: 1
+              duration_ticks: 200
+        unique: true
+        stack: IGNORE
+      -
+        id: taken_str
+        display: "<red>暴怒护符"
+        category: STAT
+        trigger: ON_DAMAGE_TAKEN
+        effect: BUFF_AREA
+        params:
+          targets: self
+          potions:
+            -
+              potion: STRENGTH
+              amp: 2
+              duration_ticks: 40
+          fx:
+            preset: DOT_ABOVE
+            particle: FLAME
+        unique: true
+        stack: IGNORE
+      -
+        id: ally_invis
+        display: "<gray>捕鳞蓑"
+        grants:
+          -
+            id: ally_invis_atk
+            display: "<gray>捕鳞蓑"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: PERCENT
+              value: -0.5
+            unique: true
+            stack: ADD
+          -
+            id: ally_invis_mag
+            display: "<gray>捕鳞蓑"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAGIC_DAMAGE
+              op: PERCENT
+              value: -0.5
+            unique: true
+            stack: ADD
+          -
+            id: ally_invis_revive
+            display: "<gray>捕鳞蓑"
+            category: STAT
+            effect: GRANT_REVIVE
+            params:
+              count: 4
+            unique: true
+            stack: IGNORE
+      -
+        id: prot_chest
+        display: "<aqua>防弹胸甲（可升级！）"
+        category: STAT
+        effect: BOUND_EQUIP
+        params:
+          slot: CHEST
+          items_by_level:
+            1: maggoteers:prot_chest_l1
+            2: maggoteers:prot_chest_l2
+            3: maggoteers:prot_chest_l3
+            4: maggoteers:prot_chest_l4
+        unique: true
+        stack: UPGRADE_LEVEL
+        upgrade_max: 4
+      -
+        id: past_fine
+        display: "<gold>昔日精品"
+        category: WEAPON
+        item: "maggoteers:past_fine"
+      -
+        id: heat_cutter
+        display: "<red>热熔切割器"
+        category: WEAPON
+        item: "maggoteers:heat_cutter_a1"
+      -
+        id: blast_unit
+        display: "<green>爆破单元"
+        category: WEAPON
+        item: "maggoteers:blast_unit"
+      -
+        id: jet
+        display: "<aqua>J.E.T"
+        category: WEAPON
+        item: "maggoteers:jet_a1"
+      -
+        id: wedge
+        display: "<blue>楔子"
+        category: WEAPON
+        item: "maggoteers:wedge"
+      -
+        id: portable_fort
+        display: "<gray>便携要塞"
+        category: WEAPON
+        item: "maggoteers:portable_fort"
+      -
+        id: cat_hammer
+        display: "<light_purple>充气猫猫锤"
+        category: WEAPON
+        item: "maggoteers:cat_hammer"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: unlit_glory
+        display: "<white>未照耀的荣光"
+        category: WEAPON
+        item: "maggoteers:unlit_glory"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: door
+        display: "<blue>铁栅门"
+        category: WEAPON
+        item: "maggoteers:door"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: ritual_dagger
+        display: "<dark_purple>仪式匕首"
+        category: WEAPON
+        item: "maggoteers:ritual_dagger"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: holy_water
+        display: "<aqua>圣水"
+        category: WEAPON
+        item: "maggoteers:holy_water"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: bio_field_controller
+        display: "<green>生化立场控制器"
+        category: WEAPON
+        item: "maggoteers:bio_field_controller"
+      -
+        id: ursus_cleaver
+        display: "<red>乌萨斯切肉刀"
+        category: WEAPON
+        item: "maggoteers:ursus_cleaver"
+      -
+        id: king_new_gun
+        display: "<gold>国王的新枪"
+        category: STAT
+        effect: DYNAMIC_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          source: revive_zero
+          value: -0.5
+        unique: true
+        stack: ADD
+      -
+        id: eighty
+        display: "<red>八十！"
+        category: WEAPON
+        item: "maggoteers:eighty_hammer"
+      -
+        id: wither_reliquary
+        display: "<dark_gray>凋零密匣"
+        category: WEAPON
+        item: "maggoteers:wither_reliquary"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: corrupt_can
+        display: "<dark_green>腐败罐头"
+        category: STAT
+        effect: AURA
+        unique: true
+        stack: IGNORE
+        params:
+          radius: 6.0
+          targets: enemies
+          enemy_scope: tracked
+          grant_pulse_sec: 1
+          grant:
+            effect: ADD_POTION
+            potion: WITHER
+            amp: 1
+            duration_ticks: 20
+          carrier_fx:
+            preset: THICK_RING
+            particle: WITCH
+            radius: 6.0
+            density: 64
+  act1_boss:
+    cost: 1
+    options:
+      -
+        id: b1_50cd
+        display: "<gold>黄金平原"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 100
+        unique: true
+        stack: ADD
+      -
+        id: b1_100ran
+        display: "<yellow>断杖-苦难巫咒"
+        grants:
+          -
+            id: b1_100ran_up
+            display: "<yellow>断杖-苦难巫咒"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: RANGE
+              op: ADD
+              value: 100
+            unique: true
+            stack: ADD
+          -
+            id: b1_100ran_hp
+            display: "<yellow>断杖-苦难巫咒"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAX_HEALTH
+              op: FLAT
+              value: -12.0
+            unique: true
+            stack: ADD
+      -
+        id: revive_stone
+        display: "<green>复活石"
+        category: WEAPON
+        item: "maggoteers:revive_coin"
+      -
+        id: b1_atk150
+        display: "<red>老近卫军之锋"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 1.5
+        unique: true
+        stack: ADD
+      -
+        id: b1_mag150
+        display: "<light_purple>皇帝的收藏"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 1.5
+        unique: true
+        stack: ADD
+      -
+        id: b1_hp20
+        display: "<green>破旧的巨型甲胄"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: 40.0
+        unique: true
+        stack: ADD
+      -
+        id: b1_spd15
+        display: "<blue>黑夜呢喃"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: PERCENT
+          value: 0.15
+        unique: true
+        stack: ADD
+      -
+        id: b1_kb1
+        display: "<gray>东京湾专属配重块"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: KNOCKBACK_RESISTANCE
+          op: FLAT
+          value: 1.0
+        unique: true
+        stack: ADD
+      -
+        id: b1_res1
+        display: "<gray>铁傀儡突变诱发物"
+        category: STAT
+        effect: ADD_POTION
+        params:
+          potion: RESISTANCE
+          amp: 0
+          duration_ticks: 0
+        unique: true
+        stack: UPGRADE_LEVEL
+        upgrade_max: 1
+      -
+        id: b1_wave_gapple
+        display: "<gold>赫拉克勒斯的果树"
+        category: STAT
+        trigger: ON_WAVE_CLEAR
+        effect: GRANT_ITEM
+        params:
+          item: "maggoteers:boss_golden_apple"
+          count: 1
+        unique: true
+        stack: IGNORE
+      -
+        id: b1_wave_steak
+        display: "<red>暴食护符"
+        category: STAT
+        trigger: ON_WAVE_CLEAR
+        effect: GRANT_ITEM
+        params:
+          item: "maggoteers:full_heal_steak"
+          count: 1
+        unique: true
+        stack: IGNORE
+      -
+        id: b1_frost_tree
+        display: "<aqua>霜晶树"
+        category: STAT
+        trigger: ON_BOSS_KILL
+        effect: GRANT_ITEM
+        params:
+          item: maggoteers:currency_boss
+          count: 2
+        expiry: {trigger: ON_DEATH, charges: 1}
+        unique: true
+        stack: IGNORE
+      -
+        id: b1_wave_tnt
+        display: "<dark_red>死魂灵之影"
+        category: STAT
+        trigger: ON_WAVE_CLEAR
+        effect: GRANT_ITEM
+        params:
+          item: "maggoteers:tnt_orb"
+          count: 1
+        unique: true
+        stack: IGNORE
+      -
+        id: macro_wish
+        display: "<light_purple>宏愿"
+        category: WEAPON
+        item: "maggoteers:macro_wish"
+        requires_unlock: true
+        unlock_cost: 100
+      # 2026-10-28：魔法石——拾起时立刻 +2 复活次数（即时 GRANT_REVIVE；替换八十！的 Boss 池位置）
+      -
+        id: b1_mana_stone
+        display: "<gray>魔法石"
+        category: STAT
+        effect: GRANT_REVIVE
+        params:
+          count: 2
+        unique: true
+        stack: IGNORE
+      -
+        id: anacreon
+        display: "<gold>阿纳克吕翁"
+        category: WEAPON
+        item: "maggoteers:anacreon"
+      -
+        id: floor_service
+        display: "<white>地面清扫服务"
+        category: WEAPON
+        item: "maggoteers:floor_service"
+  act2_weak:
+    cost: 1
+    upgrade_level_cap: 2
+    options:
+      -
+        id: 30cd
+        display: "<gold>断杖-波纹"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 43
+        unique: true
+        stack: ADD
+      -
+        id: 28cd
+        display: "<gold>青铜镜"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 39
+        unique: true
+        stack: ADD
+      -
+        id: 25cd
+        display: "<gold>青铜历石"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 33
+        unique: true
+        stack: ADD
+      -
+        id: 40ran
+        display: "<yellow>石英增幅器"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RANGE
+          op: ADD
+          value: 40
+        unique: true
+        stack: ADD
+      -
+        id: 100heal
+        display: "<dark_purple>巫术增幅器"
+        requires_unlock: true
+        unlock_cost: 100
+        grants:
+          -
+            id: 100heal_up
+            display: "<dark_purple>巫术增幅器"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: HEAL
+              op: ADD
+              value: 100
+            unique: true
+            stack: ADD
+          -
+            id: 100heal_hp
+            display: "<dark_purple>巫术增幅器"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAX_HEALTH
+              op: PERCENT
+              value: -0.5
+            unique: true
+            stack: ADD
+      -
+        id: 35heal
+        display: "<green>医者-妙手"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: HEAL
+          op: ADD
+          value: 35
+        unique: true
+        stack: ADD
+      -
+        id: 45heal
+        display: "<green>眼眸花"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: HEAL
+          op: ADD
+          value: 45
+        unique: true
+        stack: ADD
+      -
+        id: 42mag
+        display: "<light_purple>残弩-神准"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.42
+        unique: true
+        stack: ADD
+      -
+        id: 42atk
+        display: "<red>钝爪-百战"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.42
+        unique: true
+        stack: ADD
+      -
+        id: 15cd
+        display: "<gold>摆渡人"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 18
+        unique: true
+        stack: ADD
+      -
+        id: prot_chest
+        display: "<aqua>防弹胸甲（可升级！）"
+        category: STAT
+        effect: BOUND_EQUIP
+        params:
+          slot: CHEST
+          items_by_level:
+            1: maggoteers:prot_chest_l1
+            2: maggoteers:prot_chest_l2
+            3: maggoteers:prot_chest_l3
+            4: maggoteers:prot_chest_l4
+        unique: true
+        stack: UPGRADE_LEVEL
+        upgrade_max: 4
+      -
+        id: atk35
+        display: "<red>开裂的铁砧"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.35
+        unique: true
+        stack: ADD
+      -
+        id: atk40
+        display: "<red>铁剑刃碎片"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.4
+        unique: true
+        stack: ADD
+      -
+        id: atk45
+        display: "<red>灼热的力量粉末"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.45
+        unique: true
+        stack: ADD
+      -
+        id: mag35
+        display: "<light_purple>纯净的魔晶"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.35
+        unique: true
+        stack: ADD
+      -
+        id: mag40
+        display: "<light_purple>冬青杖芯"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.4
+        unique: true
+        stack: ADD
+      -
+        id: mag45
+        display: "<light_purple>魔力药剂"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.45
+        unique: true
+        stack: ADD
+      -
+        id: hp6
+        display: "<green>解渴的西瓜汁"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: 12.0
+        unique: true
+        stack: ADD
+      -
+        id: hp8a
+        display: "<green>防弹插板"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: 16.0
+        unique: true
+        stack: ADD
+      -
+        id: hp8b
+        display: "<green>香香的奶耐"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: 16.0
+        unique: true
+        stack: ADD
+      -
+        id: spd8a
+        display: "<blue>精致跑鞋"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: PERCENT
+          value: 0.08
+        unique: true
+        stack: ADD
+      -
+        id: spd8b
+        display: "<blue>兔子脚"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: PERCENT
+          value: 0.08
+        unique: true
+        stack: ADD
+      -
+        id: spd10
+        display: "<blue>主观缓时"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: PERCENT
+          value: 0.1
+        unique: true
+        stack: ADD
+      -
+        id: reach_a
+        display: "<gray>流浪商人的长鞭"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ENTITY_INTERACTION_RANGE
+          op: FLAT
+          value: 0.5
+        unique: true
+        stack: ADD
+      -
+        id: reach_b
+        display: "<gray>挠痒痒痒痒挠"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ENTITY_INTERACTION_RANGE
+          op: FLAT
+          value: 0.5
+        unique: true
+        stack: ADD
+      -
+        id: str1
+        display: "<red>猪灵蛮兵突变诱发物"
+        category: STAT
+        effect: ADD_POTION
+        params:
+          potion: STRENGTH
+          amp: 0
+          duration_ticks: 0
+        unique: true
+        stack: UPGRADE_LEVEL
+        upgrade_max: 2
+      -
+        id: regen1
+        display: "<green>悦灵突变诱发物"
+        category: STAT
+        effect: ADD_POTION
+        params:
+          potion: REGENERATION
+          amp: 0
+          duration_ticks: 0
+        unique: true
+        stack: UPGRADE_LEVEL
+        upgrade_max: 2
+      -
+        id: kill_str
+        display: "<gold>嗜血之颅"
+        category: STAT
+        trigger: ON_KILL
+        effect: BUFF_AREA
+        params:
+          targets: self
+          potions:
+            -
+              potion: STRENGTH
+              amp: 1
+              duration_ticks: 40
+        unique: true
+        stack: IGNORE
+      -
+        id: kill_spd
+        display: "<red>狂暴之颅"
+        category: STAT
+        trigger: ON_KILL
+        effect: BUFF_AREA
+        params:
+          targets: self
+          potions:
+            -
+              potion: SPEED
+              amp: 1
+              duration_ticks: 100
+        unique: true
+        stack: IGNORE
+      -
+        id: kill_heal
+        display: "<green>肉食之颅"
+        category: STAT
+        trigger: ON_KILL
+        effect: HEAL
+        params:
+          amount: 4.0
+        unique: true
+        stack: IGNORE
+      -
+        id: kill_boom
+        display: "<dark_green>裂变之颅"
+        category: STAT
+        trigger: ON_KILL
+        effect: DAMAGE_AREA
+        params:
+          damage: 4.0
+          radius: 3.0
+          targets: enemies
+          enemy_scope: tracked
+        unique: true
+        stack: IGNORE
+      -
+        id: kill_wither
+        display: "<dark_gray>凋萎之颅"
+        category: STAT
+        trigger: ON_KILL
+        effect: BUFF_AREA
+        params:
+          radius: 3.0
+          targets: enemies
+          enemy_scope: tracked
+          potions:
+            -
+              potion: WITHER
+              amp: 0
+              duration_ticks: 40
+        unique: true
+        stack: IGNORE
+      -
+        id: death_golem
+        display: "<gray>便携魔像"
+        category: STAT
+        trigger: ON_DEATH
+        effect: SUMMON
+        params:
+          entity: IRON_GOLEM
+          anchor: death_site
+          cleanup: wave_clear
+          friendly_fire: false
+        unique: true
+        stack: IGNORE
+      -
+        id: hit_wither
+        display: "<dark_gray>腐败之油"
+        category: STAT
+        trigger: ON_DAMAGE_DEALT
+        effect: BUFF_AREA
+        params:
+          targets: hit_target
+          potions:
+            -
+              potion: WITHER
+              amp: 0
+              duration_ticks: 200
+        unique: true
+        stack: IGNORE
+      -
+        id: cursed_blade
+        display: "<dark_red>诅咒之刃"
+        grants:
+          -
+            id: cursed_blade_atk
+            display: "<dark_red>诅咒之刃"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: MULTIPLY
+              value: 3.0
+            unique: true
+            stack: ADD
+          -
+            id: cursed_blade_mag
+            display: "<dark_red>诅咒之刃"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAGIC_DAMAGE
+              op: MULTIPLY
+              value: 3.0
+            unique: true
+            stack: ADD
+          -
+            id: cursed_blade_hurt
+            display: "<dark_red>诅咒之刃"
+            category: STAT
+            trigger: ON_DAMAGE_TAKEN
+            effect: HEAL
+            params:
+              amount: -10.0
+            unique: true
+            stack: IGNORE
+      -
+        id: feast
+        display: "<gold>盛宴"
+        category: STAT
+        trigger: ON_COUNTER
+        effect: GRANT_REVIVE
+        params:
+          counter:
+            id: feast_kills
+            count: kill
+            amount: 50
+          count: 1
+        unique: true
+        stack: IGNORE
+      -
+        id: shattered_king
+        display: "<gold>破碎君王"
+        category: WEAPON
+        item: "maggoteers:shattered_king"
+      -
+        id: famed_name
+        display: "<aqua>显赫声名"
+        category: WEAPON
+        item: "maggoteers:famed_name"
+      -
+        id: knight_spirit
+        display: "<blue>骑士精神"
+        category: WEAPON
+        item: "maggoteers:knight_spirit"
+      -
+        id: valor
+        display: "<yellow>骁勇"
+        category: WEAPON
+        item: "maggoteers:valor"
+      -
+        id: navigator
+        display: "<green>领航者"
+        category: WEAPON
+        item: "maggoteers:navigator"
+      -
+        id: griffon_claw
+        display: "<white>骏鹰之爪"
+        category: WEAPON
+        item: "maggoteers:griffon_claw"
+      -
+        id: spike_wall
+        display: "<gray>尖刺壁垒"
+        category: WEAPON
+        item: "maggoteers:spike_wall"
+      -
+        id: supreme_art
+        display: "<light_purple>至高之术"
+        category: WEAPON
+        item: "maggoteers:supreme_art"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: emp
+        display: "<blue>E.M.P"
+        category: WEAPON
+        item: "maggoteers:emp"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: voice_of_end
+        display: "<aqua>终点之声"
+        category: WEAPON
+        item: "maggoteers:voice_of_end"
+      # 2026-10-28：猪灵存钱罐（二层弱也出）、芒果（每 100 击杀 +10 生命上限）、魔王的旗帜
+      -
+        id: piggy_bank
+        display: "<gold>猪灵存钱罐"
+        requires_unlock: true
+        unlock_cost: 100
+        category: STAT
+        trigger: ON_WAVE_CLEAR
+        effect: GRANT_ITEM
+        params:
+          item: maggoteers:currency_normal
+          count: 1
+        expiry: {trigger: ON_SPEND, charges: 1}
+        unique: true
+        stack: IGNORE
+      -
+        id: mango
+        display: "<yellow>芒果"
+        category: STAT
+        effect: DYNAMIC_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          source: kills
+          threshold: 100
+          per_unit: 10
+        unique: true
+        stack: ADD
+      -
+        id: demon_banner
+        display: "<light_purple>魔王的旗帜"
+        requires_unlock: true
+        unlock_cost: 100
+        category: STAT
+        effect: GRANT_REVIVE
+        params:
+          count: 5
+          min_revives: 4
+        unique: true
+        stack: IGNORE
+      -
+        id: pitcher_plant
+        display: "<green>食虫植物"
+        category: WEAPON
+        item: "maggoteers:pitcher_plant"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: frost_grasp
+        display: "<aqua>寒霜之握"
+        category: WEAPON
+        item: "maggoteers:frost_grasp"
+  act2_strong:
+    cost: 1
+    upgrade_level_cap: 2
+    options:
+      -
+        id: 35cd
+        display: "<gold>残弩-神速"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 54
+        unique: true
+        stack: ADD
+      -
+        id: 30cd
+        display: "<gold>断杖-波纹"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 43
+        unique: true
+        stack: ADD
+      -
+        id: 28cd
+        display: "<gold>青铜镜"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 39
+        unique: true
+        stack: ADD
+      -
+        id: 25cd
+        display: "<gold>青铜历石"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 33
+        unique: true
+        stack: ADD
+      -
+        id: 40ran
+        display: "<yellow>石英增幅器"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RANGE
+          op: ADD
+          value: 40
+        unique: true
+        stack: ADD
+      -
+        id: 100heal
+        display: "<dark_purple>巫术增幅器"
+        requires_unlock: true
+        unlock_cost: 100
+        grants:
+          -
+            id: 100heal_up
+            display: "<dark_purple>巫术增幅器"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: HEAL
+              op: ADD
+              value: 100
+            unique: true
+            stack: ADD
+          -
+            id: 100heal_hp
+            display: "<dark_purple>巫术增幅器"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAX_HEALTH
+              op: PERCENT
+              value: -0.5
+            unique: true
+            stack: ADD
+      -
+        id: 35heal
+        display: "<green>医者-妙手"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: HEAL
+          op: ADD
+          value: 35
+        unique: true
+        stack: ADD
+      -
+        id: 45heal
+        display: "<green>眼眸花"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: HEAL
+          op: ADD
+          value: 45
+        unique: true
+        stack: ADD
+      -
+        id: 42mag
+        display: "<light_purple>残弩-神准"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.42
+        unique: true
+        stack: ADD
+      -
+        id: 42atk
+        display: "<red>钝爪-百战"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.42
+        unique: true
+        stack: ADD
+      -
+        id: 15cd
+        display: "<gold>摆渡人"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 18
+        unique: true
+        stack: ADD
+      -
+        id: prot_chest
+        display: "<aqua>防弹胸甲（可升级！）"
+        category: STAT
+        effect: BOUND_EQUIP
+        params:
+          slot: CHEST
+          items_by_level:
+            1: maggoteers:prot_chest_l1
+            2: maggoteers:prot_chest_l2
+            3: maggoteers:prot_chest_l3
+            4: maggoteers:prot_chest_l4
+        unique: true
+        stack: UPGRADE_LEVEL
+        upgrade_max: 4
+      -
+        id: atk40
+        display: "<red>铁剑刃碎片"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.4
+        unique: true
+        stack: ADD
+      -
+        id: atk45
+        display: "<red>灼热的力量粉末"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.45
+        unique: true
+        stack: ADD
+      -
+        id: mag40
+        display: "<light_purple>冬青杖芯"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.4
+        unique: true
+        stack: ADD
+      -
+        id: mag45
+        display: "<light_purple>魔力药剂"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.45
+        unique: true
+        stack: ADD
+      -
+        id: hp8a
+        display: "<green>防弹插板"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: 16.0
+        unique: true
+        stack: ADD
+      -
+        id: hp8b
+        display: "<green>香香的奶耐"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: 16.0
+        unique: true
+        stack: ADD
+      -
+        id: spd8a
+        display: "<blue>精致跑鞋"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: PERCENT
+          value: 0.08
+        unique: true
+        stack: ADD
+      -
+        id: spd10
+        display: "<blue>主观缓时"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: PERCENT
+          value: 0.1
+        unique: true
+        stack: ADD
+      -
+        id: reach_a
+        display: "<gray>流浪商人的长鞭"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ENTITY_INTERACTION_RANGE
+          op: FLAT
+          value: 0.5
+        unique: true
+        stack: ADD
+      -
+        id: reach_b
+        display: "<gray>挠痒痒痒痒挠"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ENTITY_INTERACTION_RANGE
+          op: FLAT
+          value: 0.5
+        unique: true
+        stack: ADD
+      -
+        id: str1
+        display: "<red>猪灵蛮兵突变诱发物"
+        category: STAT
+        effect: ADD_POTION
+        params:
+          potion: STRENGTH
+          amp: 0
+          duration_ticks: 0
+        unique: true
+        stack: UPGRADE_LEVEL
+        upgrade_max: 2
+      -
+        id: regen1
+        display: "<green>悦灵突变诱发物"
+        category: STAT
+        effect: ADD_POTION
+        params:
+          potion: REGENERATION
+          amp: 0
+          duration_ticks: 0
+        unique: true
+        stack: UPGRADE_LEVEL
+        upgrade_max: 2
+      -
+        id: wave_potion
+        display: "<red>野战医疗箱"
+        category: STAT
+        trigger: ON_WAVE_CLEAR
+        effect: GRANT_ITEM
+        params:
+          item: "maggoteers:heal_potion_item"
+          count: 2
+        unique: true
+        stack: IGNORE
+      -
+        id: wave_splash
+        display: "<aqua>便携生物手雷制造站"
+        category: STAT
+        trigger: ON_WAVE_CLEAR
+        effect: GRANT_ITEM
+        params:
+          item: "maggoteers:splash_heal2"
+          count: 2
+        unique: true
+        stack: IGNORE
+      -
+        id: arrogance
+        display: "<gold>傲慢护符"
+        grants:
+          -
+            id: arrogance_atk
+            display: "<gold>傲慢护符"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: PERCENT
+              value: 1.0
+            unique: true
+            stack: ADD
+            trigger: ON_WAVE_CLEAR
+          -
+            id: arrogance_mag
+            display: "<gold>傲慢护符"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAGIC_DAMAGE
+              op: PERCENT
+              value: 1.0
+            unique: true
+            stack: ADD
+            trigger: ON_WAVE_CLEAR
+          -
+            id: arrogance_clear
+            display: "<gold>傲慢护符"
+            category: STAT
+            trigger: ON_DAMAGE_TAKEN
+            effect: ADD_ATTRIBUTE
+            params:
+              op: REVOKE_GRANTS
+              source_id: arrogance_atk
+          -
+            id: arrogance_clear2
+            display: "<gold>傲慢护符"
+            category: STAT
+            trigger: ON_DAMAGE_TAKEN
+            effect: ADD_ATTRIBUTE
+            params:
+              op: REVOKE_GRANTS
+              source_id: arrogance_mag
+      -
+        id: ally_str
+        display: "<red>岩角号"
+        category: STAT
+        effect: AURA
+        unique: true
+        stack: IGNORE
+        params:
+          radius: 5.0
+          targets: allies
+          grant:
+            effect: ADD_POTION
+            potion: STRENGTH
+            amp: 1
+          carrier_fx:
+            preset: SMOOTH_EXPAND_RING
+            particle: CRIT
+            radius: 5.0
+      -
+        id: taken_splash
+        display: "<aqua>刺猬胸甲"
+        category: STAT
+        trigger: ON_DAMAGE_TAKEN
+        effect: DAMAGE_AREA
+        params:
+          damage: 4.0
+          radius: 3.0
+          targets: enemies
+          enemy_scope: tracked
+        unique: true
+        stack: IGNORE
+      -
+        id: martyr
+        display: "<gold>殉道者"
+        grants:
+          -
+            id: martyr_heal
+            display: "<gold>殉道者"
+            category: STAT
+            trigger: ON_DEATH
+            effect: HEAL_AREA
+            params:
+              amount: 9999.0
+              radius: 64.0
+              targets: allies
+              include_self: false
+          -
+            id: martyr_buff
+            display: "<gold>殉道者"
+            category: STAT
+            trigger: ON_DEATH
+            effect: BUFF_AREA
+            params:
+              radius: 64.0
+              targets: allies
+              include_self: false
+              potions:
+                -
+                  potion: STRENGTH
+                  amp: 1
+                  duration_ticks: 1200
+                -
+                  potion: SPEED
+                  amp: 1
+                  duration_ticks: 1200
+
+                - potion: RESISTANCE
+                  amp: 1
+                  duration_ticks: 1200
+      -
+        id: eerie_campfire
+        display: "<aqua>诡异的营火"
+        grants:
+          -
+            id: eerie_campfire_cd
+            display: "<aqua>诡异的营火"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: RELOAD_SPEED
+              op: ADD
+              value: 43
+            unique: true
+            stack: ADD
+          -
+            id: eerie_campfire_penalty
+            display: "<aqua>诡异的营火"
+            category: STAT
+            trigger: ON_WAVE_CLEAR
+            effect: HEAL
+            params:
+              amount: -10.0
+            unique: true
+            stack: IGNORE
+      -
+        id: shattered_king
+        display: "<gold>破碎君王"
+        category: WEAPON
+        item: "maggoteers:shattered_king"
+      -
+        id: famed_name
+        display: "<aqua>显赫声名"
+        category: WEAPON
+        item: "maggoteers:famed_name"
+      -
+        id: knight_spirit
+        display: "<blue>骑士精神"
+        category: WEAPON
+        item: "maggoteers:knight_spirit"
+      -
+        id: valor
+        display: "<yellow>骁勇"
+        category: WEAPON
+        item: "maggoteers:valor"
+      -
+        id: navigator
+        display: "<green>领航者"
+        category: WEAPON
+        item: "maggoteers:navigator"
+      -
+        id: griffon_claw
+        display: "<white>骏鹰之爪"
+        category: WEAPON
+        item: "maggoteers:griffon_claw"
+      -
+        id: spike_wall
+        display: "<gray>尖刺壁垒"
+        category: WEAPON
+        item: "maggoteers:spike_wall"
+      -
+        id: supreme_art
+        display: "<light_purple>至高之术"
+        category: WEAPON
+        item: "maggoteers:supreme_art"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: emp
+        display: "<blue>E.M.P"
+        category: WEAPON
+        item: "maggoteers:emp"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: condense
+        display: "<blue>凝结核"
+        category: WEAPON
+        item: "maggoteers:condense"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: corrupt_orb
+        display: "<dark_purple>腐化宝珠"
+        category: WEAPON
+        item: "maggoteers:corrupt_orb"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: shimingzi
+        display: "<gold>Shimingzi"
+        category: WEAPON
+        item: "maggoteers:shimingzi"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: bleed_knife
+        display: "<red>放血小刀"
+        category: WEAPON
+        item: "maggoteers:bleed_knife"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: voice_of_end
+        display: "<aqua>终点之声"
+        category: WEAPON
+        item: "maggoteers:voice_of_end"
+      -
+        id: miaooneal
+        display: "<yellow>妙奥尼尔"
+        category: STAT
+        trigger: ON_KILL
+        effect: SUMMON
+        params:
+          entity: LIGHTNING_BOLT
+          anchor: hit_target
+          cleanup: duration
+          duration_sec: 1
+          friendly_fire: false
+        unique: true
+        stack: IGNORE
+      -
+        id: king_extension
+        display: "<gold>国王的延伸"
+        grants:
+          -
+            id: king_extension_mag
+            display: "<gold>国王的延伸"
+            category: STAT
+            effect: DYNAMIC_ATTRIBUTE
+            params:
+              attr: MAGIC_DAMAGE
+              op: PERCENT
+              source: revive_zero
+              value: 1.5
+            unique: true
+            stack: ADD
+          -
+            id: king_extension_cdr
+            display: "<gold>国王的延伸"
+            category: STAT
+            effect: DYNAMIC_ATTRIBUTE
+            params:
+              attr: RELOAD_SPEED
+              op: ADD
+              source: revive_zero
+              value: 25
+            unique: true
+            stack: ADD
+        unique: true
+      # 2026-10-28：芒果 / 魔王的旗帜（二层强也出）、吟游诗人（二层强 + 三层强）
+      -
+        id: mango
+        display: "<yellow>芒果"
+        category: STAT
+        effect: DYNAMIC_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          source: kills
+          threshold: 100
+          per_unit: 10
+        unique: true
+        stack: ADD
+      -
+        id: demon_banner
+        display: "<light_purple>魔王的旗帜"
+        requires_unlock: true
+        unlock_cost: 100
+        category: STAT
+        effect: GRANT_REVIVE
+        params:
+          count: 5
+          min_revives: 4
+        unique: true
+        stack: IGNORE
+      -
+        id: bard
+        display: "<aqua>吟游诗人"
+        requires_unlock: true
+        unlock_cost: 100
+        category: WEAPON
+        item: "maggoteers:bard"
+      -
+        id: flame_orb
+        display: "<gold>烈焰宝珠"
+        category: WEAPON
+        item: "maggoteers:flame_orb"
+      -
+        id: corrupt_can
+        display: "<dark_green>腐败罐头"
+        category: STAT
+        effect: AURA
+        unique: true
+        stack: IGNORE
+        params:
+          radius: 6.0
+          targets: enemies
+          enemy_scope: tracked
+          grant_pulse_sec: 1
+          grant:
+            effect: ADD_POTION
+            potion: WITHER
+            amp: 1
+            duration_ticks: 20
+          carrier_fx:
+            # 2026-10-29：只要"范围边界那一圈"（同怪物屏障词条），不要扩散扫屏
+            preset: THICK_RING
+            particle: WITCH
+            radius: 6.0
+            density: 64
+      -
+        id: lime_gummy
+        display: "<gold>酸橙味软糖"
+        category: STAT
+        effect: AURA
+        unique: true
+        stack: IGNORE
+        params:
+          radius: 4.0
+          targets: enemies
+          enemy_scope: tracked
+          grant_pulse_sec: 1
+          grant:
+            effect: ADD_POTION
+            potion: LEVITATION
+            amp: 0
+            duration_ticks: 20
+          carrier_fx:
+            # 2026-10-29：只要"范围边界那一圈"（同怪物屏障词条），不要扩散扫屏
+            preset: THICK_RING
+            particle: WAX_ON
+            radius: 4.0
+            density: 64
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: living_flint
+        display: "<gold>活化火石"
+        category: STAT
+        effect: AURA
+        unique: true
+        stack: IGNORE
+        params:
+          radius: 7.0
+          targets: enemies
+          enemy_scope: tracked
+          grant_pulse_sec: 1
+          grant:
+            effect: IGNITE
+            ignite_ticks: 40
+          carrier_fx:
+            # 2026-10-29：只要"范围边界那一圈"（同怪物屏障词条），不要扩散扫屏
+            preset: THICK_RING
+            particle: FLAME
+            radius: 7.0
+            density: 64
+        requires_unlock: true
+        unlock_cost: 100
+  act2_boss:
+    cost: 1
+    options:
+      -
+        id: b2_70cd
+        display: "<dark_purple>第一法则"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 233
+        unique: true
+        stack: ADD
+      -
+        id: b2_200heal
+        display: "<green>涌动之餐"
+        grants:
+          -
+            id: b2_200heal_up
+            display: "<green>涌动之餐"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: HEAL
+              op: ADD
+              value: 200
+            unique: true
+            stack: ADD
+          -
+            id: b2_200heal_cd
+            display: "<green>涌动之餐"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: RELOAD_SPEED
+              op: ADD
+              value: 11
+            unique: true
+            stack: ADD
+      -
+        id: b2_atk225
+        display: "<red>迷迭香之拥"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 2.25
+        unique: true
+        stack: ADD
+      -
+        id: b2_mag225
+        display: "<light_purple>璀璨悲泣"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 2.25
+        unique: true
+        stack: ADD
+      -
+        id: b2_hp30
+        display: "<green>蒸汽骑士的甲胄"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: 60.0
+        unique: true
+        stack: ADD
+      -
+        id: b2_spd20
+        display: "<blue>“大静谧”"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: PERCENT
+          value: 0.2
+        unique: true
+        stack: ADD
+      -
+        id: b2_reach1
+        display: "<gray>活塞式机械臂"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ENTITY_INTERACTION_RANGE
+          op: FLAT
+          value: 1.0
+        unique: true
+        stack: ADD
+      -
+        id: b2_invis
+        display: "<gray>隐身衣"
+        category: STAT
+        effect: ADD_POTION
+        params:
+          potion: INVISIBILITY
+          amp: 0
+          duration_ticks: 0
+        requires_unlock: true
+        unlock_cost: 100
+        unique: true
+        stack: IGNORE
+      -
+        id: b2_hit_heal
+        display: "<green>嫉妒护符"
+        category: STAT
+        trigger: ON_DAMAGE_DEALT
+        effect: HEAL
+        params:
+          amount: 1.0
+        unique: true
+        stack: IGNORE
+      -
+        id: b2_wave_coin
+        display: "<yellow>贪婪护符"
+        category: STAT
+        trigger: ON_WAVE_CLEAR
+        effect: GRANT_ITEM
+        params:
+          item: "maggoteers:currency_normal"
+          count: 1
+        unique: true
+        stack: ADD
+      -
+        id: b2_taken_heal
+        display: "<aqua>恐鱼生"
+        category: STAT
+        trigger: ON_DAMAGE_TAKEN
+        effect: HEAL
+        params:
+          amount: 2.0
+        unique: true
+        stack: IGNORE
+      -
+        id: b2_hit_slow10
+        display: "<light_purple>安眠迷香"
+        category: STAT
+        trigger: ON_DAMAGE_DEALT
+        effect: DISABLE_AI
+        params:
+          targets: hit_target
+          duration_ticks: 20
+        unique: true
+        stack: IGNORE
+      -
+        id: b2_taken_lev
+        display: "<white>天穹尘埃"
+        category: STAT
+        trigger: ON_DAMAGE_TAKEN
+        effect: BUFF_AREA
+        params:
+          targets: attacker
+          potions:
+            -
+              potion: LEVITATION
+              amp: 4
+              duration_ticks: 20
+        unique: true
+        stack: IGNORE
+      -
+        id: b2_frost_aura
+        display: "<aqua>寒霜领域"
+        category: STAT
+        effect: AURA
+        unique: true
+        stack: IGNORE
+        params:
+          radius: 5.0
+          targets: enemies
+          enemy_scope: tracked
+          # 2026-10-28：缓慢 II → 寒冷（抖动的演出比缓慢明显；每次脉冲刷新，圈里会一直发抖）
+          grant:
+            effect: FREEZE
+            duration_ticks: 100
+          carrier_fx:
+            preset: SMOOTH_EXPAND_RING
+            particle: SNOWFLAKE
+            radius: 5.0
+      -
+        id: b2_tower_memory
+        display: "<aqua>碎片大厦的回忆"
+        grants:
+          -
+            id: b2_tower_memory_blast
+            display: "<aqua>碎片大厦的回忆"
+            category: STAT
+            trigger: ON_DEATH
+            effect: DAMAGE_AREA
+            params:
+              damage: 500.0
+              radius: 64.0
+              targets: enemies
+              enemy_scope: tracked
+            unique: true
+            stack: IGNORE
+          -
+            id: b2_tower_memory_cd
+            display: "<aqua>碎片大厦的回忆"
+            category: STAT
+            trigger: ON_DEATH
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: RELOAD_SPEED
+              op: ADD
+              value: 100
+            unique: true
+            stack: IGNORE
+      -
+        id: old_wand
+        display: "<dark_purple>老魔杖"
+        category: WEAPON
+        item: "maggoteers:old_wand"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: revive_stone
+        display: "<green>复活石"
+        category: WEAPON
+        item: "maggoteers:revive_coin"
+      -
+        id: cataclysm
+        display: "<dark_red>灾变核心"
+        category: WEAPON
+        item: "maggoteers:cataclysm"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: thunder_rod
+        display: "<yellow>雷霆之杖"
+        category: WEAPON
+        item: "maggoteers:thunder_rod"
+        requires_unlock: true
+        unlock_cost: 100
+      # 2026-10-28：袋装水果什锦——每 100 击杀 +100% 物攻 / +100% 魔攻 / +100% 装填速度
+      -
+        id: b2_fruit_bundle
+        display: "<green>袋装水果什锦"
+        requires_unlock: true
+        unlock_cost: 100
+        grants:
+          -
+            id: b2_fruit_bundle_atk
+            display: "<green>袋装水果什锦"
+            category: STAT
+            effect: DYNAMIC_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: PERCENT
+              source: kills
+              threshold: 100
+              per_unit: 1.0
+            unique: true
+            stack: ADD
+          -
+            id: b2_fruit_bundle_mag
+            display: "<green>袋装水果什锦"
+            category: STAT
+            effect: DYNAMIC_ATTRIBUTE
+            params:
+              attr: MAGIC_DAMAGE
+              op: PERCENT
+              source: kills
+              threshold: 100
+              per_unit: 1.0
+            unique: true
+            stack: ADD
+          -
+            id: b2_fruit_bundle_reload
+            display: "<green>袋装水果什锦"
+            category: STAT
+            effect: DYNAMIC_ATTRIBUTE
+            params:
+              attr: RELOAD_SPEED
+              op: ADD
+              source: kills
+              threshold: 100
+              per_unit: 100
+            unique: true
+            stack: ADD
+        unique: true
+  act3_weak:
+    cost: 1
+    upgrade_level_cap: 4
+    options:
+      # 2026-10-28：三层 weak 池只保留"非纯属性"藏品（cd/物攻/魔攻/生命这类纯数值藏品不再混进奖励关池子，
+      # 45cd 堆芯 / 35cd 残弩-神速 / 40cd 片瓣 已移出；它们仍在 act3_strong）。
+      -
+        id: imm_wither
+        display: "<dark_gray>凋零骷髅突变诱发物"
+        grants:
+          -
+            id: imm_wither_wither
+            display: "<dark_gray>凋零骷髅突变诱发物"
+            category: STAT
+            effect: ADD_POTION
+            params:
+              potion: WITHER
+              immunity: true
+            unique: true
+            stack: IGNORE
+          -
+            id: imm_wither_slow
+            display: "<dark_gray>凋零骷髅突变诱发物"
+            category: STAT
+            effect: ADD_POTION
+            params:
+              potion: SLOWNESS
+              immunity: true
+            unique: true
+            stack: IGNORE
+      -
+        id: imm_poison
+        display: "<green>洞穴蜘蛛突变诱发物"
+        grants:
+          -
+            id: imm_poison_poison
+            display: "<green>洞穴蜘蛛突变诱发物"
+            category: STAT
+            effect: ADD_POTION
+            params:
+              potion: POISON
+              immunity: true
+            unique: true
+            stack: IGNORE
+          -
+            id: imm_poison_weak
+            display: "<green>洞穴蜘蛛突变诱发物"
+            category: STAT
+            effect: ADD_POTION
+            params:
+              potion: WEAKNESS
+              immunity: true
+            unique: true
+            stack: IGNORE
+      -
+        id: imm_slow
+        display: "<blue>监守者突变诱发物"
+        grants:
+          -
+            id: imm_slow_dark
+            display: "<blue>监守者突变诱发物"
+            category: STAT
+            effect: ADD_POTION
+            params:
+              potion: DARKNESS
+              immunity: true
+            unique: true
+            stack: IGNORE
+          -
+            id: imm_slow_blind
+            display: "<blue>监守者突变诱发物"
+            category: STAT
+            effect: ADD_POTION
+            params:
+              potion: BLINDNESS
+              immunity: true
+            unique: true
+            stack: IGNORE
+      -
+        id: mystery_blade
+        display: "<dark_gray>？？？？"
+        category: WEAPON
+        item: "maggoteers:mystery_blade"
+      -
+        id: glass_regen
+        display: "<aqua>自修复玻璃刀"
+        category: STAT
+        trigger: ON_WAVE_CLEAR
+        effect: GRANT_ITEM
+        params:
+          item: "maggoteers:glass_blade"
+          count: 1
+        unique: true
+        stack: IGNORE
+      -
+        id: excalibur_a3
+        display: "<gold>Excalibur"
+        category: WEAPON
+        item: "maggoteers:excalibur_a3"
+      -
+        id: solar_spear
+        display: "<yellow>太阳王的长矛"
+        category: WEAPON
+        item: "maggoteers:solar_spear"
+      -
+        id: frostmourne
+        display: "<blue>霜之哀伤"
+        category: WEAPON
+        item: "maggoteers:frostmourne"
+      -
+        id: bible
+        display: "<white>圣经"
+        category: WEAPON
+        item: "maggoteers:bible"
+      -
+        id: piercing_crossbow
+        display: "<gray>破阵弩"
+        category: WEAPON
+        item: "maggoteers:piercing_crossbow"
+      -
+        id: foe_bane_bow
+        display: "<green>伐敌之兵"
+        category: WEAPON
+        item: "maggoteers:foe_bane_bow"
+      -
+        id: phoenix_gust
+        display: "<red>风暴"
+        category: WEAPON
+        item: "maggoteers:phoenix_gust"
+  act3_strong:
+    cost: 1
+    upgrade_level_cap: 4
+    options:
+      -
+        id: 40cd
+        display: "<gold>片瓣"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 67
+        unique: true
+        stack: ADD
+      -
+        id: 60cd
+        display: "<dark_red>喀戎之引"
+        requires_unlock: true
+        unlock_cost: 100
+        grants:
+          -
+            id: 60cd_cd
+            display: "<dark_red>喀戎之引"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: RELOAD_SPEED
+              op: ADD
+              value: 150
+            unique: true
+            stack: ADD
+          -
+            id: 60cd_lock
+            display: "<dark_red>喀戎之引"
+            category: STAT
+            effect: CURRENCY_LOCK
+            unique: true
+            stack: IGNORE
+      -
+        id: 45cd
+        display: "<gold>堆芯"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 82
+        unique: true
+        stack: ADD
+      -
+        id: 35cd
+        display: "<gold>残弩-神速"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: 54
+        unique: true
+        stack: ADD
+      -
+        id: 60ran
+        display: "<yellow>紫晶增幅器"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RANGE
+          op: ADD
+          value: 60
+        unique: true
+        stack: ADD
+      -
+        id: 70heal
+        display: "<green>活体疣"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: HEAL
+          op: ADD
+          value: 70
+        unique: true
+        stack: ADD
+      -
+        id: 65mag
+        display: "<light_purple>断杖-破解"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.65
+        unique: true
+        stack: ADD
+      -
+        id: 65atk
+        display: "<red>锈刃-研磨"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.65
+        unique: true
+        stack: ADD
+      -
+        id: gold_wine_goblet
+        display: "<gold>金酒之杯"
+        category: STAT
+        effect: DYNAMIC_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          source: coin_count
+          per_unit: 10
+        unique: true
+        stack: ADD
+      -
+        id: prot_chest
+        display: "<aqua>防弹胸甲（可升级！）"
+        category: STAT
+        effect: BOUND_EQUIP
+        params:
+          slot: CHEST
+          items_by_level:
+            1: maggoteers:prot_chest_l1
+            2: maggoteers:prot_chest_l2
+            3: maggoteers:prot_chest_l3
+            4: maggoteers:prot_chest_l4
+        unique: true
+        stack: UPGRADE_LEVEL
+        upgrade_max: 4
+      -
+        id: atk60
+        display: "<red>崭新的铁砧"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.6
+        unique: true
+        stack: ADD
+      -
+        id: atk70
+        display: "<red>合金剑刃碎片"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.7
+        unique: true
+        stack: ADD
+      -
+        id: atk80
+        display: "<red>力量之源"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.8
+        unique: true
+        stack: ADD
+      -
+        id: mag60
+        display: "<light_purple>原初魔晶"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.6
+        unique: true
+        stack: ADD
+      -
+        id: mag70
+        display: "<light_purple>接骨木杖芯"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.7
+        unique: true
+        stack: ADD
+      -
+        id: mag80
+        display: "<light_purple>魔力之源"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.8
+        unique: true
+        stack: ADD
+      -
+        id: hp12
+        display: "<green>永恒牛排"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: 24.0
+        unique: true
+        stack: ADD
+      -
+        id: hp18
+        display: "<green>秘银软甲"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: 36.0
+        unique: true
+        stack: ADD
+      -
+        id: hp30
+        display: "<green>一大桶奶耐"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: 60.0
+        unique: true
+        stack: ADD
+      -
+        id: spd10
+        display: "<blue>主观缓时"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: PERCENT
+          value: 0.1
+        unique: true
+        stack: ADD
+      -
+        id: spd15
+        display: "<blue>风神的印记"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: PERCENT
+          value: 0.15
+        unique: true
+        stack: ADD
+      -
+        id: spd20
+        display: "<blue>火箭靴"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: PERCENT
+          value: 0.2
+        unique: true
+        stack: ADD
+      -
+        id: b2_reach1
+        display: "<gray>活塞式机械臂"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ENTITY_INTERACTION_RANGE
+          op: FLAT
+          value: 1.0
+        unique: true
+        stack: ADD
+      -
+        id: reach1b
+        display: "<gray>人偶牵线"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ENTITY_INTERACTION_RANGE
+          op: FLAT
+          value: 1.0
+        unique: true
+        stack: ADD
+      -
+        id: b1_kb1
+        display: "<gray>东京湾专属配重块"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: KNOCKBACK_RESISTANCE
+          op: FLAT
+          value: 1.0
+        unique: true
+        stack: ADD
+      -
+        id: kb1b
+        display: "<gray>合金配重块"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: KNOCKBACK_RESISTANCE
+          op: FLAT
+          value: 1.0
+        unique: true
+        stack: ADD
+      -
+        id: b1_res1
+        display: "<gray>铁傀儡突变诱发物"
+        category: STAT
+        effect: ADD_POTION
+        params:
+          potion: RESISTANCE
+          amp: 0
+          duration_ticks: 0
+        unique: true
+        stack: UPGRADE_LEVEL
+        upgrade_max: 3
+      -
+        id: str1
+        display: "<red>猪灵蛮兵突变诱发物"
+        category: STAT
+        effect: ADD_POTION
+        params:
+          potion: STRENGTH
+          amp: 0
+          duration_ticks: 0
+        unique: true
+        stack: UPGRADE_LEVEL
+        upgrade_max: 3
+      -
+        id: regen1
+        display: "<green>悦灵突变诱发物"
+        category: STAT
+        effect: ADD_POTION
+        params:
+          potion: REGENERATION
+          amp: 0
+          duration_ticks: 0
+        unique: true
+        stack: UPGRADE_LEVEL
+        upgrade_max: 4
+      -
+        id: taken_res
+        display: "<gray>咒魂护符"
+        category: STAT
+        trigger: ON_DAMAGE_TAKEN
+        effect: BUFF_AREA
+        params:
+          targets: self
+          potions:
+            -
+              potion: RESISTANCE
+              amp: 3
+              duration_ticks: 20
+        unique: true
+        stack: IGNORE
+      -
+        id: kill_atk10
+        display: "<red>嗜血之斧"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: PERCENT
+          value: 0.1
+        unique: true
+        stack: ADD
+        trigger: ON_KILL
+        expiry:
+          trigger: ON_WAVE_CLEAR
+          charges: -1
+      -
+        id: kill_mag10
+        display: "<light_purple>嗜血宝石"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: PERCENT
+          value: 0.1
+        unique: true
+        stack: ADD
+        trigger: ON_KILL
+        expiry:
+          trigger: ON_WAVE_CLEAR
+          charges: -1
+      -
+        id: ally_regen
+        display: "<white>白玫瑰"
+        category: STAT
+        effect: AURA
+        unique: true
+        stack: IGNORE
+        params:
+          radius: 5.0
+          targets: allies
+          grant:
+            effect: ADD_POTION
+            potion: REGENERATION
+            amp: 0
+          carrier_fx:
+            preset: SMOOTH_EXPAND_RING
+            particle: HAPPY_VILLAGER
+            radius: 5.0
+      -
+        id: taken_abs
+        display: "<yellow>护心镜"
+        category: STAT
+        trigger: ON_DAMAGE_TAKEN
+        effect: BUFF_AREA
+        params:
+          targets: self
+          potions:
+            -
+              potion: ABSORPTION
+              amp: 0
+              duration_ticks: 20
+          fx:
+            preset: SHIELD_SHELL
+            particle: end_rod
+            radius: 2.0
+            density: 40
+            duration_ticks: 20
+        unique: true
+        stack: IGNORE
+      -
+        id: lust
+        display: "<light_purple>色欲护符"
+        grants:
+          -
+            id: lust_abs
+            display: "<light_purple>色欲护符"
+            category: STAT
+            effect: ADD_POTION
+            params:
+              potion: ABSORPTION
+              amp: 0
+              duration_ticks: 0
+            unique: true
+            stack: IGNORE
+          -
+            id: lust_atk
+            display: "<light_purple>色欲护符"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: PERCENT
+              value: -0.2
+            unique: true
+            stack: ADD
+          -
+            id: lust_mag
+            display: "<light_purple>色欲护符"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAGIC_DAMAGE
+              op: PERCENT
+              value: -0.2
+            unique: true
+            stack: ADD
+      -
+        id: herafinger
+        display: "<gold>赫拉芬格"
+        category: WEAPON
+        item: "maggoteers:herafinger"
+      -
+        id: molten_flame
+        display: "<red>熔铸火焰"
+        category: WEAPON
+        item: "maggoteers:molten_flame"
+      -
+        id: mission_sure
+        display: "<aqua>使命必达"
+        category: WEAPON
+        item: "maggoteers:mission_sure"
+      -
+        id: red_blessing
+        display: "<red>镀红祝福"
+        category: WEAPON
+        item: "maggoteers:red_blessing"
+      -
+        id: art_tyrant
+        display: "<light_purple>艺术暴君"
+        category: WEAPON
+        item: "maggoteers:art_tyrant"
+      -
+        id: ocean_star_dream
+        display: "<light_purple>沧溟星梦"
+        category: WEAPON
+        item: "maggoteers:ocean_star_dream"
+      -
+        id: phantasm
+        display: "<blue>幻景"
+        category: WEAPON
+        item: "maggoteers:phantasm"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: paragon
+        display: "<yellow>典范"
+        category: WEAPON
+        item: "maggoteers:paragon"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: thunder_rod
+        display: "<yellow>雷霆之杖"
+        category: WEAPON
+        item: "maggoteers:thunder_rod"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: cataclysm
+        display: "<dark_red>灾变核心"
+        category: WEAPON
+        item: "maggoteers:cataclysm"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: king_crown
+        display: "<gold>诸王的冠冕"
+        grants:
+          -
+            id: king_crown_atk
+            display: "<gold>诸王的冠冕"
+            category: STAT
+            effect: DYNAMIC_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: FLAT
+              source: revive_zero
+              value: 150
+            unique: true
+            stack: ADD
+          -
+            id: king_crown_reach
+            display: "<gold>诸王的冠冕"
+            category: STAT
+            effect: DYNAMIC_ATTRIBUTE
+            params:
+              attr: ENTITY_INTERACTION_RANGE
+              op: FLAT
+              source: revive_zero
+              value: 1
+            unique: true
+            stack: ADD
+        unique: true
+      # 2026-10-28：冻梨（每 100 击杀 1 星石）、燃烧披风（物攻 ×2 但每 20 次攻击 -20% 物攻加成）、吟游诗人
+      -
+        id: frost_pear
+        display: "<aqua>冻梨"
+        category: STAT
+        trigger: ON_COUNTER
+        effect: GRANT_ITEM
+        params:
+          item: maggoteers:currency_boss
+          count: 1
+          counter:
+            id: frost_pear_kill100
+            count: kill
+            amount: 100
+        unique: true
+        stack: IGNORE
+      -
+        id: burning_cloak
+        display: "<red>燃烧披风"
+        requires_unlock: true
+        unlock_cost: 100
+        grants:
+          -
+            id: burning_cloak_mul
+            display: "<red>燃烧披风"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: MULTIPLY
+              value: 1.0
+            unique: true
+            stack: ADD
+          -
+            id: burning_cloak_decay
+            display: "<red>燃烧披风"
+            category: STAT
+            trigger: ON_COUNTER
+            effect: ADD_ATTRIBUTE
+            params:
+              counter:
+                id: burning_cloak_attacks20
+                count: attack
+                amount: 20
+              attr: ATTACK_DAMAGE
+              op: PERCENT
+              value: -0.20
+            unique: true
+            stack: ADD
+        unique: true
+      -
+        id: bard
+        display: "<aqua>吟游诗人"
+        requires_unlock: true
+        unlock_cost: 100
+        category: WEAPON
+        item: "maggoteers:bard"
+      -
+        id: ender_dragon_skull
+        display: "<dark_purple>末影龙之颅"
+        category: WEAPON
+        item: "maggoteers:ender_dragon_skull"
+      -
+        id: ice_pickaxe
+        display: "<aqua>冰镐"
+        category: WEAPON
+        item: "maggoteers:ice_pickaxe"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: pizza_cutter
+        display: "<yellow>披萨刀"
+        category: WEAPON
+        item: "maggoteers:pizza_cutter"
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: lime_gummy
+        display: "<gold>酸橙味软糖"
+        category: STAT
+        effect: AURA
+        unique: true
+        stack: IGNORE
+        params:
+          radius: 4.0
+          targets: enemies
+          enemy_scope: tracked
+          grant_pulse_sec: 1
+          grant:
+            effect: ADD_POTION
+            potion: LEVITATION
+            amp: 0
+            duration_ticks: 20
+          carrier_fx:
+            # 2026-10-29：只要"范围边界那一圈"（同怪物屏障词条），不要扩散扫屏
+            preset: THICK_RING
+            particle: WAX_ON
+            radius: 4.0
+            density: 64
+        requires_unlock: true
+        unlock_cost: 100
+      -
+        id: living_flint
+        display: "<gold>活化火石"
+        category: STAT
+        effect: AURA
+        unique: true
+        stack: IGNORE
+        params:
+          radius: 7.0
+          targets: enemies
+          enemy_scope: tracked
+          grant_pulse_sec: 1
+          grant:
+            effect: IGNITE
+            ignite_ticks: 40
+          carrier_fx:
+            # 2026-10-29：只要"范围边界那一圈"（同怪物屏障词条），不要扩散扫屏
+            preset: THICK_RING
+            particle: FLAME
+            radius: 7.0
+            density: 64
+        requires_unlock: true
+        unlock_cost: 100
+  act3_boss:
+    cost: 1
+    options:
+      # 隐藏结局层钥匙（2026-10-26 阶段 5）：花 1 枚 Boss 货币买钥匙，
+      # 在终局休整期右键使用 → 进入 Act4 隐藏 Boss。不用 = 本局正常通关。
+      -
+        id: hidden_key
+        display: "<dark_purple>深渊之钥"
+        description: "<gray>右键使用：开启隐藏结局层（仅第三层终局休整期有效）"
+        category: SUPPLY
+        item: maggoteers:hidden_key
+        amount: 1
+  # ===== Act4 隐藏结局层（2026-10-26 阶段 5「链路验证」占位）=====
+  # 只保证"三池齐备 + 每池至少一条真选项"；数值/内容后续按 Act4 设计重填。
+  act4_weak:
+    cost: 1
+    options:
+      -
+        id: a4_placeholder_hp
+        display: "<red>占位·体格（+10% 生命上限）"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params: { attr: MAX_HEALTH, op: PERCENT, value: 0.10 }
+        unique: true
+        stack: IGNORE
+  act4_strong:
+    cost: 1
+    options:
+      -
+        id: a4_placeholder_dmg
+        display: "<red>占位·锋刃（+10% 伤害）"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params: { attr: ATTACK_DAMAGE, op: PERCENT, value: 0.10 }
+        unique: true
+        stack: ADD
+  act4_boss:
+    cost: 1
+    options:
+      -
+        id: a4_placeholder_relic
+        display: "<gold>占位·门扉遗物（+15% 法术强度）"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params: { attr: MAGIC_DAMAGE, op: PERCENT, value: 0.15 }
+        unique: true
+        stack: ADD
+  # ===== 难度负面奖励池（1.3.3；2026-10-28 整理）=====
+  # 非玩家抽取池：由 CurseService 进层时按当局难度抽 1 条发给全体在局玩家（附带收藏品）。
+  # 困难(HARD)：仅进入 Act2 时从 curse_hard 抽 1 条；专家(EXPERT)：每层分别从 curse_expert_act1/2/3 抽 1 条。
+  #
+  # 2026-10-28 整理口径（为什么现在是这个样子）：
+  #  1. 每个选项要么是**单条 STAT**，要么是**纯 bundle**（自身不写 effect，全部内容放 grants）。
+  #     历史坑：老写法"父项带 effect + grants"在 RewardService 里会走 applyBundle 分支，
+  #     父项自己的 effect 并不会被应用（绝境·血肉畸变的物攻 -60% 因此一直没生效）。
+  #  2. 去重：curse_x2_weak/exhaust/limp/fragile/sharp/awkward 与 curse_hard 的同名条目效果完全重复
+  #     （困难只抽 Act2、专家 Act2 也只抽自己那池，二者永不共存），已整体删除；
+  #     curse_expert_act2 改用三条新诅咒（屏蔽 / 懦弱 / 贫穷）。
+  #  3. display 的数字必须与 params 一致；收藏品（items/collectibles.yml）的 customName / lore 同口径。
+  #     "装填速度 -33%" 与 "冷却时间 +50%" 是同一件事（最终冷却 = 基础 / 装填倍率），统一写装填速度。
+  #  4. 诅咒池整体放在文件最后，方便一次性审阅。
+  curse_hard:
+    cost: 0
+    options:
+      -
+        id: curse_hard_weak
+        display: "<dark_red>诅咒·虚弱：造成物理伤害 -30%"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: ATTACK_DAMAGE
+          op: MULTIPLY
+          value: -0.30
+        unique: true
+        stack: IGNORE
+      -
+        id: curse_hard_exhaust
+        display: "<dark_red>诅咒·枯竭：造成魔法伤害 -30%"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAGIC_DAMAGE
+          op: MULTIPLY
+          value: -0.30
+        unique: true
+        stack: IGNORE
+      -
+        id: curse_hard_limp
+        display: "<dark_red>诅咒·蹒跚：移动速度 -20%"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: MULTIPLY
+          value: -0.20
+        unique: true
+        stack: IGNORE
+      -
+        id: curse_hard_fragile
+        display: "<dark_red>诅咒·敏感：生命上限 -20"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: -20.0
+        unique: true
+        stack: IGNORE
+      -
+        id: curse_hard_sharp
+        display: "<dark_red>诅咒·尖锐：受到伤害增加 2 点"
+        category: STAT
+        trigger: ON_DAMAGE_TAKEN
+        effect: HEAL
+        params:
+          amount: -2.0
+        unique: true
+        stack: IGNORE
+      -
+        id: curse_hard_awkward
+        display: "<dark_red>诅咒·愚钝：装填速度 -50%（冷却 ×2）"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RELOAD_SPEED
+          op: ADD
+          value: -50
+        unique: true
+        stack: IGNORE
+
+  curse_expert_act1:
+    cost: 0
+    options:
+      -
+        id: curse_x1_frail
+        display: "<dark_red>干扰·虚弱：失去 2 点物攻，造成的魔法伤害 -20%"
+        category: STAT
+        unique: true
+        stack: IGNORE
+        grants:
+          -
+            id: curse_x1_frail_atk
+            display: "<dark_red>干扰·虚弱"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: FLAT
+              value: -2.0
+            unique: true
+            stack: IGNORE
+          -
+            id: curse_x1_frail_mag
+            display: "<dark_red>干扰·虚弱"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAGIC_DAMAGE
+              op: MULTIPLY
+              value: -0.20
+            unique: true
+            stack: IGNORE
+      -
+        id: curse_x1_exhaust
+        display: "<dark_red>干扰·枯竭：每回合失去 1% 物攻和魔攻"
+        category: STAT
+        unique: true
+        stack: IGNORE
+        grants:
+          -
+            id: curse_x1_exhaust_atk
+            display: "<dark_red>干扰·枯竭"
+            category: STAT
+            trigger: ON_WAVE_CLEAR
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: PERCENT
+              value: -0.01
+            unique: true
+            stack: ADD
+          -
+            id: curse_x1_exhaust_mag
+            display: "<dark_red>干扰·枯竭"
+            category: STAT
+            trigger: ON_WAVE_CLEAR
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAGIC_DAMAGE
+              op: PERCENT
+              value: -0.01
+            unique: true
+            stack: ADD
+      -
+        id: curse_x1_limp
+        display: "<dark_red>干扰·蹒跚：移动速度 -10%"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MOVEMENT_SPEED
+          op: PERCENT
+          value: -0.10
+        unique: true
+        stack: IGNORE
+      -
+        id: curse_x1_fragile
+        display: "<dark_red>干扰·羸弱：生命上限 -12"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: MAX_HEALTH
+          op: FLAT
+          value: -12.0
+        unique: true
+        stack: IGNORE
+      -
+        id: curse_x1_thirst
+        display: "<dark_red>干扰·渴求：连续 60 秒没有击败敌人，则逐步踏入死亡"
+        category: STAT
+        unique: true
+        stack: IGNORE
+        grants:
+          -
+            id: curse_x1_thirst_c1
+            display: "<dark_red>干扰·渴求"
+            category: STAT
+            trigger: ON_COUNTER
+            effect: BUFF_AREA
+            params:
+              counter:
+                id: thirst_c1
+                count: tick
+                amount: 60
+                reset: ON_KILL
+              targets: self
+              potions:
+                -
+                  potion: NAUSEA
+                  amp: 0
+                  duration_ticks: 600
+            unique: true
+            stack: IGNORE
+          -
+            id: curse_x1_thirst_c2
+            display: "<dark_red>干扰·渴求"
+            category: STAT
+            trigger: ON_COUNTER
+            effect: HEAL
+            params:
+              counter:
+                id: thirst_c2
+                count: tick
+                amount: 90
+                reset: ON_KILL
+              amount: -99999.0
+            unique: true
+            stack: IGNORE
+          -
+            id: curse_x1_thirst_c3
+            display: "<dark_red>干扰·渴求"
+            category: STAT
+            trigger: ON_COUNTER
+            effect: BUFF_AREA
+            params:
+              counter:
+                id: thirst_c3
+                count: on_counter
+                amount: 1
+                reset: ON_KILL
+              targets: self
+              potions:
+                -
+                  potion: WITHER
+                  amp: 0
+                  duration_ticks: 40
+                -
+                  potion: NAUSEA
+                  amp: 0
+                  duration_ticks: 40
+            unique: true
+            stack: IGNORE
+          -
+            id: curse_x1_thirst_purge
+            display: "<dark_red>干扰·渴求"
+            category: STAT
+            trigger: ON_KILL
+            effect: BUFF_AREA
+            params:
+              targets: self
+              clear_potions:
+                - WITHER
+                - NAUSEA
+            unique: true
+            stack: IGNORE
+
+  curse_expert_act2:
+    cost: 0
+    options:
+      # 2026-10-28 新增三条（替换掉与 curse_hard 重复的 weak/exhaust/limp/fragile/sharp/awkward）
+      -
+        id: curse_x2_shield
+        display: "<dark_red>干扰·屏蔽：施法范围 -30%"
+        category: STAT
+        effect: ADD_ATTRIBUTE
+        params:
+          attr: RANGE
+          op: ADD
+          value: -30
+        unique: true
+        stack: IGNORE
+      -
+        id: curse_x2_coward
+        display: "<dark_red>干扰·懦弱：每击杀 50 名敌人，失去 10% 物攻与魔攻"
+        category: STAT
+        unique: true
+        stack: IGNORE
+        grants:
+          -
+            id: curse_x2_coward_atk
+            display: "<dark_red>干扰·懦弱"
+            category: STAT
+            effect: DYNAMIC_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: PERCENT
+              source: kills
+              threshold: 50
+              per_unit: -0.10
+            unique: true
+            stack: ADD
+          -
+            id: curse_x2_coward_mag
+            display: "<dark_red>干扰·懦弱"
+            category: STAT
+            effect: DYNAMIC_ATTRIBUTE
+            params:
+              attr: MAGIC_DAMAGE
+              op: PERCENT
+              source: kills
+              threshold: 50
+              per_unit: -0.10
+            unique: true
+            stack: ADD
+      -
+        id: curse_x2_poor
+        display: "<dark_red>诅咒·贫穷：失去所有金币，且每 3 个回合再失去 1 枚金币"
+        category: STAT
+        unique: true
+        stack: IGNORE
+        grants:
+          -
+            id: curse_x2_poor_drain
+            display: "<dark_red>诅咒·贫穷"
+            category: STAT
+            effect: LOSE_COINS
+            params:
+              amount: 0
+            unique: true
+            stack: IGNORE
+          -
+            id: curse_x2_poor_tax
+            display: "<dark_red>诅咒·贫穷"
+            category: STAT
+            trigger: ON_COUNTER
+            effect: LOSE_COINS
+            params:
+              amount: 1
+              counter:
+                id: poor_tax_wave3
+                count: wave_clear
+                amount: 3
+            unique: true
+            stack: IGNORE
+
+  curse_expert_act3:
+    cost: 0
+    options:
+      -
+        id: curse_x3_flesh
+        display: "<dark_red>绝境·血肉畸变：造成的物理和魔法伤害 -60%"
+        category: STAT
+        unique: true
+        stack: IGNORE
+        grants:
+          -
+            id: curse_x3_flesh_atk
+            display: "<dark_red>绝境·血肉畸变"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: ATTACK_DAMAGE
+              op: MULTIPLY
+              value: -0.60
+            unique: true
+            stack: IGNORE
+          -
+            id: curse_x3_flesh_mag
+            display: "<dark_red>绝境·血肉畸变"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAGIC_DAMAGE
+              op: MULTIPLY
+              value: -0.60
+            unique: true
+            stack: IGNORE
+      -
+        id: curse_x3_blood
+        display: "<dark_red>绝境·造血障碍：生命上限 -50%，且每秒流失 2 点生命"
+        category: STAT
+        unique: true
+        stack: IGNORE
+        grants:
+          -
+            id: curse_x3_blood_max
+            display: "<dark_red>绝境·造血障碍"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MAX_HEALTH
+              op: PERCENT
+              value: -0.50
+            unique: true
+            stack: IGNORE
+          -
+            id: curse_x3_blood_drain
+            display: "<dark_red>绝境·造血障碍"
+            category: STAT
+            trigger: ON_COUNTER
+            effect: HEAL
+            params:
+              counter:
+                id: curse_x3_blood_drain
+                count: tick
+                amount: 1
+              amount: -2.0
+            unique: true
+            stack: IGNORE
+      -
+        id: curse_x3_nerve
+        display: "<dark_red>绝境·神经退行：移动速度 -50%，装填速度 -33%"
+        category: STAT
+        unique: true
+        stack: IGNORE
+        grants:
+          -
+            id: curse_x3_nerve_slow
+            display: "<dark_red>绝境·神经退行"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: MOVEMENT_SPEED
+              op: PERCENT
+              value: -0.50
+            unique: true
+            stack: IGNORE
+          -
+            id: curse_x3_nerve_cd
+            display: "<dark_red>绝境·神经退行"
+            category: STAT
+            effect: ADD_ATTRIBUTE
+            params:
+              attr: RELOAD_SPEED
+              op: ADD
+              value: -33
+            unique: true
+            stack: IGNORE
+      -
+        id: curse_x3_cognition
+        display: "<dark_red>绝境·认知失调：互换你的物攻和魔攻加成"
+        category: STAT
+        effect: SWAP_ATTACK_MAGIC
+        unique: true
+        stack: IGNORE

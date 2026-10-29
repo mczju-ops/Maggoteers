@@ -1,0 +1,517 @@
+skills:
+  # ---- 难度分级可选字段（1.3.3）：difficulty: hard|expert ----
+  # 技能可加 difficulty 标记，指定该技能仅在对应难度及以上剧本挂载（NORMAL 局不挂）：
+  #   difficulty: hard   → 仅 困难(HARD)/专家(EXPERT) 局挂载
+  #   difficulty: expert → 仅 专家(EXPERT) 局挂载
+  # 省略 = 全难度可用。过滤点在 MobSkillService.attach（逐条独立）。
+  # 示例：在任意技能下加一行即可，如  plastic: { difficulty: hard, trigger: spawn, ... }
+  # ⚠️ 注意：标记后 NORMAL 局该怪将失去此技能（该技能当前被 waves.yml 引用的波会因此变弱），分级前请确认该技能预期只在困难以上出现。
+  # ---- 原 affixes.yml 12 词缀迁移（trigger: spawn，出生时施加）----
+  # ---- 原 affixes.yml 12 词缀迁移（trigger: spawn，出生时施加）----
+  invisible:
+    trigger: spawn
+    invisible: true
+  plastic:
+    trigger: spawn
+    effects:
+      - { effect: ADD_POTION, targets: self, potion: resistance, amp: 4, duration_ticks: 200 }
+      - { effect: PARTICLE_RING, targets: self, origin: self, preset: SHIELD_SHELL, radius: 1.5, particle: end_rod, count: 40, duration_ticks: 200 }
+  cloaked:
+    trigger: spawn
+    effects:
+      - { effect: ADD_POTION, targets: self, potion: invisibility, amp: 0, duration_ticks: 300 }
+  withering:
+    trigger: spawn
+    effects:
+      - { effect: ADD_POTION, targets: self, potion: wither, amp: 1, duration_ticks: 0 }
+  shield:
+    trigger: spawn
+    effects:
+      - { effect: ADD_POTION, targets: self, potion: absorption, amp: 9, duration_ticks: 0 }
+  exoskeleton:
+    trigger: spawn
+    effects:
+      - { effect: ADD_POTION, targets: self, potion: resistance, amp: 1, duration_ticks: 0 }
+  harden:
+    trigger: damage_taken
+    effects:
+      - { effect: ADD_POTION, targets: self, potion: resistance, amp: 4, duration_ticks: 100 }
+  blinding:
+    trigger: damage_taken
+    effects:
+      - { effect: ADD_POTION, targets: hit_target, potion: blindness, amp: 0, duration_ticks: 60 }
+  eternal_curse:
+    trigger: spawn
+    effects:
+      - { effect: ADD_POTION, targets: self, potion: slowness, amp: 255, duration_ticks: 10 }
+  infected:
+    trigger: spawn            # 纯装饰：无 effects（waves 大量引用）
+
+  # ---- IM 战斗技能迁移 ----
+  lifesteal:
+    trigger: attack
+    cooldown_sec: 1
+    effects:
+      - { effect: HEAL, targets: self, amount: 2 }
+  weakness:
+    trigger: attack
+    cooldown_sec: 2
+    effects:
+      - { effect: ADD_POTION, targets: hit_target, potion: weakness, amp: 0, duration_ticks: 100 }
+  quicksand:
+    trigger: damage_taken
+    cooldown_sec: 2
+    effects:
+      - { effect: ADD_POTION, targets: hit_target, potion: slowness, amp: 0, duration_ticks: 80 }
+  poisonous:
+    trigger: attack
+    cooldown_sec: 3
+    effects:
+      - { effect: ADD_POTION, targets: hit_target, potion: poison, amp: 0, duration_ticks: 100 }
+  sprint:
+    trigger: attack
+    cooldown_sec: 4
+    effects:
+      - { effect: ADD_ATTRIBUTE, targets: self, attr: movement_speed, op: multiply, value: 0.4, duration_ticks: 100 }
+  berserk:
+    trigger: damage_taken
+    cooldown_sec: 5
+    effects:
+      - { effect: ADD_ATTRIBUTE, targets: self, attr: attack_damage, op: multiply, value: 0.5, duration_ticks: 120 }
+  archer:
+    trigger: damage_taken
+    cooldown_sec: 5
+    condition: { player_in_radius: 24 }
+    effects:
+      - { effect: SUMMON, targets: self, entity: arrow, count: 1, homing_target: nearest_player, projectile_speed: 1.6 }
+  tosser:
+    trigger: tick
+    cooldown_sec: 10
+    condition: { player_in_radius: 24 }
+    effects:
+      - { effect: DISPLACE, targets: nearest_player, radius: 24, force: 1.2, upward: 0.2 }
+  storm:
+    trigger: tick
+    cooldown_sec: 20
+    condition: { player_in_radius: 18 }
+    effects:
+      - { effect: SUMMON, targets: nearest_player, entity: lightning_bolt, radius: 18 }
+  molten:
+    trigger: spawn
+    effects:
+      - { effect: ADD_POTION, targets: self, potion: fire_resistance, amp: 255, duration_ticks: 0 }
+  necromancer:
+    trigger: tick
+    cooldown_sec: 10
+    condition: { player_in_radius: 20 }
+    effects:
+      - { effect: SUMMON, targets: self, entity: wither_skull, count: 1, homing_target: nearest_player, projectile_speed: 1.2 }
+  ghastly:
+    trigger: tick
+    cooldown_sec: 10
+    condition: { player_in_radius: 28 }
+    effects:
+      - { effect: SUMMON, targets: self, entity: fireball, count: 1, homing_target: nearest_player, projectile_speed: 1.2 }
+
+  # ---- waves.yml 引用 id ----
+  confusing:
+    trigger: attack
+    cooldown_sec: 3
+    effects:
+      - { effect: ADD_POTION, targets: hit_target, potion: nausea, amp: 0, duration_ticks: 100 }
+  # refrigerate 对齐 InfernalMobs DualRefrigerateSkill（2026-10-26，源：MCZJUinfernalMobs）：
+  # DUAL = 攻击或受击都触发；cooldown-ticks 80 = 4s；chance 0.25。
+  # ⚠️ 冻结时长取 **140**（不是 IM 配置里的 100）：原版 `isFullyFrozen()` 阈值就是 140 tick
+  #    （IM 代码默认值也是 140）；<140 只有微弱减速、没有冻伤/白霜/抖动，实测"看起来根本没冻住"。
+  # 本引擎按 trigger 分条定义（无双 trigger 值），故拆成两条同参数技能；冷却与概率各自独立。
+  refrigerate:
+    trigger: attack
+    cooldown_sec: 4
+    chance: 0.25
+    effects:
+      - { effect: FREEZE, targets: hit_target, duration_ticks: 140 }
+  refrigerate_retaliate:
+    trigger: damage_taken
+    cooldown_sec: 4
+    chance: 0.25
+    effects:
+      - { effect: FREEZE, targets: attacker, duration_ticks: 140 }
+  vengeance:
+    trigger: damage_taken
+    cooldown_sec: 1
+    effects:
+      - { effect: DAMAGE, targets: hit_target, damage: 6 }
+  wardenwrath:
+    trigger: tick
+    cooldown_sec: 12
+    condition: { player_in_radius: 16 }
+    effects:
+      - { effect: DAMAGE_AREA, targets: enemies, origin: self, radius: 6, damage: 30 }
+  # ---- Boss 定制技能 ----
+  devour:
+    trigger: attack
+    effects:
+      - { effect: PERMANENT_ATTRIBUTE, targets: self, attr: scale, op: flat, value: 0.2 }
+      - { effect: PERMANENT_ATTRIBUTE, targets: self, attr: attack_damage, op: flat, value: 1.0 }
+      - { effect: PERMANENT_ATTRIBUTE, targets: self, attr: max_health, op: flat, value: 4.0 }
+  # 自在（青山不语）——2026-10-29 简化（用户口径）：删掉原来的四件套
+  # （zizai_cycle 循环读条 / zizai_boom 满场 50 伤 / zizai_interrupt 受击 20 次清盾 / zizai_shield_fx 护盾环），
+  # 改成"圣城护卫"式的单招：常驻抗性 III + 每 15s 一次读条齐射（每人各 3 束、每束 6 点）。
+  # 生存压力改由**周围大量 healer** 提供（见 s3_silent_hills 的随祀海龟），所以本体不再自带护盾/打断机制。
+  zizai_ward:
+    trigger: spawn
+    effects:
+      - { effect: ADD_POTION, targets: self, potion: resistance, amp: 2, duration_ticks: 0 }
+  zizai_cast:
+    trigger: tick
+    cooldown_sec: 15
+    effects:
+      - { effect: SOUND, targets: players, sound: ENTITY_EVOKER_CAST_SPELL, sound_volume: 1.5, sound_pitch: 0.8 }
+      - { effect: DISABLE_AI, targets: self, duration_ticks: 60 }
+      - { effect: SALVO, targets: enemies, aim: per_player, damage: 6, ray_length: 48,
+          beam_radius: 1.0, delay_ticks: 40, interval_ticks: 20, repeats: 3, particle: end_rod }
+  holy_city_care:
+    trigger: tick
+    cooldown_sec: 1
+    condition:
+      not: { player_in_radius: 5 }
+    effects:
+      - { effect: ADD_POTION, targets: self, potion: resistance, amp: 3, duration_ticks: 40 }
+      - { effect: PARTICLE_RING, targets: self, origin: self, radius: 5, particle: end_rod, count: 40 }
+  sweep_salute:
+    trigger: tick
+    cooldown_sec: 30
+    effects:
+      - { effect: DISABLE_AI, targets: self, duration_ticks: 160 }
+      - { effect: SOUND, targets: self, sound: BLOCK_END_PORTAL_SPAWN }
+      - { effect: SALVO, targets: enemies, aim: per_player, damage: 16, ray_length: 48, beam_radius: 1.25, delay_ticks: 60, interval_ticks: 20, repeats: 5, particle: end_rod }
+
+  # ---- 辅助型战斗技能 ----
+  # healer（2026-10-29 加强，用户口径「每秒恢复周围怪物 6 点生命值」）：
+  # 旧版 8s / 10 点（≈1.25 HP/s）几乎没有存在感；新版 1s / 6 点，是"能奶住前排"的真治疗。
+  # ⚠️ 1s 一次心跳，粒子必须便宜：只留一圈心形（原 48 个 end_rod 太吵也太费）。
+  healer:
+    trigger: tick
+    cooldown_sec: 1
+    effects:
+      - { effect: HEAL, targets: area, radius: 6, amount: 6 }
+      - { effect: HEAL, targets: self, amount: 6 }
+      - { effect: PARTICLE_RING, targets: self, origin: self, preset: RIPPLE_RINGS, radius: 6, particle: heart, count: 8 }
+  bard:
+    trigger: tick
+    cooldown_sec: 10
+    effects:
+      - { effect: ADD_ATTRIBUTE, targets: allies, radius: 12, attr: attack_damage, op: multiply, value: 0.5, duration_ticks: 200 }
+      - { effect: ADD_ATTRIBUTE, targets: allies, radius: 12, attr: movement_speed, op: multiply, value: 0.2, duration_ticks: 200 }
+      - { effect: ADD_POTION, targets: allies, radius: 12, potion: wind_charged, amp: 0, duration_ticks: 200 }
+      - { effect: PARTICLE_RING, targets: self, origin: self, preset: THICK_RING, radius: 1.2, particle: flame, count: 24 }
+
+  # ===== 2026-10-26：Act3 Boss 重写 =====
+  # --- 迈入永恒：路加萨尔古斯（法术减伤 + 猪灵愤怒读条）/ 哈兰杜汗（物理减伤 + 凋零咆哮读条）---
+  # 读条门槛：出生 10s / 30s 后才能开大（tick 计数器计满 → 武装常驻 gate，之后 tick 技能带条件放行）
+  luka_gate:
+    trigger: counter
+    counter: { id: luka_gate, count: tick, amount: 10 }
+    effects:
+      - { effect: COUNTER_ARM, targets: self, counter: luka_ready }
+  luka_ready:
+    trigger: counter
+    counter: { id: luka_ready, count: tick, amount: 9999, armed: true }
+    effects: []
+  luka_salvo:
+    trigger: tick
+    cooldown_sec: 40
+    condition: { counter_running: luka_ready }
+    effects:
+      - { effect: SOUND, targets: self, sound: ENTITY_ENDER_DRAGON_GROWL, sound_volume: 1.6, sound_pitch: 0.7 }
+      - { effect: DISABLE_AI, targets: self, duration_ticks: 60 }
+      - { effect: DELAYED_AREA, origin: other_boss, radius: 8, damage: 40, delay_ticks: 60,
+          particle: wax_on, slow_percent: 0.5, slow_ticks: 60 }
+  luka_ward:
+    trigger: spawn
+    damage_reduction: { type: magic, percent: 0.5 }
+
+  harlan_gate:
+    trigger: counter
+    counter: { id: harlan_gate, count: tick, amount: 30 }
+    effects:
+      - { effect: COUNTER_ARM, targets: self, counter: harlan_ready }
+  harlan_ready:
+    trigger: counter
+    counter: { id: harlan_ready, count: tick, amount: 9999, armed: true }
+    effects: []
+  harlan_salvo:
+    trigger: tick
+    cooldown_sec: 40
+    condition: { counter_running: harlan_ready }
+    effects:
+      - { effect: SOUND, targets: self, sound: ENTITY_WITHER_AMBIENT, sound_volume: 1.0, sound_pitch: 0.8 }
+      - { effect: DISABLE_AI, targets: self, duration_ticks: 60 }
+      - { effect: DELAYED_AREA, origin: other_boss, radius: 8, damage: 40, delay_ticks: 60,
+          particle: dragon_breath, slow_percent: 0.5, slow_ticks: 60,
+          potion: darkness, amp: 0, duration_ticks: 60 }
+  harlan_ward:
+    trigger: spawn
+    damage_reduction: { type: physical, percent: 0.5 }
+
+  # --- 哨兵：克雷松（不能移动 / 每次受击叠挖掘疲劳 + 瞬移抗性 / 每 40s 全场黑暗 + 按层数伤害）---
+  kreson_anchor:
+    trigger: spawn
+    effects:
+      # 移速 ×0 = 不能走；**再补击退抗性 1.0**：只压速度挡不住受击击退（实测会"蹦跶"离开落点）
+      - { effect: PERMANENT_ATTRIBUTE, targets: self, attr: movement_speed, op: multiply, value: -1.0 }
+      - { effect: PERMANENT_ATTRIBUTE, targets: self, attr: knockback_resistance, op: flat, value: 1.0 }
+  # 疲劳层（2026-10-26 用户最终口径）：**只在克雷松被攻击时 +1 层**（取消 attack 侧叠层）。
+  # cooldown_sec: 1 —— 一次挥砍若产生多个伤害事件（多段武器/荆棘回响），最多每秒累计 1 层。
+  kreson_fatigue:
+    trigger: damage_taken
+    cooldown_sec: 1
+    effects:
+      - { effect: ADD_POTION, targets: hit_target, potion: mining_fatigue, amp: 0, duration_ticks: 0, stack_amp: true }
+  kreson_blink:
+    trigger: damage_taken
+    effects:
+      - { effect: TELEPORT, targets: self, anchor: arena_point }
+      - { effect: ADD_POTION, targets: self, potion: resistance, amp: 4, duration_ticks: 40 }
+  # 尖叫读条（2026-10-26 用户反馈后调整）：
+  #  · 音效换成远古守卫者的诅咒声并加大音量（原 ENTITY_PHANTOM_DEATH 与幻翼/环境音混淆，实测"没听到"）；
+  #  · 环落定时**清空疲劳层**（读条代价，层数不再永久滚雪球）；
+  #  · 首响由 kreson_gate（20s）武装，之后 40s 一次——避免在场次一开局就"白叫"一声。
+  kreson_gate:
+    trigger: counter
+    counter: { id: kreson_gate, count: tick, amount: 20 }
+    effects:
+      - { effect: COUNTER_ARM, targets: self, counter: kreson_ready }
+  kreson_ready:
+    trigger: counter
+    counter: { id: kreson_ready, count: tick, amount: 9999, armed: true }
+    effects: []
+  kreson_screech:
+    trigger: tick
+    cooldown_sec: 40
+    condition: { counter_running: kreson_ready }
+    effects:
+      - { effect: SOUND, targets: self, sound: ENTITY_ELDER_GUARDIAN_CURSE, sound_volume: 2.0, sound_pitch: 0.6 }
+      - { effect: ADD_POTION, targets: players, potion: darkness, amp: 0, duration_ticks: 60 }
+      - { effect: DELAYED_AREA, origin: self, radius: 64, damage: 0, per_level: 10,
+          scale_by_potion: mining_fatigue, delay_ticks: 60, particle: end_rod,
+          clear_potions: [mining_fatigue] }
+
+  # --- Act4 门扉守望者（占位 Boss）：阶段 4 引擎补强的示范内容 ---
+  # D1 血线阶段：tick 轮询 + hp_below 0.5 + once ⇒ 半血时"狂暴"一次（只切一次阶段）。
+  # D2 伤害门：damage_cap 30（单次最多吃 30）+ immune_damage [projectile]（远程减免靠走位，不靠数值）。
+  gatekeeper_rage:
+    trigger: tick
+    cooldown_sec: 1
+    once: true
+    condition: { hp_below: 0.5 }
+    damage_cap: 30
+    immune_damage: [projectile]
+    effects:
+      - { effect: SOUND, targets: self, sound: ENTITY_WITHER_SPAWN, sound_volume: 1.5, sound_pitch: 0.8 }
+      - { effect: ADD_POTION, targets: self, potion: speed, amp: 1, duration_ticks: 0 }
+      - { effect: ADD_POTION, targets: self, potion: resistance, amp: 1, duration_ticks: 0 }
+
+  # --- 门扉缔造者（Act4，2026-10-26）：四阶段 / 尖牙法阵 / 阶段化伤害门 ---
+  # 站桩 Boss：永久关 AI，但技能全靠 tick 释放（没有 AI 也能放）。
+  # 三波杂兵的词条（2026-10-26 门扉缔造者一阶段）
+  # ⚠️ 2026-10-29：第一波改成远程劫掠者（持 mob_crossbow_power5）后，strength_five 对远程无意义，
+  #    目前**无人引用**（留作近战"力量 V"通用词条，将来给肉搏怪用；要用就直接挂）。
+  strength_five:
+    trigger: spawn
+    effects:
+      - { effect: ADD_POTION, targets: self, potion: strength, amp: 4, duration_ticks: 0 }
+  sharp_five:
+    trigger: spawn
+    effects:
+      - { effect: ADD_ATTRIBUTE, targets: self, attr: attack_damage, op: FLAT, value: 3.0, duration_ticks: 0 }
+  doorweaver_anchor:
+    trigger: spawn
+    no_ai: true
+  # 阶段1：60 秒无敌（phase 1 结束由 waves.yml 的 phases[2].after_sec 触发）
+  doorweaver_ward:
+    trigger: spawn
+    phases: [1]
+    immune_all: true
+  # 阶段2「勿听」：只吃 6 格以内的伤害（远程/风筝无效）
+  doorweaver_hush:
+    trigger: spawn
+    # ⚠️ 2026-10-26 修正：原来是 [3,4]（写错阶段）⇒ 阶段2「勿听」根本没有 6 格免疫，
+    # 实测灾变核心 6 格外照样打得进。设计口径只有阶段2 有这个限制。
+    phases: [2]
+    immune_beyond_radius: 6
+  # 阶段3「勿视」：每次受击最多 3000×0.667% = 20 点（4 人 ×5.0 血量时自动变 100）
+  doorweaver_gaze:
+    trigger: spawn
+    phases: [3]
+    damage_cap_percent: 0.6667
+  # 技能2：召唤恼鬼（4 只、体型 2.0、攻击夺走主手武器）
+  doorweaver_vex:
+    trigger: tick
+    cooldown_sec: 20
+    phases: [2, 3, 4]
+    effects:
+      - { effect: SOUND, targets: self, sound: ENTITY_EVOKER_PREPARE_SUMMON, sound_volume: 1.5, sound_pitch: 1.0 }
+      - { effect: SUMMON, targets: self, entity: VEX, count: 4, scale: 2.0, skills: [thief] }
+  # thief 词条：命中夺走主手武器（掉在恼鬼脚下）
+  thief:
+    trigger: attack
+    cooldown_sec: 3
+    effects:
+      - { effect: STEAL_ITEM, targets: hit_target }
+  # 技能1：唤魔尖牙法阵（每个玩家脚下一套；三种预设见 FANG_PATTERN 的 preset）
+  doorweaver_fang:
+    trigger: tick
+    cooldown_sec: 10
+    phases: [2, 3, 4]
+    effects:
+      - { effect: SOUND, targets: self, sound: ENTITY_EVOKER_PREPARE_ATTACK, sound_volume: 1.4, sound_pitch: 1.0 }
+      - { effect: FANG_PATTERN, targets: players, preset: ring_out, radius: 6,
+          interval_ticks: 10, warn_ticks: 30, damage: 20, particle: CRIT }
+  doorweaver_fang_in:
+    trigger: tick
+    cooldown_sec: 10
+    phases: [2, 3, 4]
+    effects:
+      - { effect: SOUND, targets: self, sound: ENTITY_EVOKER_PREPARE_ATTACK, sound_volume: 1.4, sound_pitch: 0.9 }
+      - { effect: FANG_PATTERN, targets: players, preset: ring_in, radius: 6,
+          interval_ticks: 10, warn_ticks: 30, damage: 20, particle: CRIT }
+  doorweaver_fang_star:
+    trigger: tick
+    cooldown_sec: 10
+    phases: [2, 3, 4]
+    effects:
+      - { effect: SOUND, targets: self, sound: ENTITY_EVOKER_PREPARE_ATTACK, sound_volume: 1.4, sound_pitch: 1.1 }
+      - { effect: FANG_PATTERN, targets: players, preset: star, radius: 10,
+          interval_ticks: 2, warn_ticks: 30, damage: 20, particle: CRIT }
+
+  # --- 人之光辉：伊祖米克（吞史莱姆回血长力量 / 每 60s 扩散环 + 按力量层数晕眩）---
+  izumik_devour:
+    trigger: tick
+    cooldown_sec: 1
+    effects:
+      - { effect: DEVOUR, targets: self, entity: SLIME, radius: 6, amount: 20, gain_potion: strength }
+  izumik_bloom:
+    trigger: tick
+    cooldown_sec: 60
+    effects:
+      - { effect: SOUND, targets: self, sound: BLOCK_END_PORTAL_SPAWN, sound_volume: 1.8, sound_pitch: 1.0 }
+      - { effect: PARTICLE_RING, targets: self, origin: self, preset: SMOOTH_EXPAND_RING, radius: 8, particle: end_rod, count: 64 }
+      - { effect: CONSUME_STACKS, targets: players, gain_potion: strength, per_stack_ticks: 20, radius: 8, particle: end_rod }
+
+  # ===== 2026-10-29：怪物更新设计案（docs/怪物更新设计案.txt）=====
+  # 本段四组内容：① 虚无 / 屏障 两个新词条；② 育英圣堂（点名光束）；③ 巨人摇篮（潜影贝炮台）；
+  # ④ 离歌的庭院（读条 Boss）。全部纯配置，唯一配套代码是 MobTeleportGuardListener（潜影贝不传送）。
+
+  # --- ① 虚无（新词条）：抗性 V 免伤 + 龙息环，但**受击 10 次立刻死** ---
+  # 数值口径：resistance amp 4 = 抗性 V = 原版 100% 减伤 ⇒ 打不出伤害，
+  # 所以"怎么死"必须靠计数器：计数器吃的是 EntityDamageByEntityEvent（MobSkillListener LOWEST）
+  # ——该事件在**伤害被抗性吃光后依然照常发出**（Paper 把 RESISTANCE 当 event modifier，
+  # 见 CraftEventFactory.handleLivingEntityDamageEvent），所以 0 伤害也照样计 1 次受击。
+  # ⚠️ 死亡效果必须**先清抗性再打伤害**：不清抗性的话 10000 点伤害同样被抗性 V 乘成 0。
+  void:
+    trigger: spawn
+    effects:
+      - { effect: ADD_POTION, targets: self, potion: resistance, amp: 4, duration_ticks: 0 }
+      # 与 plastic 同款 1.5 格外壳环，粒子换龙息；600 tick 而非无限：
+      # 虚无怪 10 击必死，正常活不过 30s，无限环会给几十只亡语杂兵各留一个循环粒子任务。
+      - { effect: PARTICLE_RING, targets: self, origin: self, preset: SHIELD_SHELL, radius: 1.5, particle: dragon_breath, count: 40, duration_ticks: 600 }
+  void_frail:
+    trigger: counter
+    counter: { id: void_frail, count: damage_taken, amount: 10 }
+    effects:
+      - { effect: CLEAR_POTIONS, targets: self, clear_potions: [resistance] }
+      - { effect: SOUND, targets: self, sound: ENTITY_ENDERMAN_HURT, sound_volume: 1.2, sound_pitch: 0.6 }
+      - { effect: DAMAGE, targets: self, damage: 10000 }
+
+  # --- ② 屏障（新词条）：6 格外免疫（门扉缔造者阶段 2 同款）+ 6 格提示环 ---
+  # immune_beyond_radius 是**技能级字段**（MobDamageGate），环是视觉边界，二者必须绑一起。
+  barrier:
+    trigger: spawn
+    immune_beyond_radius: 6
+    effects:
+      # ⚠️ 必须带 preset：`executeParticleRingCore` 只有 `duration_ticks > 0 && preset != null` 时
+      # 才走 ParticleLoopService（= 持续重画）。少写 preset 时它退化成"出生时闪一下就没了"——
+      # 2026-10-29 实测反馈就是这个（屏障环只在一开始出现一段时间）。
+      - { effect: PARTICLE_RING, targets: self, origin: self, preset: THICK_RING, radius: 6, particle: end_rod, count: 64, duration_ticks: 999999 }
+
+  # --- 站桩（rooted）：关 AI + 移速 ×0 + 击退抗性 1.0 ---
+  # 只关 AI 挡不住受击击退（会"蹦跶"离开刷怪点），必须补击退抗性（同 kreson_anchor）。
+  rooted:
+    trigger: spawn
+    no_ai: true
+    effects:
+      - { effect: PERMANENT_ATTRIBUTE, targets: self, attr: movement_speed, op: multiply, value: -1.0 }
+      - { effect: PERMANENT_ATTRIBUTE, targets: self, attr: knockback_resistance, op: flat, value: 1.0 }
+
+  # --- ③ 育英圣堂：站桩唤魔者的"弱化版光束"（每人各一束，3 连发，每发 6 点，10s CD）---
+  # per_player 的语义是"对每个冒险玩家各射一束"，与 sweep_salute（圣城齐射）同一套实现；
+  # 40 tick 预警 + 15 tick 间隔 ×3 = 1 秒内三束，站在原地的队伍会吃满。
+  academy_beam:
+    trigger: tick
+    cooldown_sec: 10
+    condition: { player_in_radius: 48 }
+    effects:
+      - { effect: SOUND, targets: players, sound: BLOCK_BEACON_ACTIVATE, sound_volume: 1.0, sound_pitch: 1.2 }
+      - { effect: SALVO, targets: enemies, aim: per_player, damage: 6, ray_length: 48,
+          beam_radius: 0.6, delay_ticks: 40, interval_ticks: 15, repeats: 3, particle: end_rod }
+
+  # --- ④ 巨人摇篮之后的「巨蛛育母」：站桩，每 10s 产 2 只洞穴蜘蛛（子体不带技能 ⇒ 不再分裂）---
+  matriarch_spawn:
+    trigger: tick
+    cooldown_sec: 10
+    effects:
+      - { effect: SOUND, targets: players, sound: ENTITY_SPIDER_AMBIENT, sound_volume: 1.0, sound_pitch: 0.6 }
+      - { effect: SUMMON, targets: self, entity: CAVE_SPIDER, count: 2 }
+
+  # --- ⑤ 离歌的庭院：读条 Boss（15s 读条 / 30s 周期 / 受击 30 次清抗性）---
+  # 周期用三个计数器拼：gate（30s tick 周期）→ 武装 window（15s 读条窗）→ 读条结束自动解除武装。
+  #   · gate 每 30s 触发一次：开场音效 + 武装 window / hits + 排一发 300 tick 后落地的全场 20 点伤害；
+  #   · window 只负责"读条窗开着"（counter_running 给 FX 与 hits 用），15s 到点自解；
+  #   · hits 吃 damage_taken，30 次 → 清掉抗性 V（此后 boss 真的会疼），窗口也会被提前关掉。
+  # ⚠️ reset: counter 是必需的：它让"计数满 → 触发 → 自动解除武装"闭环（同 zizai_boom）。
+  garden_ward:
+    trigger: spawn
+    effects:
+      - { effect: ADD_POTION, targets: self, potion: resistance, amp: 4, duration_ticks: 0 }
+  garden_gate:
+    trigger: counter
+    counter: { id: garden_gate, count: tick, amount: 30 }
+    effects:
+      - { effect: SOUND, targets: players, sound: BLOCK_BEACON_ACTIVATE, sound_volume: 1.5, sound_pitch: 0.8 }
+      - { effect: SOUND, targets: self, sound: ENTITY_EVOKER_CAST_SPELL, sound_volume: 1.5, sound_pitch: 0.7 }
+      - { effect: COUNTER_ARM, targets: self, counter: garden_window }
+      - { effect: COUNTER_ARM, targets: self, counter: garden_hits }
+      # 读条 15s（300 tick）后落地的全场伤害：圆环 + 光柱由 DELAYED_AREA 自己画
+      - { effect: DELAYED_AREA, origin: self, radius: 80, damage: 20, delay_ticks: 300,
+          particle: wax_on, slow_percent: 0.3, slow_ticks: 40 }
+  garden_window:
+    trigger: counter
+    counter: { id: garden_window, count: tick, amount: 15, reset: counter, armed: true }
+    effects: []
+  garden_hits:
+    trigger: counter
+    counter: { id: garden_hits, count: damage_taken, amount: 30, reset: counter, armed: true }
+    effects:
+      - { effect: SOUND, targets: players, sound: ENTITY_ITEM_BREAK, sound_volume: 1.2, sound_pitch: 0.8 }
+      - { effect: CLEAR_POTIONS, targets: self, clear_potions: [resistance] }
+  garden_fx:
+    trigger: tick
+    cooldown_sec: 1
+    condition: { counter_running: garden_window }
+    effects:
+      # 涂蜡粒子的护盾特效 + 末地烛粒子的扩散环（都是一次性环，每秒重画一次）
+      - { effect: PARTICLE_RING, targets: self, origin: self, preset: SHIELD_SHELL, radius: 3, particle: wax_on, count: 24 }
+      - { effect: PARTICLE_RING, targets: self, origin: self, preset: SMOOTH_EXPAND_RING, radius: 8, particle: end_rod, count: 48 }
+
+  # --- ⑥ 寒渊惜别：远程冰冻的平替 ---
+  # attack / damage_taken 两个 trigger **只吃近战**（箭矢 damager 不是 LivingEntity），
+  # 所以"射箭命中挂冰冻"没有触发通道。平替：tick + 半径条件 + 对全场玩家上冻结
+  # （场地就是一间 Boss 房，半径内=全场）。
+  frost_shot:
+    trigger: tick
+    cooldown_sec: 8
+    condition: { player_in_radius: 32 }
+    effects:
+      - { effect: SOUND, targets: players, sound: ENTITY_STRAY_HURT, sound_volume: 1.0, sound_pitch: 1.4 }
+      - { effect: FREEZE, targets: players, duration_ticks: 100 }

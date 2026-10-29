@@ -1,0 +1,10 @@
+# 相对 act_origins.act1 层原点。structure.nbt 原点角对齐层原点后，按结构内实测改坐标。
+# 本图 5 个普通刷怪点 + boss；waves 若引用 6–9 会在 G3 规则下回退到 boss。
+playerSpawn: { x: 21, y: 1, z: 42 }
+spawnPoints:
+  "1": { x: 11, y: 1, z: 11 }
+  "2": { x: 36, y: 1, z: 11 }
+  "3": { x: 36, y: 1, z: 36 }
+  "4": { x: 11, y: 1, z: 36 }
+  "5": { x: 40, y: 6, z: 24 }
+  boss: { x: 7, y: 6, z: 23 }

@@ -1,0 +1,4798 @@
+# waveplan implementation (2026-07-26). Single source for strategies and pools.
+# delay = step pre-wait seconds; coeff may include hp/dmg/speed/scale/follow_range
+# delay = 相对【同 point】上一刷怪时刻的等待秒数（该点尚无事件则相对本轮起点）；不同 point 时间轴独立、可并行
+# strategy.repeat = 整份 steps 再跑一轮（每轮各 point 时钟归零，轮起点=上一轮最晚时刻）
+# strategy.关卡名称 = Chinese display name (chat begin tip + scoreboard)
+# steps[].repeat = 单条 step 在同 point 时间轴上按 delay 再刷几次（默认 1）
+# skills: mob_skills.yml 的怪物技能 id 列表（trigger+effect 全可配置；1.1 起替代旧 affixes/infernal）
+pools:
+  act1:
+    weak:
+    - strategy: w1_bug_buddies
+      weight: 2
+    - strategy: w1_patrol_riders
+      weight: 2
+    - strategy: w1_accident
+      weight: 2
+    - strategy: w1_symbiosis
+      weight: 2
+    - strategy: w1_symptom
+      weight: 2
+    - strategy: w1_herd
+      weight: 2
+    - strategy: w1_proper_business
+      weight: 2
+    - strategy: w1_devour
+      weight: 2
+    strong:
+    - strategy: s1_resort_ghosts
+      weight: 2
+    - strategy: s1_vent_breeze
+      weight: 2
+    - strategy: s1_maintain_honor
+      weight: 2
+    boss:
+    - strategy: b1_colossus
+      weight: 2
+    - strategy: b1_eternal_rest
+      weight: 2
+    # 2026-10-29：b1_bandit_chief（大盗当头）删除，替换为「离歌的庭院」（读条 Boss）
+    - strategy: b1_garden_pavilion
+      weight: 2
+  act2:
+    weak:
+    - strategy: w2_merchant_convoy
+      weight: 2
+    - strategy: w2_endless_spear
+      weight: 2
+    - strategy: w2_fireworks
+      weight: 2
+    - strategy: w2_lord_legacy
+      weight: 2
+    - strategy: w2_nest
+      weight: 2
+    - strategy: w2_territory
+      weight: 2
+    - strategy: w2_breakthrough
+      weight: 2
+    - strategy: s2_ice_shadows
+      weight: 2
+    - strategy: s2_migration
+      weight: 2
+    - strategy: s2_chessboard
+      weight: 2
+    strong:
+    - strategy: s2_forbidden
+      weight: 2
+    - strategy: s2_crimson_tunnel
+      weight: 2
+    # 2026-10-29：s2_controversy（争议频发）删除 → 基础强怪池补 s2_academy（育英圣堂，替代原恶地特色
+    # 「本能污染」）。放在基础池而非地图特色池，是为了让 act2.strong **基础条目恒 ≥ 3**
+    # （RunPlanner 每层抽 3 条强怪且不许重复；基础池只剩 2 条时，一旦有新地图不带特色波就会开局抛错）。
+    - strategy: s2_academy
+      weight: 2
+    boss:
+    - strategy: b2_silent_guard
+      weight: 2
+    - strategy: b2_breath
+      weight: 2
+    - strategy: b2_frost_farewell
+      weight: 2
+    - strategy: b2_musketeers
+      weight: 2
+  act3:
+    weak:
+    - strategy: w3_duck_ops
+      weight: 2
+    - strategy: w3_rabbit_holes
+      weight: 2
+    - strategy: w3_lights_out
+      weight: 2
+    strong:
+    - strategy: s3_surprise_factory
+      weight: 2
+    - strategy: s3_across_fire
+      weight: 2
+    - strategy: s3_out_of_control
+      weight: 2
+    - strategy: s3_chaos_facade
+      weight: 2
+    - strategy: s3_keep_out
+      weight: 2
+    - strategy: s3_fire_water
+      weight: 2
+    - strategy: s3_institution
+      weight: 2
+    - strategy: s3_witch_pact
+      weight: 2
+    - strategy: s3_rhine_guard
+      weight: 2
+    - strategy: s3_odyssay
+      weight: 1
+    - strategy: s3_silent_hills
+      weight: 2
+    boss:
+    - strategy: b3_into_eternal
+      weight: 2
+    - strategy: b3_sentinel
+      weight: 2
+    - strategy: b3_human_radiance
+      weight: 2
+    - strategy: b3_holy_city
+      weight: 2
+  # Act4 = 隐藏结局层（2026-10-26 阶段 5「链路验证」占位）。
+  # weak/strong 当前 waves_per_act.act4 = 0 波（不会被抽到）；保留非空池是为了内容守护
+  # （ActConfigConsistencyTest 要求每层三池齐备）与将来填内容时不用改结构。
+  act4:
+    weak:
+    - strategy: w3_duck_ops
+      weight: 2
+    strong:
+    - strategy: s3_keep_out
+      weight: 2
+    boss:
+    # 2026-10-26：Act4 的 Boss 固定为「门扉缔造者」。
+    # 占位 Boss b4_gatekeeper（凋灵骷髅）已移出池子——它只是链路验证用的占位，
+    # 留在池里会有 50% 概率把 Hidden 通关变成"打一只凋灵骷髅"，实测就撞到了。
+    - strategy: b4_doorweaver
+      weight: 2
+strategies:
+  w1_bug_buddies:
+    关卡名称: 与虫为伴
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 1
+    steps:
+    - point: '1'
+      type: SPIDER
+      count: 2
+      delay: 0
+    - point: '1'
+      type: ENDERMITE
+      count: 5
+      delay: 2
+    - point: '2'
+      type: SPIDER
+      count: 2
+      delay: 0
+    - point: '2'
+      type: CAVE_SPIDER
+      count: 3
+      delay: 2
+    - point: '5'
+      type: SKELETON
+      name: 塑料骑士
+      count: 1
+      delay: 1
+      skills:
+      - plastic
+  w1_patrol_riders:
+    关卡名称: 巡逻队
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 1
+    steps:
+    - point: '1'
+      type: SPIDER
+      repeat: 2
+      count: 1
+      delay: 10
+      passengers:
+      - type: SKELETON
+        count: 1
+    - point: '3'
+      type: SPIDER
+      repeat: 2
+      count: 1
+      delay: 10
+      passengers:
+      - type: SKELETON
+        count: 1
+  w1_accident:
+    关卡名称: 意外
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 1
+    steps:
+    - point: '1'
+      type: SKELETON
+      coeff:
+        hp: 0.4
+      count: 2
+      delay: 0
+    - point: '2'
+      type: SKELETON
+      coeff:
+        hp: 0.4
+      count: 2
+      delay: 8
+    - point: '2'
+      type: SKELETON
+      coeff:
+        hp: 0.4
+      count: 2
+      delay: 16
+    - point: '5'
+      type: SKELETON
+      coeff:
+        hp: 0.4
+      count: 2
+      delay: 8
+    - point: '5'
+      type: SKELETON
+      coeff:
+        hp: 0.4
+      count: 2
+      delay: 24
+  w1_symbiosis:
+    关卡名称: 共生
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 1
+    steps:
+    - point: '3'
+      type: ENDERMITE
+      count: 10
+      delay: 0
+    - point: '4'
+      type: ENDERMITE
+      count: 10
+      delay: 2
+    - point: boss
+      type: VINDICATOR
+      count: 3
+      coeff:
+        hp: 0.6
+      delay: 0
+      skills:
+      - lifesteal
+  w1_symptom:
+    关卡名称: 病症
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 1
+    steps:
+    - point: '1'
+      type: ZOMBIE
+      name: <light_purple>感染者</light_purple>
+      count: 2
+      delay: 0
+      on_death:
+      - type: ENDERMITE
+        count: 3
+      skills:
+      - infected
+    - point: '2'
+      type: ZOMBIE
+      name: <light_purple>感染者</light_purple>
+      count: 2
+      delay: 2
+      on_death:
+      - type: ENDERMITE
+        count: 3
+      skills:
+      - infected
+    - point: '3'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 4
+      delay: 0
+      on_death:
+      - type: ENDERMITE
+        count: 3
+      skills:
+      - infected
+      - quicksand
+    - point: '4'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 4
+      delay: 4
+      on_death:
+      - type: ENDERMITE
+        count: 3
+      skills:
+      - infected
+      - quicksand
+  w1_herd:
+    关卡名称: 从众效应
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 1
+    steps:
+    - point: '1'
+      type: ZOMBIE
+      count: 8
+      coeff:
+        scale: 0.8
+        speed: 1.2
+        hp: 0.5
+      delay: 0
+    - point: '2'
+      type: ZOMBIE
+      count: 8
+      coeff:
+        scale: 0.8
+        speed: 1.2
+        hp: 0.5
+      delay: 4
+    - point: '3'
+      type: ZOMBIE
+      count: 8
+      coeff:
+        scale: 0.8
+        speed: 1.2
+        hp: 0.5
+      delay: 8
+    - point: '4'
+      type: ZOMBIE
+      count: 8
+      coeff:
+        scale: 0.8
+        speed: 1.2
+        hp: 0.5
+      delay: 12
+    - point: '5'
+      type: ZOMBIE
+      count: 8
+      coeff:
+        scale: 0.8
+        speed: 1.2
+        hp: 0.5
+      delay: 16
+  w1_proper_business:
+    关卡名称: 正经生意
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 1
+    steps:
+    - point: '5'
+      type: VINDICATOR
+      name: <gold>骨架大的蜘蛛贩子</gold>
+      count: 1
+      coeff:
+        hp: 4
+        speed: 0.5
+        scale: 2
+      delay: 0
+      boss_bar: true
+    - point: '1'
+      type: SPIDER
+      count: 2
+      delay: 5
+    - point: '2'
+      type: SPIDER
+      count: 2
+      delay: 10
+    - point: '3'
+      type: SPIDER
+      count: 2
+      delay: 15
+    - point: '4'
+      type: SPIDER
+      count: 2
+      delay: 20
+  w1_devour:
+    关卡名称: 啖之以利
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 1
+    steps:
+    - point: '3'
+      type: SLIME
+      count: 1
+      delay: 2
+      repeat: 3
+      coeff:
+        speed:
+        hp: 2
+        follow_range: 0
+        scale: 0.5
+      skills:
+      - devour
+      - lifesteal
+      passengers: []
+      on_death: []
+      equipment: []
+      name: 吞噬者
+    - point: '4'
+      type: SLIME
+      count: 1
+      delay: 2
+      repeat: 3
+      coeff:
+        hp: 2
+        speed:
+        scale: 0.5
+      skills:
+      - devour
+      - lifesteal
+      passengers: []
+      on_death: []
+      equipment: []
+      name: 吞噬者
+    - point: '5'
+      type: BOGGED
+      count: 1
+      delay: 1
+      repeat: 10
+      coeff:
+        hp: 0.4
+      skills:
+      - cloaked
+      passengers: []
+      on_death: []
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_iron_sword_reach
+  s1_resort_ghosts:
+    关卡名称: 度假村冤魂
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: ZOMBIE
+      count: 4
+      coeff:
+        hp: 2
+        speed: 1.5
+      delay: 0
+    - point: '2'
+      type: ZOMBIE
+      count: 4
+      coeff:
+        hp: 2
+        speed: 1.5
+      delay: 5
+    - point: '3'
+      type: ZOMBIFIED_PIGLIN
+      count: 2
+      coeff:
+        hp: 2
+        dmg: 1.2
+      delay: 1
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_gold_spear
+      skills:
+      - archer
+  s1_vent_breeze:
+    关卡名称: 排风口
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: ZOMBIE
+      count: 4
+      coeff:
+        speed: 1.5
+      delay: 0
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_gold_spear
+    - point: '2'
+      type: ZOMBIE
+      count: 4
+      coeff:
+        speed: 1.5
+      delay: 0
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_iron_axe
+    - point: '4'
+      type: BREEZE
+      count: 3
+      delay: 5
+      # 2026-10-29（用户设计案）：去掉 tosser 吸引词条 —— 排风口作为 1 层强怪关，旋风人边打边拽人过强
+  s1_desert_four_camels:
+    关卡名称: 事不过四
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: CAMEL_HUSK
+      count: 1
+      coeff:
+        speed: 0.8
+      delay: 0
+      passengers:
+      - type: HUSK
+        name: 塑料骑士
+        count: 1
+        equipment:
+        - slot: HEAD
+          item: maggoteers:mob_iron_helmet_ub10
+        - slot: HAND
+          item: maggoteers:mob_iron_spear
+        skills:
+        - plastic
+        - quicksand
+      - type: PARCHED
+        count: 1
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_bow_power1
+    - point: '2'
+      type: CAMEL_HUSK
+      count: 1
+      coeff:
+        speed: 0.8
+      delay: 0
+      passengers:
+      - type: HUSK
+        name: 塑料骑士
+        count: 1
+        equipment:
+        - slot: HEAD
+          item: maggoteers:mob_iron_helmet_ub10
+        - slot: HAND
+          item: maggoteers:mob_iron_spear
+        skills:
+        - plastic
+        - quicksand
+      - type: PARCHED
+        count: 1
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_bow_power1
+    - point: '3'
+      type: CAMEL_HUSK
+      count: 1
+      coeff:
+        speed: 0.8
+      delay: 0
+      passengers:
+      - type: HUSK
+        name: 塑料骑士
+        count: 1
+        equipment:
+        - slot: HEAD
+          item: maggoteers:mob_iron_helmet_ub10
+        - slot: HAND
+          item: maggoteers:mob_iron_spear
+        skills:
+        - plastic
+        - quicksand
+      - type: PARCHED
+        count: 1
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_bow_power1
+    - point: '4'
+      type: CAMEL_HUSK
+      count: 1
+      coeff:
+        speed: 0.8
+      delay: 0
+      passengers:
+      - type: HUSK
+        name: 塑料骑士
+        count: 1
+        equipment:
+        - slot: HEAD
+          item: maggoteers:mob_iron_helmet_ub10
+        - slot: HAND
+          item: maggoteers:mob_iron_spear
+        skills:
+        - plastic
+        - quicksand
+      - type: PARCHED
+        count: 1
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_bow_power1
+  s1_desert_prisoners:
+    关卡名称: 死囚之夜
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '5'
+      type: HUSK
+      count: 4
+      coeff:
+        hp: 0.8
+      delay: 2
+      repeat: 10
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_gold_shovel
+      skills:
+      - quicksand
+  s1_desert_plague:
+    关卡名称: 公害
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: CREEPER
+      count: 3
+      coeff:
+        scale: 0.7
+        speed: 1.5
+      delay: 0
+    - point: '2'
+      type: CREEPER
+      count: 3
+      coeff:
+        scale: 0.7
+        speed: 1.5
+      delay: 5
+    - point: '3'
+      type: CREEPER
+      count: 3
+      coeff:
+        scale: 0.5
+        speed: 1.5
+      delay: 10
+    - point: '4'
+      type: CREEPER
+      count: 3
+      coeff:
+        scale: 0.5
+        speed: 1.5
+      delay: 15
+    - point: '5'
+      type: CREEPER
+      count: 1
+      coeff:
+        scale: 0.5
+        speed: 1.5
+      delay: 10
+      skills:
+      - invisible
+  s1_jungle_shadows:
+    关卡名称: 幽影与鬼魅
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: DROWNED
+      count: 3
+      delay: 0
+      skills:
+      - cloaked
+    - point: '2'
+      type: DROWNED
+      count: 3
+      delay: 0
+      skills:
+      - cloaked
+    - point: '3'
+      type: BOGGED
+      count: 4
+      delay: 10
+      skills:
+      - cloaked
+    - point: '4'
+      type: BOGGED
+      count: 4
+      delay: 10
+      skills:
+      - cloaked
+  # 2026-10-29（用户设计案）重做「拆东补西」：只在 1/2 号点出怪，四拍节奏（参考"节拍器"）
+  # 第 1 波 point1 唤魔者（16 血）/ point2 苦力怕×2；第 2 波反过来；第 3 波两个唤魔者；第 4 波每点 3 苦力怕。
+  # 设计意图：唤魔者是"必须尽快贴脸清掉的高威胁远程"（它会招恼鬼），苦力怕逼你让位 → 一手躲一手打。
+  s1_jungle_spider_swap:
+    关卡名称: 拆东补西
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: EVOKER
+      count: 1
+      coeff: {hp: 0.667}
+      delay: 0
+    - point: '2'
+      type: CREEPER
+      count: 2
+      delay: 0
+    - point: '2'
+      type: EVOKER
+      count: 1
+      coeff: {hp: 0.667}
+      delay: 10
+    - point: '1'
+      type: CREEPER
+      count: 2
+      delay: 10
+    - point: '1'
+      type: EVOKER
+      count: 1
+      coeff: {hp: 0.667}
+      delay: 10
+    - point: '2'
+      type: EVOKER
+      count: 1
+      coeff: {hp: 0.667}
+      delay: 10
+    - point: '1'
+      type: CREEPER
+      count: 3
+      delay: 10
+    - point: '2'
+      type: CREEPER
+      count: 3
+      delay: 10
+  # 2026-10-29（用户设计案）重做「卡兹瀑布」：旧版是 10 轮 3 血洞穴蜘蛛（几乎空波），
+  # 现在是"增殖"型：5 号点与 boss 点各 1 只**站桩巨蛛育母**（体型 ×3、血量 ×5 = 80 血），
+  # 每 10s 产 2 只洞穴蜘蛛（子体不带 matriarch_spawn ⇒ 不会继续分巢）。
+  s1_jungle_spider_falls:
+    关卡名称: 卡兹瀑布
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '5'
+      type: SPIDER
+      name: 巨蛛育母
+      count: 1
+      coeff: {hp: 5.0, scale: 3.0}
+      delay: 0
+      skills: [rooted, matriarch_spawn]
+    - point: boss
+      type: SPIDER
+      name: 巨蛛育母
+      count: 1
+      coeff: {hp: 5.0, scale: 3.0}
+      delay: 0
+      skills: [rooted, matriarch_spawn]
+  s1_maintain_honor:
+    关卡名称: 所守者，义
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '5'
+      type: STRAY
+      count: 1
+      delay: 10
+      repeat: 2
+      coeff:
+        hp: 2
+      skills:
+      - blinding
+      - vengeance
+      passengers: []
+      on_death: []
+      equipment: []
+      name: <gold>复仇者</gold>
+    - point: '5'
+      type: IRON_GOLEM
+      count: 1
+      delay: 20
+      repeat: 1
+      coeff:
+        hp: 0.5
+      skills: []
+      passengers: []
+      on_death: []
+      equipment: []
+      name: 迟到的正义
+    - point: '1'
+      type: ZOMBIE
+      count: 1
+      delay: 2
+      repeat: 6
+      coeff: {}
+      skills: []
+      passengers: []
+      on_death: []
+      equipment: []
+    - point: '2'
+      type: ZOMBIE
+      count: 1
+      delay: 2
+      repeat: 6
+      coeff: {}
+      skills: []
+      passengers: []
+      on_death: []
+      equipment: []
+  b1_colossus:
+    关卡名称: 无主巨像
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_boss
+      amount: 1
+    - item: maggoteers:currency_normal
+      amount: 3
+    steps:
+    - point: boss
+      type: IRON_GOLEM
+      name: <gold>无主的巨像</gold>
+      count: 1
+      coeff:
+        hp: 3.0
+        speed: 1.3
+        scale: 1.2
+        dmg: 10
+      delay: 0
+      boss_bar: true
+      skills:
+      - shield
+      - storm
+      - exoskeleton
+  b1_eternal_rest:
+    关卡名称: 永恒安息
+    clearReward:
+    - item: maggoteers:currency_boss
+      amount: 1
+    - item: maggoteers:currency_normal
+      amount: 3
+    steps:
+    - point: '1'
+      type: SKELETON
+      count: 3
+      delay: 0
+      equipment:
+      - slot: HEAD
+        item: maggoteers:mob_iron_helmet_ub10
+      - slot: HAND
+        item: maggoteers:mob_iron_sword_ub10
+    - point: '2'
+      type: SKELETON
+      count: 3
+      delay: 15
+      equipment:
+      - slot: HEAD
+        item: maggoteers:mob_iron_helmet_ub10
+      - slot: HAND
+        item: maggoteers:mob_iron_sword_ub10
+    - point: '5'
+      type: SKELETON
+      count: 3
+      delay: 10
+      equipment:
+      - slot: HEAD
+        item: maggoteers:mob_iron_helmet_ub10
+      - slot: HAND
+        item: maggoteers:mob_bow
+    - point: boss
+      type: SKELETON
+      count: 1
+      boss_bar: true
+      name: <gold>“圣徒”</gold>
+      coeff:
+        hp: 10.0
+      delay: 15
+      equipment:
+      - slot: HEAD
+        item: maggoteers:mob_iron_helmet_ub10
+      - slot: CHEST
+        item: maggoteers:mob_iron_chest_ub10
+      - slot: LEGS
+        item: maggoteers:mob_iron_legs_ub10
+      - slot: FEET
+        item: maggoteers:mob_iron_boots_ub10
+      - slot: HAND
+        item: maggoteers:mob_iron_sword_reach
+      skills:
+      - eternal_curse
+      - necromancer
+      - archer
+  # 2026-10-29（用户设计案）：替代 b1_bandit_chief「大盗当头」
+  # 机制：boss 登场即挂**永久抗性 V**（打不动）→ 每 30s 起 15s 读条，读条期间
+  #   ① 涂蜡护盾 + 末地烛扩散环（garden_fx）；② 受击 30 次清掉抗性 V（garden_hits，此后才真的掉血）；
+  #   ③ 读条结束对全场玩家 20 点伤害（DELAYED_AREA 300 tick）。
+  # 小兵：1-4 号点 10s / 20s 各出 2 只持金剑僵尸，30s 出 1 只卫道士精英。
+  b1_garden_pavilion:
+    关卡名称: 离歌的庭院
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_boss
+      amount: 1
+    - item: maggoteers:currency_normal
+      amount: 3
+    steps:
+    - point: '1'
+      type: ZOMBIE
+      name: ''
+      count: 2
+      repeat: 2
+      delay: 10
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_gold_sword
+    - point: '2'
+      type: ZOMBIE
+      name: ''
+      count: 2
+      repeat: 2
+      delay: 10
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_gold_sword
+    - point: '3'
+      type: ZOMBIE
+      name: ''
+      count: 2
+      repeat: 2
+      delay: 10
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_gold_sword
+    - point: '4'
+      type: ZOMBIE
+      name: ''
+      count: 2
+      repeat: 2
+      delay: 10
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_gold_sword
+    - point: '1'
+      type: VINDICATOR
+      name: ''
+      count: 1
+      delay: 10
+      coeff:
+        hp: 2
+    - point: '2'
+      type: VINDICATOR
+      name: ''
+      count: 1
+      delay: 10
+      coeff:
+        hp: 2
+    - point: '3'
+      type: VINDICATOR
+      name: ''
+      count: 1
+      delay: 10
+      coeff:
+        hp: 2
+    - point: '4'
+      type: VINDICATOR
+      name: ''
+      count: 1
+      delay: 10
+      coeff:
+        hp: 2
+      skills: []
+    - point: boss
+      type: EVOKER
+      name: <gold>“编织泪水的术师”</gold>
+      count: 1
+      coeff:
+        hp: 12
+        scale: 1.5
+      delay: 0
+      boss_bar: true
+      skills:
+      - garden_ward
+      - garden_gate
+      - garden_window
+      - garden_hits
+      - garden_fx
+  w2_merchant_convoy:
+    关卡名称: 酒商运输队
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 1
+    steps:
+    - point: '1'
+      repeat: 10
+      type: CREEPER
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      coeff:
+        hp: 3
+      delay: 5
+      on_death:
+      - type: TNT
+        count: 1
+      skills:
+      - infected
+    - point: '2'
+      repeat: 10
+      type: CREEPER
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      coeff:
+        hp: 3
+      delay: 5
+      on_death:
+      - type: TNT
+        count: 1
+      skills:
+      - infected
+    - point: '2'
+      type: VINDICATOR
+      name: <gold>“大鲍勃”</gold>
+      count: 1
+      coeff:
+        hp: 10
+        dmg: 10
+        speed: 0.5
+        scale: 2
+      delay: 0
+      boss_bar: true
+  w2_endless_spear:
+    关卡名称: 永无尽头
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 1
+    steps:
+    - point: '1'
+      repeat: 8
+      type: ZOMBIE
+      count: 1
+      coeff:
+        speed: 1.5
+        hp: 0.4
+      delay: 5
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_iron_spear
+    - point: '2'
+      repeat: 8
+      type: ZOMBIE
+      count: 1
+      coeff:
+        speed: 1.5
+        hp: 0.4
+      delay: 5
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_iron_spear
+    - point: '5'
+      type: ZOMBIE
+      count: 1
+      coeff:
+        hp: 0.2
+        speed: 2
+      delay: 20
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_iron_spear
+    - point: '5'
+      type: ZOMBIE_HORSE
+      repeat: 3
+      count: 1
+      delay: 5
+      passengers:
+      - type: ZOMBIE
+        count: 1
+        coeff:
+          hp: 2
+          speed: 1
+          scale: 1.3
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_iron_spear
+        skills: []
+      coeff:
+        dmg: 0.8
+      skills: []
+  w2_fireworks:
+    关卡名称: 烟花秀
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 1
+    steps:
+    - point: '1'
+      repeat: 6
+      type: CREEPER
+      name: <gold>复仇者</gold>
+      count: 2
+      coeff:
+        speed: 2
+      delay: 8
+      skills:
+      - vengeance
+    - point: '2'
+      repeat: 6
+      type: CREEPER
+      name: <gold>复仇者</gold>
+      count: 2
+      coeff:
+        speed: 2
+      delay: 8
+      skills:
+      - vengeance
+    - point: '3'
+      type: BLAZE
+      name: <red>火球术师</red>
+      count: 1
+      repeat: 3
+      delay: 10
+      # 2026-10-29（用户设计案）：去掉炽足兽坐骑，直接召唤数值相同的烈焰人
+      coeff: {hp: 2.0, scale: 1.5, speed: 2.0}
+      skills: [ghastly]
+    - point: '4'
+      type: BLAZE
+      name: <red>火球术师</red>
+      count: 1
+      repeat: 3
+      delay: 10
+      coeff: {hp: 2.0, scale: 1.5, speed: 2.0}
+      skills: [ghastly]
+    - point: boss
+      type: MAGMA_CUBE
+      name: <red>火球术师</red>
+      count: 1
+      coeff:
+        hp: 20
+        scale: 2
+      delay: 20
+      boss_bar: true
+      skills:
+      - shield
+      - ghastly
+  w2_lord_legacy:
+    关卡名称: 大君遗脉
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 1
+    steps:
+    - point: '2'
+      type: ZOMBIE
+      name: <light_purple>感染者</light_purple>
+      repeat: 8
+      count: 1
+      coeff:
+        hp: 1.5
+      delay: 1
+      on_death:
+      - type: ZOMBIE
+        name: 塑料骑士
+        count: 1
+        coeff:
+          hp: 0.1
+          scale: 1.3
+        skills:
+        - plastic
+      skills:
+      - infected
+    - point: '1'
+      type: ZOMBIE
+      name: <light_purple>感染者</light_purple>
+      repeat: 8
+      count: 1
+      coeff:
+        hp: 1.5
+      delay: 1
+      on_death:
+      - type: ZOMBIE
+        name: 塑料骑士
+        count: 1
+        coeff:
+          hp: 0.1
+          scale: 1.3
+        skills:
+        - plastic
+      skills:
+      - infected
+  w2_nest:
+    关卡名称: 巢穴
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 1
+    steps:
+    - point: '1'
+      type: ENDERMITE
+      repeat: 5
+      count: 1
+      delay: 4
+      skills:
+      - confusing
+    - point: '2'
+      type: ENDERMITE
+      repeat: 5
+      count: 1
+      delay: 4
+      skills:
+      - confusing
+    - point: '3'
+      type: ENDERMITE
+      repeat: 5
+      count: 1
+      delay: 4
+      skills:
+      - blinding
+    - point: '4'
+      type: ENDERMITE
+      repeat: 5
+      count: 1
+      delay: 4
+      skills:
+      - blinding
+    - point: boss
+      name: <gold>投嗣育母</gold>
+      type: ENDERMITE
+      count: 1
+      coeff:
+        hp: 10.0
+        speed: 0.9
+        dmg: 3.0
+        scale: 4.0
+      delay: 20
+      boss_bar: true
+      on_death:
+      - type: ENDERMITE
+        count: 9
+      skills:
+      - necromancer
+      - withering
+  w2_territory:
+    关卡名称: 领地意识
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 1
+    steps:
+    - point: '1'
+      type: CREEPER
+      name: 塑料苦力怕
+      repeat: 4
+      count: 1
+      coeff:
+        speed: 1.5
+      delay: 5
+      skills:
+      - plastic
+    - point: '2'
+      type: CREEPER
+      name: 塑料苦力怕
+      repeat: 4
+      count: 1
+      coeff:
+        speed: 1.5
+      delay: 5
+      skills:
+      - plastic
+    - point: '3'
+      type: CREEPER
+      name: 塑料苦力怕
+      repeat: 4
+      count: 1
+      coeff:
+        speed: 1.5
+      delay: 5
+      skills:
+      - plastic
+    - point: '4'
+      type: CREEPER
+      name: 塑料苦力怕
+      repeat: 4
+      count: 1
+      coeff:
+        speed: 1.5
+      delay: 5
+      skills:
+      - plastic
+    - point: '5'
+      type: CREEPER
+      name: 尖刺宝箱
+      repeat: 4
+      count: 1
+      coeff:
+        speed: 1.5
+      delay: 5
+      skills:
+      - vengeance
+      equipment:
+      - slot: HEAD
+        item: maggoteers:mob_big_lock_mask
+    - point: boss
+      type: CREEPER
+      count: 1
+      name: <light_purple>感染者</light_purple>
+      boss_bar: true
+      coeff:
+        hp: 10
+        scale: 2.5
+      delay: 20
+      on_death:
+      - type: CREEPER
+        count: 4
+        coeff:
+          scale: 0.5
+          speed: 2
+      skills:
+      - infected
+      - refrigerate
+      - refrigerate_retaliate
+  w2_breakthrough:
+    关卡名称: 禁区
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 1
+    steps:
+    - point: '1'
+      type: WARDEN
+      count: 1
+      coeff:
+        hp: 0.01
+      delay: 0
+    - point: '2'
+      type: WARDEN
+      count: 1
+      coeff:
+        hp: 0.01
+      delay: 0
+    - point: '3'
+      type: WARDEN
+      count: 1
+      coeff:
+        hp: 0.01
+      delay: 0
+    - point: '4'
+      type: WARDEN
+      count: 1
+      coeff:
+        hp: 0.01
+      delay: 0
+    - point: '5'
+      type: WARDEN
+      count: 1
+      coeff:
+        hp: 0.01
+      delay: 0
+  s2_ice_shadows:
+    关卡名称: 冰海凝影
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: POLAR_BEAR
+      repeat: 4
+      count: 2
+      delay: 10
+      passengers:
+      - type: VINDICATOR
+        count: 1
+        coeff:
+          hp: 5
+        skills:
+        - blinding
+      coeff:
+        speed: 1.2
+      skills: []
+    - point: '5'
+      type: HORSE
+      repeat: 8
+      count: 1
+      delay: 5
+      passengers:
+      - type: PILLAGER
+        count: 1
+        coeff:
+          hp: 3
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_crossbow_power2
+  s2_migration:
+    关卡名称: 大迁徙
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: RAVAGER
+      count: 2
+      delay: 30
+      skills:
+      - vengeance
+      coeff:
+        hp: 2
+      name: <gold>复仇者</gold>
+    - point: '2'
+      type: POLAR_BEAR
+      count: 2
+      delay: 30
+      skills:
+      - berserk
+      coeff:
+        speed: 1.5
+    - point: '4'
+      type: HOGLIN
+      repeat: 10
+      count: 1
+      delay: 3
+      coeff:
+        speed: 1.2
+        dmg: 1.5
+        hp: 1.5
+      skills: []
+  s2_forbidden:
+    关卡名称: 破局
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: VINDICATOR
+      name: 塑料邪教徒
+      count: 3
+      delay: 0
+      skills:
+      - plastic
+      - withering
+    - point: '1'
+      type: WARDEN
+      count: 1
+      coeff:
+        dmg: 0.5
+        speed: 0.75
+      boss_bar: true
+      delay: 30
+      skills:
+      - vengeance
+      name: “邪神”
+    - point: '3'
+      type: IRON_GOLEM
+      coeff:
+        hp: 6
+        speed: 1.5
+      count: 1
+      delay: 0
+      skills: []
+      name: “监守者”
+  s2_chessboard:
+    关卡名称: 大棋一盘
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: PILLAGER
+      count: 1
+      delay: 10
+      name: 卒
+    - point: '2'
+      type: PILLAGER
+      count: 1
+      delay: 10
+      name: 卒
+    - point: '3'
+      type: PILLAGER
+      count: 1
+      delay: 10
+      name: 卒
+    - point: '4'
+      type: PILLAGER
+      count: 1
+      delay: 10
+      name: 卒
+    - point: '5'
+      type: PILLAGER
+      count: 1
+      delay: 10
+      name: 卒
+    - point: '1'
+      type: CREEPER
+      count: 1
+      coeff:
+        speed: 2
+      delay: 3
+      name: 砲
+    - point: '2'
+      type: CREEPER
+      count: 1
+      coeff:
+        speed: 2
+      delay: 3
+      name: 砲
+    - point: '3'
+      type: CAMEL_HUSK
+      count: 1
+      delay: 6
+      passengers:
+      - type: ZOMBIE
+        name: 塑料骑士
+        count: 1
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_iron_spear
+        skills:
+        - plastic
+        coeff: {}
+      - type: SKELETON
+        count: 1
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_bow_power1
+        coeff: {}
+        skills: []
+      name: 車
+      coeff: {}
+      skills: []
+    - point: '4'
+      type: CAMEL_HUSK
+      count: 1
+      delay: 6
+      passengers:
+      - type: ZOMBIE
+        name: 塑料骑士
+        count: 1
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_iron_spear
+        skills:
+        - plastic
+      - type: SKELETON
+        count: 1
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_bow_power1
+      name: 車
+    - point: '3'
+      type: HORSE
+      count: 1
+      delay: 3
+      passengers:
+      - type: VINDICATOR
+        count: 1
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_iron_spear
+      name: 馬
+    - point: '4'
+      type: HORSE
+      count: 1
+      delay: 3
+      passengers:
+      - type: VINDICATOR
+        count: 1
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_iron_spear
+      name: 馬
+    - point: '3'
+      type: RAVAGER
+      count: 1
+      delay: 9
+      name: 象
+    - point: '4'
+      type: RAVAGER
+      count: 1
+      delay: 9
+      name: 象
+    - point: '5'
+      type: VINDICATOR
+      count: 2
+      delay: 15
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_crossbow_power2
+      name: 士
+    - point: boss
+      type: POLAR_BEAR
+      count: 1
+      delay: 30
+      passengers:
+      - type: EVOKER
+        name: <gold>秦始皇</gold>
+        boss_bar: true
+        count: 1
+        coeff: {}
+        skills: []
+      coeff: {}
+      skills: []
+  s2_crimson_tunnel:
+    关卡名称: 猩红甬道
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: ZOMBIE
+      repeat: 5
+      count: 5
+      coeff:
+        hp: 0.5
+        scale: 0.7
+      delay: 10
+    - point: '2'
+      type: ZOMBIE
+      repeat: 5
+      count: 5
+      coeff:
+        hp: 0.5
+        scale: 0.7
+      delay: 10
+    - point: '3'
+      type: ZOMBIE
+      name: <light_purple>感染者</light_purple>
+      repeat: 2
+      count: 5
+      coeff:
+        hp: 1.0
+      delay: 20
+      on_death:
+      - type: WITHER_SKELETON
+        count: 1
+        coeff:
+          hp: 0.1
+          scale: 0.7
+        skills:
+        - berserk
+    - point: '4'
+      type: ZOMBIE
+      name: <light_purple>感染者</light_purple>
+      repeat: 2
+      count: 5
+      coeff:
+        hp: 1.0
+      delay: 20
+      on_death:
+      - type: WITHER_SKELETON
+        count: 1
+        coeff:
+          hp: 0.1
+          scale: 0.7
+        skills:
+        - berserk
+  s2_badlands_fake_death:
+    关卡名称: 弄假成真
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: HUSK
+      name: <light_purple>感染者</light_purple>
+      repeat: 5
+      count: 2
+      delay: 5
+      on_death:
+      - type: WITHER_SKELETON
+        name: 虚无凋灵骷髅
+        count: 1
+        coeff:
+          speed: 1.3
+        # 2026-10-29（用户设计案）：尸壳亡语出的凋灵骷髅挂「虚无」
+        # 2026-10-29 二次调整：每只尸壳只爆 1 只（原 2 只 → 一轮 40 只虚无怪，10 击必死 = 400 刀，太硬）
+        skills: [void, void_frail]
+      skills:
+      - infected
+      - quicksand
+    - point: '2'
+      type: HUSK
+      name: <light_purple>感染者</light_purple>
+      repeat: 5
+      count: 2
+      delay: 5
+      on_death:
+      - type: WITHER_SKELETON
+        name: 虚无凋灵骷髅
+        count: 1
+        coeff:
+          speed: 1.3
+        # 2026-10-29（用户设计案）：尸壳亡语出的凋灵骷髅挂「虚无」
+        # 2026-10-29 二次调整：每只尸壳只爆 1 只（原 2 只 → 一轮 40 只虚无怪，10 击必死 = 400 刀，太硬）
+        skills: [void, void_frail]
+      skills:
+      - infected
+      - quicksand
+  # 2026-10-29（用户设计案）：接手 s2_badlands_contamination「本能污染」的位置，但**放进 act2 基础强怪池**
+  # （保证基础强怪条目恒 ≥ 3，见 pools.act2.strong 的注释）。
+  # 机制：1-4 号点各 1 只**站桩唤魔者**，每 10s 对每个玩家各射一束"弱化光束"（3 连发 × 6 点）；
+  #       5 号点与 boss 点每 2s 出 1 只 scale×0.5 的卫道士，每点共 10 只（= 20 只杂兵持续压场）。
+  # 打法：光束打的是"站着不动的人"，杂兵逼你动 → 必须边跑边清，读条期换位。
+  s2_academy:
+    关卡名称: 育英圣堂
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: EVOKER
+      name: <dark_purple>圣堂狙击手</dark_purple>
+      count: 1
+      coeff:
+        hp: 2.5
+      delay: 0
+      skills:
+      - rooted
+      - academy_beam
+    - point: '2'
+      type: EVOKER
+      name: <dark_purple>圣堂狙击手</dark_purple
+      count: 1
+      coeff:
+        hp: 2.5
+      delay: 0
+      skills:
+      - rooted
+      - academy_beam
+    - point: '3'
+      type: EVOKER
+      name: <dark_purple>圣堂狙击手</dark_purple>
+      count: 1
+      coeff:
+        hp: 2.5
+      delay: 0
+      skills:
+      - rooted
+      - academy_beam
+    - point: '4'
+      type: EVOKER
+      name: <dark_purple>圣堂狙击手</dark_purple>
+      count: 1
+      coeff:
+        hp: 2.5
+      delay: 0
+      skills:
+      - rooted
+      - academy_beam
+    - point: '5'
+      type: VINDICATOR
+      count: 1
+      repeat: 10
+      coeff:
+        hp: 2
+        scale: 0.5
+      delay: 2
+      skills: []
+    - point: boss
+      type: VINDICATOR
+      count: 1
+      repeat: 10
+      coeff:
+        hp: 2
+        scale: 0.5
+      delay: 2
+  s2_giant_cradle:
+    关卡名称: 巨人摇篮
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: SHULKER
+      name: <aqua>屏障·潜影贝</aqua>
+      count: 1
+      coeff:
+        hp: 2
+      delay: 0
+      skills:
+      - barrier
+    - point: '2'
+      type: SHULKER
+      name: <aqua>屏障·潜影贝</aqua>
+      count: 1
+      coeff:
+        hp: 2
+      delay: 0
+      skills:
+      - barrier
+    - point: '3'
+      type: SHULKER
+      name: <aqua>屏障·潜影贝</aqua>
+      count: 1
+      coeff:
+        hp: 2
+      delay: 0
+      skills:
+      - barrier
+    - point: '4'
+      type: SHULKER
+      name: <aqua>屏障·潜影贝</aqua>
+      count: 1
+      coeff:
+        hp: 2
+      delay: 0
+      skills:
+      - barrier
+    - point: boss
+      type: DROWNED
+      name: <aqua>屏障防御者</aqua>
+      count: 1
+      coeff:
+        hp: 10
+        speed: 2
+      delay: 0
+      skills:
+      - barrier
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_diamond_sword
+      - slot: HEAD
+        item: maggoteers:mob_diamond_helmet
+      - slot: CHEST
+        item: maggoteers:mob_diamond_chest
+      - slot: LEGS
+        item: maggoteers:mob_diamond_legs
+      - slot: FEET
+        item: maggoteers:mob_diamond_boots
+  s2_badlands_bully:
+    关卡名称: 恃强凌弱
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '3'
+      type: WITHER_SKELETON
+      repeat: 5
+      count: 2
+      coeff:
+        scale: 0.4
+        speed: 1.5
+      delay: 5
+      skills: []
+      name: <dark_purple>大块头</dark_purple>
+    - point: '4'
+      type: WITHER_SKELETON
+      repeat: 5
+      count: 2
+      coeff:
+        scale: 0.4
+        speed: 1.5
+      delay: 5
+      name: <dark_purple>大块头</dark_purple>
+  s2_grave_blind_box:
+    关卡名称: 盲盒市场
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      delay: 0
+      on_death:
+      - type: ZOMBIE
+        count: 1
+        coeff:
+          speed: 2.0
+          dmg: 2.0
+      skills:
+      - infected
+      - quicksand
+    - point: '1'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      delay: 3
+      on_death:
+      - type: SKELETON
+        count: 1
+        coeff:
+          hp: 3.0
+      skills:
+      - infected
+      - quicksand
+    - point: '1'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      delay: 3
+      on_death:
+      - type: CREEPER
+        count: 1
+        coeff:
+          hp: 20.0
+          speed: 2.0
+      skills:
+      - infected
+      - quicksand
+    - point: '2'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      delay: 3
+      on_death:
+      - type: SPIDER
+        count: 1
+        coeff:
+          scale: 0.4
+          hp: 1.5
+      skills:
+      - infected
+      - quicksand
+    - point: '2'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      delay: 3
+      on_death:
+      - type: WITHER_SKELETON
+        count: 1
+      skills:
+      - infected
+      - quicksand
+    - point: '2'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      delay: 3
+      on_death:
+      - type: ZOMBIFIED_PIGLIN
+        count: 1
+        coeff:
+          hp: 2.0
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_gold_spear
+      skills:
+      - infected
+      - quicksand
+    - point: '3'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      delay: 3
+      on_death:
+      - type: ENDERMITE
+        count: 5
+      skills:
+      - infected
+      - quicksand
+    - point: '3'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      delay: 3
+      on_death:
+      - type: CAVE_SPIDER
+        count: 2
+      skills:
+      - infected
+      - quicksand
+    - point: '3'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      delay: 3
+      on_death:
+      - type: ZOMBIFIED_PIGLIN
+        count: 1
+      skills:
+      - infected
+      - quicksand
+    - point: '4'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      delay: 3
+      on_death:
+      - type: BOGGED
+        count: 1
+      skills:
+      - infected
+      - quicksand
+    - point: '4'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      delay: 3
+      on_death:
+      - type: STRAY
+        count: 1
+        coeff:
+          speed: 2.0
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_bow_punch2
+      skills:
+      - infected
+      - quicksand
+    - point: '4'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      delay: 3
+      on_death:
+      - type: HUSK
+        count: 1
+        coeff:
+          hp: 5.0
+          speed: 0.8
+          dmg: 2.0
+        skills:
+        - quicksand
+      skills:
+      - infected
+      - quicksand
+    - point: '5'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      delay: 3
+      on_death:
+      - type: DROWNED
+        count: 1
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_trident
+      skills:
+      - infected
+      - quicksand
+    - point: '5'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      delay: 3
+      on_death:
+      - type: ZOMBIE
+        count: 1
+        coeff:
+          speed: 2.0
+          dmg: 2.0
+      skills:
+      - infected
+      - quicksand
+    - point: '5'
+      type: SLIME
+      name: <light_purple>感染者</light_purple>
+      count: 1
+      delay: 3
+      on_death:
+      - type: SKELETON
+        count: 1
+        coeff:
+          hp: 3.0
+      skills:
+      - infected
+      - quicksand
+  # 2026-10-29（用户设计案）重做：四波"亡灵小队"，每波间隔 10s，每队配 1 个 healer 僵尸
+  # （healer 已加强到 1s / 6 点，所以"先切奶"重新变成必做功课）。
+  # 血量按绝对 HP 折算 coeff：僵尸/尸壳基础 20、溺尸基础 20 ⇒ 100 血 = hp 5.0、80 = 4.0、120 = 6.0。
+  s2_grave_march:
+    关卡名称: 亡者行军
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: ZOMBIE
+      name: <green>医师</green>
+      count: 6
+      coeff:
+        hp: 5
+      delay: 0
+      skills:
+      - healer
+    - point: '2'
+      type: HUSK
+      count: 5
+      coeff:
+        hp: 4
+      delay: 10
+      skills:
+      - vengeance
+      name: <gold>复仇者</gold>
+    - point: '2'
+      type: ZOMBIE
+      name: <green>医师</green>
+      count: 1
+      coeff:
+        hp: 5
+      delay: 10
+      skills:
+      - healer
+    - point: '3'
+      type: HUSK
+      count: 3
+      coeff:
+        hp: 4
+      delay: 20
+      skills:
+      - vengeance
+      name: <gold>复仇者</gold>
+    - point: '3'
+      type: DROWNED
+      count: 2
+      coeff:
+        hp: 6
+      delay: 20
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_trident
+      skills: []
+    - point: '3'
+      type: ZOMBIE
+      name: <green>医师</green>
+      count: 1
+      coeff:
+        hp: 5
+      delay: 20
+      skills:
+      - healer
+    - point: '4'
+      type: DROWNED
+      count: 4
+      coeff:
+        hp: 6
+      delay: 30
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_trident
+    - point: '4'
+      type: ZOMBIE
+      name: <green>医师</green>
+      count: 2
+      coeff:
+        hp: 5
+      delay: 30
+      skills:
+      - healer
+  s2_grave_phantoms:
+    关卡名称: 神出鬼没
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: PILLAGER
+      count: 5
+      delay: 5
+      skills:
+      - invisible
+    - point: '2'
+      type: VINDICATOR
+      count: 5
+      delay: 10
+      skills:
+      - invisible
+    - point: '3'
+      type: WITCH
+      count: 5
+      delay: 15
+      skills:
+      - invisible
+    - point: '4'
+      type: PILLAGER
+      count: 5
+      delay: 20
+      skills:
+      - invisible
+    - point: '5'
+      type: EVOKER
+      count: 1
+      delay: 25
+      skills:
+      - invisible
+  b2_silent_guard:
+    关卡名称: 卫士不语功
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_boss
+      amount: 1
+    - item: maggoteers:currency_normal
+      amount: 3
+    steps:
+    - point: '1'
+      type: PIGLIN_BRUTE
+      count: 1
+      delay: 0
+      coeff: {}
+      skills: []
+    - point: '1'
+      type: PIGLIN_BRUTE
+      count: 1
+      delay: 10
+      coeff: {}
+      skills: []
+    - point: '2'
+      type: PIGLIN_BRUTE
+      count: 1
+      delay: 0
+      coeff: {}
+      skills: []
+    - point: '2'
+      type: PIGLIN_BRUTE
+      count: 1
+      delay: 10
+      coeff: {}
+      skills: []
+    - point: '3'
+      type: PIGLIN
+      repeat: 10
+      count: 1
+      coeff:
+        hp: 4
+      delay: 2
+      equipment:
+      - slot: HEAD
+        item: maggoteers:mob_gold_helmet
+      - slot: CHEST
+        item: maggoteers:mob_gold_chest
+      - slot: LEGS
+        item: maggoteers:mob_gold_legs
+      - slot: FEET
+        item: maggoteers:mob_gold_boots
+      skills: []
+    - point: '4'
+      type: PIGLIN
+      repeat: 10
+      count: 1
+      coeff:
+        hp: 4
+      delay: 2
+      equipment:
+      - slot: HEAD
+        item: maggoteers:mob_gold_helmet
+      - slot: CHEST
+        item: maggoteers:mob_gold_chest
+      - slot: LEGS
+        item: maggoteers:mob_gold_legs
+      - slot: FEET
+        item: maggoteers:mob_gold_boots
+      skills: []
+    - point: '5'
+      type: PIGLIN
+      count: 2
+      coeff:
+        hp: 4
+      delay: 0
+      equipment:
+      - slot: HEAD
+        item: maggoteers:mob_gold_helmet
+      - slot: CHEST
+        item: maggoteers:mob_gold_chest
+      - slot: LEGS
+        item: maggoteers:mob_gold_legs
+      - slot: FEET
+        item: maggoteers:mob_gold_boots
+      - slot: HAND
+        item: maggoteers:mob_crossbow
+      skills: []
+    - point: '5'
+      type: PIGLIN_BRUTE
+      count: 2
+      coeff:
+        hp: 2
+      delay: 20
+      equipment:
+      - slot: HEAD
+        item: maggoteers:mob_gold_helmet
+      - slot: CHEST
+        item: maggoteers:mob_gold_chest
+      - slot: LEGS
+        item: maggoteers:mob_gold_legs
+      - slot: FEET
+        item: maggoteers:mob_gold_boots
+      - slot: HAND
+        item: maggoteers:mob_crossbow
+      skills: []
+    - point: boss
+      type: HOGLIN
+      count: 1
+      boss_bar: false
+      name: ''
+      coeff:
+        hp: 2
+        speed: 1.5
+      delay: 0
+      passengers:
+      - type: PIGLIN
+        count: 1
+        coeff:
+          hp: 10
+          speed: 0.5
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_crossbow_power3
+        - slot: OFF_HAND
+          item: maggoteers:mob_gold_sword_flame
+        skills:
+        - molten
+        - ghastly
+        boss_bar: true
+        name: <gold>“猪灵将军”</gold>
+      skills: []
+  b2_breath:
+    关卡名称: 呼吸
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_boss
+      amount: 1
+    - item: maggoteers:currency_normal
+      amount: 3
+    steps:
+    - point: '1'
+      type: VINDICATOR
+      count: 1
+      delay: 5
+    - point: '2'
+      type: VINDICATOR
+      count: 1
+      delay: 10
+    - point: '3'
+      type: VINDICATOR
+      count: 1
+      delay: 15
+    - point: '4'
+      type: VINDICATOR
+      count: 1
+      delay: 20
+    - point: '5'
+      type: VINDICATOR
+      count: 1
+      delay: 25
+    - point: boss
+      type: WARDEN
+      name: <gold>“邪魔的利刃”</gold>
+      count: 1
+      coeff:
+        hp: 1.2
+        speed: 0.8
+        dmg:
+      delay: 30
+      boss_bar: true
+      skills:
+      - blinding
+      - wardenwrath
+      - confusing
+  # 2026-10-29（用户设计案）重做：除双 Boss 外，其他刷怪点改为
+  #   3 波「冰冻 + 流沙」苦力怕（每波 15s 间隔，1-4 号点同时出）+ 1 波流浪者。
+  # 双 Boss 双方都带冰冻：霜牡（近战）靠 refrigerate（攻击命中挂冻结）；
+  # 雪牝（远程）命中无法触发 attack 钩子，改用 frost_shot 平替（tick + 半径条件 → 全场冻结）。
+  b2_frost_farewell:
+    关卡名称: 寒渊惜别
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_boss
+      amount: 1
+    - item: maggoteers:currency_normal
+      amount: 3
+    steps:
+    - point: '1'
+      type: CREEPER
+      count: 3
+      repeat: 3
+      delay: 15
+      coeff: {speed: 1.5}
+      skills: [refrigerate, quicksand]
+    - point: '2'
+      type: CREEPER
+      count: 3
+      repeat: 3
+      delay: 15
+      coeff: {speed: 1.5}
+      skills: [refrigerate, quicksand]
+    - point: '3'
+      type: CREEPER
+      count: 3
+      repeat: 3
+      delay: 15
+      coeff: {speed: 1.5}
+      skills: [refrigerate, quicksand]
+    - point: '4'
+      type: CREEPER
+      count: 3
+      repeat: 3
+      delay: 15
+      coeff: {speed: 1.5}
+      skills: [refrigerate, quicksand]
+    - point: '1'
+      type: STRAY
+      count: 2
+      delay: 15
+      coeff: {speed: 2.0}
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_bow_power4
+    - point: '2'
+      type: STRAY
+      count: 2
+      delay: 15
+      coeff: {speed: 2.0}
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_bow_power4
+    - point: '3'
+      type: STRAY
+      count: 2
+      delay: 15
+      coeff: {speed: 2.0}
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_bow_power4
+    - point: '4'
+      type: STRAY
+      count: 2
+      delay: 15
+      coeff: {speed: 2.0}
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_bow_power4
+    - point: boss
+      type: STRAY
+      name: <gold>“雪牝”</gold>
+      count: 1
+      boss_bar: true
+      coeff:
+        hp: 10.0
+        scale: 1.2
+      delay: 0
+      equipment:
+      - slot: HEAD
+        item: maggoteers:mob_diamond_helmet
+      - slot: HAND
+        item: maggoteers:mob_bow_power5
+      skills:
+      - refrigerate
+      - refrigerate_retaliate
+      - frost_shot
+    - point: boss
+      type: STRAY
+      name: <gold>“霜牡”</gold>
+      count: 1
+      boss_bar: true
+      coeff:
+        hp: 10.0
+        scale: 1.2
+      delay: 0
+      equipment:
+      - slot: HEAD
+        item: maggoteers:mob_diamond_helmet
+      - slot: HAND
+        item: maggoteers:mob_diamond_axe_sharp5
+      skills:
+      - refrigerate
+      - refrigerate_retaliate
+  b2_musketeers:
+    关卡名称: 仁·义·武
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_boss
+      amount: 1
+    - item: maggoteers:currency_normal
+      amount: 3
+    steps:
+    - point: '1'
+      type: HUSK
+      count: 3
+      delay: 4
+      repeat: 3
+      coeff:
+        hp: 3
+        dmg:
+        speed:
+        scale: 1.3
+      skills: []
+      passengers: []
+      on_death: []
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_iron_spear
+    - point: '2'
+      type: HUSK
+      count: 3
+      delay: 4
+      repeat: 3
+      coeff:
+        hp: 3
+        speed:
+        scale: 1.3
+      skills: []
+      passengers: []
+      on_death: []
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_iron_spear
+    - point: boss
+      type: HUSK
+      count: 1
+      delay: 10
+      repeat: 1
+      coeff:
+        hp: 30
+        dmg:
+        speed: 1.2
+        scale: 1.8
+      skills:
+      - weakness
+      passengers: []
+      on_death: []
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_iron_spear
+      - slot: HEAD
+        item: maggoteers:mob_netherite_helmet
+      - slot: CHEST
+        item: maggoteers:mob_netherite_chest
+      - slot: LEGS
+        item: maggoteers:mob_netherite_legs
+      - slot: FEET
+        item: maggoteers:mob_netherite_boots
+      name: <red>桓君
+      boss_bar: true
+    - point: '3'
+      type: WITHER_SKELETON
+      count: 5
+      delay: 30
+      repeat: 1
+      coeff:
+        hp: 2
+      skills: []
+      passengers: []
+      on_death: []
+      equipment: []
+    - point: '4'
+      type: WITHER_SKELETON
+      count: 5
+      delay: 30
+      repeat: 1
+      coeff:
+        hp: 2
+      skills: []
+      passengers: []
+      on_death: []
+      equipment: []
+    - point: boss
+      type: WITHER_SKELETON
+      count: 1
+      delay: 30
+      repeat: 1
+      coeff:
+        hp: 15
+        dmg: 1.25
+        scale: 1.8
+      skills:
+      - wardenwrath
+      passengers: []
+      on_death: []
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_iron_sword_reach
+      - slot: HEAD
+        item: maggoteers:mob_diamond_helmet
+      - slot: CHEST
+        item: maggoteers:mob_diamond_chest
+      - slot: LEGS
+        item: maggoteers:mob_diamond_legs
+      - slot: FEET
+        item: maggoteers:mob_diamond_boots
+      name: <green>文衡君
+      boss_bar: true
+    - point: '5'
+      type: STRAY
+      count: 9
+      delay: 60
+      repeat: 1
+      coeff:
+        hp: 2
+        speed: 1.2
+      skills: []
+      passengers: []
+      on_death: []
+      equipment: []
+    - point: boss
+      type: STRAY
+      count: 1
+      delay: 20
+      repeat: 1
+      coeff:
+        hp: 10
+        dmg: 1.5
+        speed: 1.2
+        scale: 1.8
+      skills:
+      - lifesteal
+      - healer
+      passengers: []
+      on_death: []
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_iron_sword_ub10
+      - slot: OFF_HAND
+        item: maggoteers:mob_iron_sword_ub10
+      - slot: HEAD
+        item: maggoteers:mob_iron_helmet_ub10
+      - slot: CHEST
+        item: maggoteers:mob_iron_chest_ub10
+      - slot: LEGS
+        item: maggoteers:mob_iron_legs_ub10
+      - slot: FEET
+        item: maggoteers:mob_iron_boots_ub10
+      name: <gold>昭烈君
+      boss_bar: true
+  w3_rabbit_holes:
+    关卡名称: 狡兔九窟
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: RABBIT
+      name: <gray>死灵法师</gray>
+      count: 1
+      coeff:
+        speed: 1.2
+      delay: 0
+      skills:
+      - necromancer
+    - point: '2'
+      type: RABBIT
+      name: <gray>死灵法师</gray>
+      count: 1
+      coeff:
+        speed: 1.2
+      delay: 0
+      skills:
+      - necromancer
+    - point: '3'
+      type: RABBIT
+      name: <gray>死灵法师</gray>
+      count: 1
+      coeff:
+        speed: 1.2
+      delay: 0
+      skills:
+      - necromancer
+    - point: '4'
+      type: RABBIT
+      name: <gray>死灵法师</gray>
+      count: 1
+      coeff:
+        speed: 1.2
+      delay: 0
+      skills:
+      - necromancer
+    - point: '5'
+      type: RABBIT
+      name: <gray>死灵法师</gray>
+      count: 1
+      coeff:
+        speed: 1.2
+      delay: 0
+      skills:
+      - necromancer
+  w3_duck_ops:
+    关卡名称: 鸭本运作
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      name: <gold>“鸭爵”</gold>
+      type: CHICKEN
+      count: 1
+      coeff:
+        hp: 10.0
+        speed: 2.0
+      delay: 0
+      skills:
+      - tosser
+    - point: '2'
+      name: <gold>“高普尼克”</gold>
+      type: POLAR_BEAR
+      count: 1
+      coeff:
+        hp: 10.0
+        dmg: 3.0
+      delay: 0
+      skills:
+      - berserk
+    - point: '3'
+      name: <gold>“流泪小子”</gold>
+      type: WOLF
+      count: 1
+      coeff:
+        hp: 5.0
+        dmg: 4.0
+      delay: 0
+      skills:
+      - invisible
+    - point: '4'
+      name: <gold>“圆仔”</gold>
+      type: ARMADILLO
+      count: 1
+      delay: 0
+      skills:
+      - vengeance
+  w3_lights_out:
+    关卡名称: 天黑请闭眼
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: CREAKING
+      name: <light_purple>虚无·嘎吱</light_purple>
+      count: 1
+      coeff:
+        dmg: 100
+        speed: 2
+      delay: 0
+      skills:
+      - void
+      - void_frail
+    - point: '2'
+      type: CREAKING
+      name: <light_purple>虚无·嘎吱</light_purple>
+      count: 1
+      coeff:
+        dmg: 100
+        speed: 2
+      delay: 0
+      skills:
+      - void
+      - void_frail
+    - point: '3'
+      type: CREAKING
+      name: <light_purple>虚无·嘎吱</light_purple>
+      count: 1
+      coeff:
+        dmg: 100
+        speed: 2
+      delay: 0
+      skills:
+      - void
+      - void_frail
+    - point: '4'
+      type: CREAKING
+      name: <light_purple>虚无·嘎吱</light_purple>
+      count: 1
+      coeff:
+        dmg: 100
+        speed: 2
+      delay: 0
+      skills:
+      - void
+      - void_frail
+    - point: '5'
+      type: CREAKING
+      name: <light_purple>虚无·嘎吱</light_purple>
+      count: 1
+      coeff:
+        dmg: 100
+        speed: 2
+      delay: 0
+      skills:
+      - void
+      - void_frail
+  s3_surprise_factory:
+    关卡名称: 惊喜工厂
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: WITHER_SKELETON
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      coeff:
+        hp: 3.0
+        dmg: 2.0
+      delay: 0
+      on_death:
+      - type: CREEPER
+        name: 塑料苦力怕
+        count: 1
+        coeff:
+          speed: 1.5
+        skills:
+        - plastic
+      skills:
+      - infected
+    - point: '2'
+      type: WITHER_SKELETON
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      coeff:
+        hp: 3.0
+        dmg: 2.0
+      delay: 5
+      on_death:
+      - type: CREEPER
+        name: 塑料苦力怕
+        count: 1
+        coeff:
+          speed: 1.5
+        skills:
+        - plastic
+      skills:
+      - infected
+    - point: '3'
+      type: WITHER_SKELETON
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      coeff:
+        hp: 3.0
+        dmg: 2.0
+      delay: 10
+      on_death:
+      - type: CREEPER
+        name: 塑料苦力怕
+        count: 1
+        coeff:
+          speed: 2.0
+        skills:
+        - plastic
+      skills:
+      - infected
+    - point: '4'
+      type: WITHER_SKELETON
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      coeff:
+        hp: 3.0
+        dmg: 2.0
+      delay: 15
+      on_death:
+      - type: CREEPER
+        name: 塑料苦力怕
+        count: 2
+        coeff:
+          speed: 2.0
+        skills:
+        - plastic
+      skills:
+      - infected
+    - point: '5'
+      type: WITHER_SKELETON
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      coeff:
+        hp: 4.0
+        dmg: 2.0
+      delay: 20
+      on_death:
+      - type: CREEPER
+        name: 塑料苦力怕
+        count: 2
+        coeff:
+          speed: 2.0
+          scale: 0.7
+        skills:
+        - plastic
+      skills:
+      - infected
+  s3_across_fire:
+    关卡名称: 隔岸观火
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: PILLAGER
+      count: 5
+      coeff:
+        hp: 4
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_crossbow
+      skills:
+      - molten
+    - point: '2'
+      type: PILLAGER
+      count: 5
+      coeff:
+        hp: 4
+      delay: 8
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_crossbow
+      skills:
+      - molten
+    - point: '3'
+      type: PILLAGER
+      count: 8
+      coeff:
+        hp: 6
+      delay: 0
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_crossbow
+      skills:
+      - molten
+    - point: '4'
+      type: PILLAGER
+      count: 8
+      coeff:
+        hp: 6
+      delay: 5
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_crossbow
+      skills:
+      - molten
+    - point: '5'
+      type: PILLAGER
+      count: 2
+      coeff:
+        hp: 8
+        speed: 1.2
+      delay: 10
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_crossbow
+      skills:
+      - molten
+    - point: '5'
+      type: PILLAGER
+      count: 2
+      coeff:
+        hp: 8
+        speed: 1.2
+      delay: 2
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_crossbow
+      skills:
+      - molten
+    - point: '5'
+      type: WITCH
+      name: <green>医师</green>
+      count: 2
+      coeff:
+        hp: 4
+      delay: 12
+      skills:
+      - healer
+  s3_chaos_facade:
+    关卡名称: 混乱的表象
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: ZOMBIE
+      count: 1
+      delay: 5
+    - point: '1'
+      type: HUSK
+      count: 1
+      delay: 5
+      skills:
+      - quicksand
+    - point: '1'
+      type: DROWNED
+      count: 1
+      delay: 5
+    - point: '1'
+      type: ZOMBIE_VILLAGER
+      count: 1
+      delay: 5
+    - point: '1'
+      type: CREEPER
+      count: 1
+      delay: 5
+    - point: '2'
+      type: SPIDER
+      count: 1
+      delay: 5
+    - point: '2'
+      type: CAVE_SPIDER
+      count: 1
+      delay: 5
+    - point: '2'
+      type: ENDERMITE
+      count: 1
+      delay: 5
+    - point: '2'
+      type: SLIME
+      count: 1
+      delay: 5
+      skills:
+      - quicksand
+    - point: '2'
+      type: MAGMA_CUBE
+      count: 1
+      delay: 5
+    - point: '3'
+      type: WITCH
+      count: 1
+      delay: 5
+    - point: '3'
+      type: VINDICATOR
+      count: 1
+      delay: 5
+    - point: '3'
+      type: PILLAGER
+      count: 1
+      delay: 5
+    - point: '3'
+      type: EVOKER
+      count: 1
+      delay: 5
+    - point: '3'
+      type: PIGLIN
+      count: 1
+      coeff:
+        hp: 2.0
+      delay: 5
+    - point: '3'
+      type: PIGLIN_BRUTE
+      count: 1
+      delay: 5
+    - point: '4'
+      type: GUARDIAN
+      count: 1
+      delay: 5
+    - point: '4'
+      type: CREAKING
+      count: 1
+      delay: 5
+    - point: '4'
+      type: ZOMBIFIED_PIGLIN
+      count: 1
+      delay: 5
+    - point: '4'
+      type: ZOGLIN
+      count: 1
+      delay: 5
+    - point: '4'
+      type: HOGLIN
+      count: 1
+      delay: 5
+    - point: '5'
+      type: SKELETON
+      count: 1
+      delay: 5
+    - point: '5'
+      type: STRAY
+      count: 1
+      delay: 5
+    - point: '5'
+      type: BOGGED
+      count: 1
+      delay: 5
+    - point: '5'
+      type: WITHER_SKELETON
+      count: 1
+      delay: 5
+    - point: '5'
+      type: PARCHED
+      count: 1
+      delay: 5
+    - point: boss
+      type: BREEZE
+      coeff:
+        scale: 3.0
+        hp: 3.0
+      count: 1
+      delay: 5
+      boss_bar: true
+  s3_out_of_control:
+    关卡名称: 失控
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: VINDICATOR
+      name: 狂暴宿主
+      repeat: 2
+      count: 1
+      coeff:
+        hp: 8
+        dmg: 2
+      delay: 10
+      skills:
+      - plastic
+      - withering
+    - point: '2'
+      type: PILLAGER
+      name: 狂暴掷骨手
+      repeat: 2
+      count: 1
+      coeff:
+        hp: 5
+        dmg: 2
+      delay: 10
+      skills:
+      - plastic
+      - withering
+    - point: '3'
+      type: VINDICATOR
+      name: 狂暴宿主组长
+      repeat: 2
+      count: 1
+      coeff:
+        hp: 10
+        dmg: 3
+      delay: 20
+      skills:
+      - plastic
+      - withering
+    - point: '4'
+      type: PILLAGER
+      name: 狂暴掷骨手组长
+      repeat: 2
+      count: 1
+      coeff:
+        hp: 8
+        dmg: 3
+      delay: 20
+      skills:
+      - plastic
+      - withering
+    - point: '5'
+      type: CREEPER
+      name: 塑料苦力怕
+      repeat: 4
+      count: 1
+      coeff:
+        hp: 5
+        dmg: 3
+      delay: 15
+      skills:
+      - plastic
+      - withering
+      - refrigerate
+  s3_keep_out:
+    关卡名称: 生人勿近
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: SPIDER
+      name: <light_purple>感染者</light_purple>
+      count: 2
+      coeff:
+        hp: 3.75
+        speed: 0.6
+        scale: 1.5
+        dmg: 5.5
+      delay: 0
+      passengers:
+      - type: SKELETON
+        count: 1
+        equipment:
+        - slot: HEAD
+          item: maggoteers:mob_iron_helmet_ub10
+        - slot: HAND
+          item: maggoteers:mob_iron_sword_ub10
+      on_death:
+      - type: CAVE_SPIDER
+        name: 虚无洞穴蜘蛛
+        count: 2
+        # 2026-10-29（用户设计案）：亡语洞穴蜘蛛挂「虚无」
+        skills:
+        - cloaked
+        - void
+        - void_frail
+      skills:
+      - exoskeleton
+      - infected
+    - point: '2'
+      type: SPIDER
+      name: <light_purple>感染者</light_purple>
+      count: 2
+      coeff:
+        hp: 3.75
+        speed: 0.6
+        scale: 1.5
+        dmg: 5.5
+      delay: 15
+      passengers:
+      - type: SKELETON
+        count: 1
+        equipment:
+        - slot: HEAD
+          item: maggoteers:mob_iron_helmet_ub10
+        - slot: HAND
+          item: maggoteers:mob_iron_sword_ub10
+      on_death:
+      - type: CAVE_SPIDER
+        name: 虚无洞穴蜘蛛
+        count: 2
+        # 2026-10-29（用户设计案）：亡语洞穴蜘蛛挂「虚无」
+        skills:
+        - cloaked
+        - void
+        - void_frail
+      skills:
+      - exoskeleton
+      - infected
+    - point: '3'
+      type: SPIDER
+      name: <light_purple>感染者</light_purple>
+      count: 2
+      coeff:
+        hp: 3.75
+        scale: 1.5
+        speed: 0.6
+        dmg: 5.5
+      delay: 0
+      passengers:
+      - type: SKELETON
+        count: 1
+        equipment:
+        - slot: HEAD
+          item: maggoteers:mob_diamond_helmet
+        - slot: HAND
+          item: maggoteers:mob_iron_axe
+      on_death:
+      - type: CAVE_SPIDER
+        name: 虚无洞穴蜘蛛
+        count: 3
+        # 2026-10-29（用户设计案）：亡语洞穴蜘蛛挂「虚无」
+        skills:
+        - cloaked
+        - void
+        - void_frail
+      skills:
+      - exoskeleton
+      - infected
+    - point: '4'
+      type: SPIDER
+      name: <light_purple>感染者</light_purple>
+      count: 2
+      coeff:
+        hp: 3.75
+        scale: 1.5
+        speed: 0.6
+        dmg: 5.5
+      delay: 10
+      passengers:
+      - type: SKELETON
+        count: 1
+        equipment:
+        - slot: HEAD
+          item: maggoteers:mob_diamond_helmet
+        - slot: HAND
+          item: maggoteers:mob_iron_axe
+      on_death:
+      - type: CAVE_SPIDER
+        name: 虚无洞穴蜘蛛
+        count: 3
+        # 2026-10-29（用户设计案）：亡语洞穴蜘蛛挂「虚无」
+        skills:
+        - cloaked
+        - void
+        - void_frail
+      skills:
+      - exoskeleton
+      - infected
+    - point: '5'
+      type: SPIDER
+      name: <light_purple>感染者</light_purple>
+      count: 2
+      coeff:
+        hp: 3.75
+        scale: 2.0
+        speed: 0.8
+        dmg: 5.5
+      delay: 0
+      passengers:
+      - type: SKELETON
+        count: 1
+        coeff:
+          hp: 2.0
+        equipment:
+        - slot: HEAD
+          item: maggoteers:mob_diamond_helmet
+        - slot: CHEST
+          item: maggoteers:mob_diamond_chest
+        - slot: LEGS
+          item: maggoteers:mob_diamond_legs
+        - slot: FEET
+          item: maggoteers:mob_diamond_boots
+        - slot: HAND
+          item: maggoteers:mob_iron_axe
+      on_death:
+      - type: CAVE_SPIDER
+        name: 虚无洞穴蜘蛛
+        count: 4
+        # 2026-10-29（用户设计案）：亡语洞穴蜘蛛挂「虚无」
+        skills:
+        - cloaked
+        - void
+        - void_frail
+      skills:
+      - exoskeleton
+      - infected
+  # 2026-10-29（用户口径）：猪灵全部替换为「持三叉戟的溺尸」（数值不动，只换实体与武器）
+  s3_fire_water:
+    关卡名称: 水火相容
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: CREEPER
+      count: 1
+      coeff:
+        speed: 1.3
+        hp: 3.0
+      delay: 10
+    - point: '2'
+      type: DROWNED
+      count: 1
+      coeff:
+        hp: 4.0
+        dmg: 3.2
+      delay: 0
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_trident
+    - point: '3'
+      type: CREEPER
+      count: 1
+      coeff:
+        speed: 1.3
+        hp: 3.0
+      delay: 0
+    - point: '4'
+      type: DROWNED
+      count: 1
+      coeff:
+        hp: 4.0
+        dmg: 3.2
+      delay: 0
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_trident
+    - point: '1'
+      type: DROWNED
+      count: 1
+      coeff:
+        hp: 4.0
+        dmg: 3.2
+      delay: 10
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_trident
+    - point: '2'
+      type: CREEPER
+      count: 1
+      coeff:
+        speed: 1.3
+        hp: 3.0
+      delay: 0
+    - point: '3'
+      type: DROWNED
+      count: 1
+      coeff:
+        hp: 4.0
+        dmg: 3.2
+      delay: 0
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_trident
+    - point: '4'
+      type: CREEPER
+      count: 1
+      coeff:
+        speed: 1.3
+        hp: 3.0
+      delay: 0
+    - point: '1'
+      type: CREEPER
+      count: 1
+      coeff:
+        speed: 1.3
+        hp: 3.0
+      delay: 10
+    - point: '2'
+      type: DROWNED
+      count: 1
+      coeff:
+        hp: 4.0
+        dmg: 3.2
+      delay: 0
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_trident
+    - point: '3'
+      type: CREEPER
+      count: 1
+      coeff:
+        speed: 1.3
+        hp: 3.0
+      delay: 0
+    - point: '4'
+      type: DROWNED
+      count: 1
+      coeff:
+        hp: 4.0
+        dmg: 3.2
+      delay: 0
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_trident
+    - point: '1'
+      type: DROWNED
+      count: 1
+      coeff:
+        hp: 4.0
+        dmg: 3.2
+      delay: 10
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_trident
+    - point: '2'
+      type: CREEPER
+      count: 1
+      coeff:
+        speed: 1.3
+        hp: 3.0
+      delay: 0
+    - point: '3'
+      type: DROWNED
+      count: 1
+      coeff:
+        hp: 4.0
+        dmg: 3.2
+      delay: 0
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_trident
+    - point: '4'
+      type: CREEPER
+      count: 1
+      coeff:
+        speed: 1.3
+        hp: 3.0
+      delay: 0
+    - point: '5'
+      type: ENDERMITE
+      name: <gold>庞贝</gold>
+      repeat: 2
+      count: 1
+      delay: 20
+      coeff:
+        hp: 21.0
+        scale: 4.0
+      boss_bar: true
+      skills:
+      - exoskeleton
+      - necromancer
+      - ghastly
+  # 2026-10-29（用户设计案）重做「建制」：从"一堆卫道士/女巫"改成**三波建制推进**（节奏型）
+  #   第一波（0s）先锋：加速卫道士，带失明 + 剧毒（poisonous 此前全项目无人用，这里首次上岗）
+  #   第二波（+15s）肉盾：移速缓慢的劫掠兽 + 每点 1 个 healer 女巫（healer 已加强到 1s/6 点）
+  #   第三波（+30s）输出手：每点 2 掠夺者 + 1 卫道士，boss 点一个加强唤魔者
+  # 1-5 号点各来一套；节奏是"先切后排治疗 → 再破肉盾 → 最后扛输出"。
+  s3_institution:
+    关卡名称: 建制
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    # ---- 第一波：先锋（失明 + 剧毒 + 加速）----
+    - {point: '1', type: VINDICATOR, count: 2, delay: 0, coeff: {hp: 2.5, speed: 1.4},
+      skills: [blinding, poisonous]}
+    - {point: '2', type: VINDICATOR, count: 2, delay: 0, coeff: {hp: 2.5, speed: 
+          1.4}, skills: [blinding, poisonous]}
+    - {point: '3', type: VINDICATOR, count: 2, delay: 0, coeff: {hp: 2.5, speed: 
+          1.4}, skills: [blinding, poisonous]}
+    - {point: '4', type: VINDICATOR, count: 2, delay: 0, coeff: {hp: 2.5, speed: 
+          1.4}, skills: [blinding, poisonous]}
+    - {point: '5', type: VINDICATOR, count: 2, delay: 0, coeff: {hp: 2.5, speed: 
+          1.4}, skills: [blinding, poisonous]}
+    # ---- 第二波：肉盾（缓慢劫掠兽 + healer 女巫）----
+    - {point: '1', type: RAVAGER, count: 1, delay: 15, coeff: {hp: 1.5, speed: 
+          0.5}}
+    - {point: '1', type: WITCH, name: <green>医师</green>, count: 1, delay: 0, coeff: {hp: 4.0}, skills: [
+          healer]}
+    - {point: '2', type: RAVAGER, count: 1, delay: 15, coeff: {hp: 1.5, speed: 
+          0.5}}
+    - {point: '2', type: WITCH, name: <green>医师</green>, count: 1, delay: 0, coeff: {hp: 4.0}, skills: [
+          healer]}
+    - {point: '3', type: RAVAGER, count: 1, delay: 15, coeff: {hp: 1.5, speed: 
+          0.5}}
+    - {point: '3', type: WITCH, name: <green>医师</green>, count: 1, delay: 0, coeff: {hp: 4.0}, skills: [
+          healer]}
+    - {point: '4', type: RAVAGER, count: 1, delay: 15, coeff: {hp: 1.5, speed: 
+          0.5}}
+    - {point: '4', type: WITCH, name: <green>医师</green>, count: 1, delay: 0, coeff: {hp: 4.0}, skills: [
+          healer]}
+    - {point: '5', type: RAVAGER, count: 1, delay: 15, coeff: {hp: 1.5, speed: 
+          0.5}}
+    - {point: '5', type: WITCH, name: <green>医师</green>, count: 1, delay: 0, coeff: {hp: 4.0}, skills: [
+          healer]}
+    # ---- 第三波：输出手（2 掠夺者 + 1 卫道士 / 点）----
+    - {point: '1', type: PILLAGER, count: 2, delay: 15, coeff: {hp: 3.0}}
+    - {point: '1', type: VINDICATOR, count: 1, delay: 0, coeff: {hp: 3.0}}
+    - {point: '2', type: PILLAGER, count: 2, delay: 15, coeff: {hp: 3.0}}
+    - {point: '2', type: VINDICATOR, count: 1, delay: 0, coeff: {hp: 3.0}}
+    - {point: '3', type: PILLAGER, count: 2, delay: 15, coeff: {hp: 3.0}}
+    - {point: '3', type: VINDICATOR, count: 1, delay: 0, coeff: {hp: 3.0}}
+    - {point: '4', type: PILLAGER, count: 2, delay: 15, coeff: {hp: 3.0}}
+    - {point: '4', type: VINDICATOR, count: 1, delay: 0, coeff: {hp: 3.0}}
+    - {point: '5', type: PILLAGER, count: 2, delay: 15, coeff: {hp: 3.0}}
+    - {point: '5', type: VINDICATOR, count: 1, delay: 0, coeff: {hp: 3.0}}
+    # boss 点：加强唤魔者（人形炮台，会招恼鬼）
+    - point: boss
+      type: EVOKER
+      name: <blue>风暴术师</blue>
+      count: 1
+      coeff: {hp: 5.0, scale: 1.3}
+      delay: 15
+      skills: [storm]
+  s3_witch_pact:
+    关卡名称: 巫咒同盟
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: WITCH
+      repeat: 4
+      count: 1
+      delay: 10
+      coeff:
+        hp: 5
+      skills: []
+    - point: '2'
+      type: EVOKER
+      repeat: 1
+      count: 1
+      delay: 20
+      coeff:
+        hp: 5
+      skills: []
+    - point: '3'
+      type: BLAZE
+      name: <gold>复仇者</gold>
+      repeat: 2
+      count: 1
+      # 2026-10-29（用户设计案）：去掉炽足兽坐骑，直接召唤数值相同的烈焰人
+      coeff: {hp: 2.0}
+      delay: 20
+      skills: [vengeance]
+    - point: '4'
+      type: BLAZE
+      name: <gold>复仇者</gold>
+      repeat: 2
+      count: 1
+      coeff: {hp: 2.0}
+      delay: 20
+      skills: [vengeance]
+    - point: '5'
+      type: BREEZE
+      repeat: 4
+      count: 1
+      coeff:
+        hp: 2
+      delay: 10
+      skills: []
+  s3_rhine_guard:
+    关卡名称: 莱茵卫士
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: SLIME
+      name: 量产型交通亭
+      count: 2
+      coeff:
+        hp: 3.0
+        dmg: 6.0
+      delay: 10
+      on_death:
+      - type: CAMEL
+        name: 量产型交通亭
+        count: 1
+        coeff:
+          hp: 1
+        passengers:
+        - type: VINDICATOR
+          count: 1
+          coeff:
+            hp: 5
+            dmg: 1.5
+        - type: PILLAGER
+          count: 1
+          coeff:
+            hp: 5
+            dmg: 1.5
+        on_death:
+        - type: ENDERMITE
+          name: 恐卡兹
+          count: 4
+          coeff:
+            hp: 2
+            dmg: 1.5
+            speed: 1.2
+        skills:
+        - infected
+      skills:
+      - infected
+      - quicksand
+    - point: '2'
+      type: SLIME
+      name: 量产型交通亭
+      count: 2
+      coeff:
+        hp: 4.0
+        dmg: 6.0
+      delay: 40
+      on_death:
+      - type: CAMEL
+        name: 量产型交通亭
+        count: 1
+        coeff:
+          hp: 1
+        passengers:
+        - type: VINDICATOR
+          count: 1
+          coeff:
+            hp: 5
+            dmg: 1.5
+        - type: PILLAGER
+          count: 1
+          coeff:
+            hp: 5
+            dmg: 1.5
+        on_death:
+        - type: ENDERMITE
+          name: 恐卡兹
+          count: 4
+          coeff:
+            hp: 2
+            dmg: 1.5
+            speed: 1.2
+        skills:
+        - infected
+      skills:
+      - infected
+      - quicksand
+    - point: '3'
+      type: SLIME
+      name: 量产型交通亭
+      count: 2
+      coeff:
+        hp: 5.0
+        dmg: 6.0
+      delay: 20
+      on_death:
+      - type: CAMEL
+        name: 量产型交通亭
+        count: 1
+        coeff:
+          hp: 2
+        passengers:
+        - type: VINDICATOR
+          count: 1
+          coeff:
+            hp: 10
+            dmg: 1.5
+        - type: PILLAGER
+          count: 1
+          coeff:
+            hp: 10
+            dmg: 1.5
+        on_death:
+        - type: ENDERMITE
+          name: 恐卡兹
+          count: 4
+          coeff:
+            hp: 2
+            dmg: 1.5
+            speed: 1.2
+        skills:
+        - infected
+      skills:
+      - infected
+      - quicksand
+    - point: '4'
+      type: SLIME
+      name: 量产型交通亭
+      count: 2
+      coeff:
+        hp: 6.0
+        dmg: 6.0
+      delay: 30
+      on_death:
+      - type: CAMEL
+        name: 量产型交通亭
+        count: 1
+        coeff:
+          hp: 2
+        passengers:
+        - type: VINDICATOR
+          count: 1
+          coeff:
+            hp: 10
+            dmg: 1.5
+        - type: PILLAGER
+          count: 1
+          coeff:
+            hp: 10
+            dmg: 1.5
+        on_death:
+        - type: ENDERMITE
+          name: 恐卡兹
+          count: 4
+          coeff:
+            hp: 2
+            dmg: 1.5
+            speed: 1.2
+        skills:
+        - infected
+      skills:
+      - infected
+      - quicksand
+    - point: '5'
+      type: VINDICATOR
+      coeff:
+        hp: 2.5
+      count: 8
+      delay: 10
+  s3_odyssay:
+    关卡名称: 越山海
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '2'
+      type: RAVAGER
+      count: 1
+      delay: 10
+      repeat: 4
+      coeff:
+        hp: 2
+        dmg: 1.0
+        speed: 0.8
+      skills: []
+      passengers: []
+      on_death:
+      - type: SLIME
+        count: 4
+        coeff:
+          hp: 2
+          scale:
+        skills: []
+        on_death:
+        - type: ENDERMITE
+          name: 虚无末影螨
+          count: 9
+          coeff:
+            hp: 2
+          # 2026-10-29（用户设计案）：亡语最末层的末影螨挂「虚无」——抗性 V 打不动，但 10 击必死
+          skills: [void, void_frail]
+        controller: false
+      equipment: []
+      name: 越长尘
+    - point: '3'
+      type: RAVAGER
+      count: 1
+      delay: 10
+      repeat: 4
+      coeff: {}
+      skills: []
+      passengers: []
+      on_death:
+      - type: MAGMA_CUBE
+        count: 4
+        coeff:
+          hp: 2
+        skills: []
+      - type: ENDERMITE
+        name: 虚无末影螨
+        count: 9
+        coeff:
+          hp: 2
+        # 2026-10-29：末影螨挂「虚无」（同上）
+        skills: [void, void_frail]
+      equipment: []
+      name: 越长尘
+  s3_silent_hills:
+    关卡名称: 青山不语
+    repeat: 1
+    clearReward:
+    - item: maggoteers:currency_normal
+      amount: 2
+    steps:
+    - point: '1'
+      type: TURTLE
+      name: <green>医师</green>
+      count: 1
+      delay: 0
+      repeat: 1
+      coeff:
+        hp: 4
+        dmg: 0
+      skills:
+      - healer
+      passengers: []
+      on_death: []
+      equipment: []
+    - point: '2'
+      type: TURTLE
+      name: <green>医师</green>
+      count: 1
+      delay: 0
+      repeat: 1
+      coeff:
+        hp: 4
+        dmg: 0
+      skills:
+      - healer
+      passengers: []
+      on_death: []
+      equipment: []
+    - point: '3'
+      type: TURTLE
+      name: <green>医师</green>
+      count: 1
+      delay: 0
+      repeat: 1
+      coeff:
+        hp: 4
+        dmg: 0
+      skills:
+      - healer
+      passengers: []
+      on_death: []
+      equipment: []
+    - point: '4'
+      type: TURTLE
+      name: <green>医师</green>
+      count: 1
+      delay: 0
+      repeat: 1
+      coeff:
+        dmg: 0
+      skills:
+      - healer
+      passengers: []
+      on_death: []
+      equipment: []
+    - point: '5'
+      type: TURTLE
+      name: <green>医师</green>
+      count: 1
+      delay: 0
+      repeat: 1
+      coeff:
+        hp: 4
+        dmg: 0
+      skills:
+      - healer
+      passengers: []
+      on_death: []
+      equipment: []
+    - point: '4'
+      type: STRAY
+      count: 1
+      delay: 3
+      repeat: 7
+      coeff:
+        hp: 6
+        dmg: 1.25
+      skills: []
+      passengers: []
+      on_death: []
+      equipment: []
+    - point: '3'
+      type: PARCHED
+      count: 2
+      delay: 6
+      repeat: 3
+      coeff:
+        hp: 6
+        dmg: 1.25
+      skills: []
+      passengers: []
+      on_death: []
+      equipment: []
+    - point: boss
+      type: SNIFFER
+      count: 1
+      delay: 20
+      repeat: 1
+      coeff:
+        hp: 10
+        dmg:
+        speed:
+        scale: 1.8
+      skills:
+      - zizai_ward
+      - zizai_cast
+      passengers: []
+      on_death: []
+      equipment: []
+      name: “自在“
+      boss_bar: true
+    - point: boss
+      type: TURTLE
+      name: <green>医师</green>
+      count: 4
+      delay: 20
+      coeff:
+        hp: 4
+        dmg: 0
+      skills:
+      - healer
+  b3_into_eternal:
+    关卡名称: 迈入永恒
+    repeat: 1
+    clearReward:
+    - item: maggoteers:trophy
+      amount: 1
+    steps:
+    - point: '1'
+      type: HOGLIN
+      count: 10
+      coeff:
+        hp: 3.0
+      delay: 0
+    - point: '2'
+      type: WITHER_SKELETON
+      repeat: 5
+      count: 2
+      coeff:
+        hp: 4.0
+      delay: 8
+    - point: '2'
+      type: WITHER_SKELETON
+      repeat: 5
+      count: 2
+      coeff:
+        hp: 4.0
+      delay: 8
+    - point: '3'
+      type: PIGLIN_BRUTE
+      repeat: 2
+      count: 5
+      delay: 20
+    - point: '4'
+      type: PIGLIN
+      repeat: 4
+      count: 3
+      coeff:
+        hp: 2.0
+      delay: 10
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_trident
+    - point: '5'
+      type: PIGLIN
+      count: 1
+      name: <gold>“路加萨尔古斯，万王之王”</gold>
+      boss_bar: true
+      coeff:
+        hp: 50.0
+        dmg: 3.0
+        speed: 1.3
+      delay: 30
+      equipment:
+      - slot: HEAD
+        item: maggoteers:mob_gold_helmet
+      - slot: CHEST
+        item: maggoteers:mob_gold_chest
+      - slot: LEGS
+        item: maggoteers:mob_gold_legs
+      - slot: FEET
+        item: maggoteers:mob_gold_boots
+      - slot: HAND
+        item: maggoteers:mob_gold_sword_flame
+      skills:
+      - molten
+      - vengeance
+      - storm
+      - luka_gate
+      - luka_ready
+      - luka_salvo
+      - luka_ward
+    - point: boss
+      type: WITHER_SKELETON
+      count: 1
+      name: <red>“哈兰杜汗，大地之鞭”</red>
+      boss_bar: true
+      coeff:
+        hp: 25.0
+        dmg: 3.0
+        speed: 1.2
+      delay: 30
+      equipment:
+      - slot: HEAD
+        item: maggoteers:mob_netherite_helmet
+      - slot: CHEST
+        item: maggoteers:mob_netherite_chest
+      - slot: LEGS
+        item: maggoteers:mob_netherite_legs
+      - slot: FEET
+        item: maggoteers:mob_netherite_boots
+      - slot: HAND
+        item: maggoteers:mob_bow_flame_punch
+      skills:
+      - blinding
+      - withering
+      - necromancer
+      - harlan_gate
+      - harlan_ready
+      - harlan_salvo
+      - harlan_ward
+  b3_sentinel:
+    关卡名称: 哨兵
+    repeat: 1
+    clearReward:
+    - item: maggoteers:trophy
+      amount: 1
+    steps:
+    - point: '1'
+      type: DROWNED
+      repeat: 15
+      count: 1
+      coeff:
+        hp: 6
+      delay: 4
+    - point: '2'
+      type: DROWNED
+      repeat: 15
+      count: 1
+      coeff:
+        hp: 2
+      delay: 4
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_trident
+    - point: '3'
+      type: CAMEL_HUSK
+      repeat: 2
+      count: 1
+      delay: 25
+      passengers:
+      - type: ZOMBIE
+        name: 塑料骑士
+        count: 1
+        equipment:
+        - slot: HEAD
+          item: maggoteers:mob_iron_helmet_ub10
+        - slot: HAND
+          item: maggoteers:mob_iron_spear
+        skills:
+        - plastic
+      - type: SKELETON
+        count: 1
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_bow_power1
+    - point: '4'
+      type: CAMEL_HUSK
+      repeat: 2
+      count: 1
+      delay: 25
+      passengers:
+      - type: ZOMBIE
+        name: 塑料骑士
+        count: 1
+        equipment:
+        - slot: HEAD
+          item: maggoteers:mob_iron_helmet_ub10
+        - slot: HAND
+          item: maggoteers:mob_iron_spear
+        skills:
+        - plastic
+      - type: SKELETON
+        count: 1
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_bow_power1
+    - point: '5'
+      type: GUARDIAN
+      repeat: 5
+      count: 4
+      delay: 10
+    - point: boss
+      type: ELDER_GUARDIAN
+      name: <gold>“无垠回荡，克雷松”</gold>
+      count: 1
+      coeff:
+        dmg: 2
+        hp: 3.75
+      delay: 10
+      boss_bar: true
+      skills:
+      - cloaked
+      - tosser
+      - kreson_anchor
+      - kreson_fatigue
+      - kreson_gate
+      - kreson_ready
+      - kreson_blink
+      - kreson_screech
+  b3_human_radiance:
+    关卡名称: 人之光辉
+    repeat: 1
+    clearReward:
+    - item: maggoteers:trophy
+      amount: 1
+    steps:
+    - point: boss
+      type: SLIME
+      name: <gold>“伊祖米克，生态泉源”</gold>
+      count: 1
+      coeff:
+        hp: 200.0
+        scale: 2.0
+      delay: 0
+      boss_bar: true
+      skills:
+      - quicksand
+      - necromancer
+      - ghastly
+      - izumik_devour
+      - izumik_bloom
+    - point: '1'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: SKELETON
+        count: 1
+        coeff:
+          hp: 3.0
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_bow_flame_punch
+      skills:
+      - infected
+      - quicksand
+    - point: '2'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: CREEPER
+        count: 1
+        coeff:
+          hp: 20.0
+          speed: 2.0
+        skills:
+        - blinding
+      skills:
+      - infected
+      - quicksand
+    - point: '3'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: SPIDER
+        count: 1
+        coeff:
+          scale: 0.8
+          hp: 2.0
+      skills:
+      - infected
+      - quicksand
+    - point: '4'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: WITHER_SKELETON
+        count: 1
+        coeff:
+          hp: 4.0
+      skills:
+      - infected
+      - quicksand
+    - point: '1'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: CREEPER
+        count: 1
+        coeff:
+          hp: 20.0
+          speed: 2.0
+        skills:
+        - blinding
+      skills:
+      - infected
+      - quicksand
+    - point: '2'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: SPIDER
+        count: 1
+        coeff:
+          scale: 0.8
+          hp: 2.0
+      skills:
+      - infected
+      - quicksand
+    - point: '3'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: WITHER_SKELETON
+        count: 1
+        coeff:
+          hp: 4.0
+      skills:
+      - infected
+      - quicksand
+    - point: '4'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: ZOMBIFIED_PIGLIN
+        count: 1
+        coeff:
+          hp: 2.0
+          speed: 1.5
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_gold_spear
+      skills:
+      - infected
+      - quicksand
+    - point: '1'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: SPIDER
+        count: 1
+        coeff:
+          scale: 0.8
+          hp: 2.0
+      skills:
+      - infected
+      - quicksand
+    - point: '2'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: WITHER_SKELETON
+        count: 1
+        coeff:
+          hp: 4.0
+      skills:
+      - infected
+      - quicksand
+    - point: '3'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: ZOMBIFIED_PIGLIN
+        count: 1
+        coeff:
+          hp: 2.0
+          speed: 1.5
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_gold_spear
+      skills:
+      - infected
+      - quicksand
+    - point: '4'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: ENDERMITE
+        count: 5
+      skills:
+      - infected
+      - quicksand
+    - point: '1'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: WITHER_SKELETON
+        count: 1
+        coeff:
+          hp: 4.0
+      skills:
+      - infected
+      - quicksand
+    - point: '2'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: ZOMBIFIED_PIGLIN
+        count: 1
+        coeff:
+          hp: 2.0
+          speed: 1.5
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_gold_spear
+      skills:
+      - infected
+      - quicksand
+    - point: '3'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: ENDERMITE
+        count: 5
+      skills:
+      - infected
+      - quicksand
+    - point: '4'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: CAVE_SPIDER
+        count: 2
+      skills:
+      - infected
+      - quicksand
+    - point: '1'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: ZOMBIFIED_PIGLIN
+        count: 1
+        coeff:
+          hp: 2.0
+          speed: 1.5
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_gold_spear
+      skills:
+      - infected
+      - quicksand
+    - point: '2'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: ENDERMITE
+        count: 5
+      skills:
+      - infected
+      - quicksand
+    - point: '3'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: CAVE_SPIDER
+        count: 2
+      skills:
+      - infected
+      - quicksand
+    - point: '4'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: ZOGLIN
+        count: 1
+      skills:
+      - infected
+      - quicksand
+    - point: '1'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: ENDERMITE
+        count: 5
+      skills:
+      - infected
+      - quicksand
+    - point: '2'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: CAVE_SPIDER
+        count: 2
+      skills:
+      - infected
+      - quicksand
+    - point: '3'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: ZOGLIN
+        count: 1
+      skills:
+      - infected
+      - quicksand
+    - point: '4'
+      type: SLIME
+      coeff:
+        hp: 2.0
+      name: <light_purple>感染者</light_purple>
+      count: 3
+      delay: 10
+      on_death:
+      - type: SKELETON
+        count: 1
+        coeff:
+          hp: 3.0
+        equipment:
+        - slot: HAND
+          item: maggoteers:mob_bow_flame_punch
+      skills:
+      - infected
+      - quicksand
+  b3_holy_city:
+    关卡名称: 圣城
+    repeat: 1
+    clearReward:
+    - item: maggoteers:trophy
+      amount: 1
+    steps:
+    - point: boss
+      type: IRON_GOLEM
+      count: 1
+      delay: 30
+      repeat: 1
+      coeff:
+        speed: 0.5
+        dmg: 1.2
+        hp: 30
+        scale: 1.5
+      skills:
+      - holy_city_care
+      - sweep_salute
+      passengers: []
+      on_death: []
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_crossbow_power3
+      - slot: OFF_HAND
+        item: maggoteers:mob_shield
+      name: <gold>博卓卡斯替，圣卫铳骑
+      boss_bar: true
+    - point: '1'
+      type: VINDICATOR
+      count: 9
+      delay: 20
+      repeat: 1
+      coeff:
+        hp: 25
+        dmg:
+        speed: 0.5
+        scale: 1.4
+      skills: []
+      passengers: []
+      on_death: []
+      equipment:
+      - slot: OFF_HAND
+        item: maggoteers:mob_shield
+    - point: '5'
+      type: WITCH
+      count: 1
+      delay: 8
+      repeat: 5
+      coeff:
+        hp: 10
+        dmg:
+        speed: 0.8
+      skills: []
+      passengers: []
+      on_death: []
+      equipment: []
+
+  # ── Act4 占位 Boss：已移出 act4.boss 池（只作引擎原语示范/调试用，别再放回池里）───────────────────────────────
+  # 目的：证明"隐藏层 → 单波 Boss → 胜利/计时"这条链是通的；内容后续再填。
+  # 硬约束：末层 Boss 必须发 maggoteers:trophy、必须 boss_bar: true（BossContentSchemaTest 守护）。
+  b4_doorweaver:
+    关卡名称: 门扉缔造者
+    repeat: 1
+    phases:
+    - id: 2
+      after_sec: 40
+      effects:
+      - effect: SOUND
+        targets: players
+        sound: ITEM_TOTEM_USE
+        sound_volume: 1.5
+        sound_pitch: 0.8
+      - effect: SOUND
+        targets: self
+        sound: ENTITY_EVOKER_CAST_SPELL
+        sound_volume: 1.5
+        sound_pitch: 0.9
+      - effect: SUMMON
+        targets: self
+        entity: lightning_bolt
+        count: 5
+        interval_ticks: 16
+      - effect: PARTICLE_RING
+        targets: self
+        origin: self
+        preset: THICK_RING
+        radius: 6
+        particle: END_ROD
+        count: 64
+        duration_ticks: 999999
+    - id: 3
+      hp_below: 0.6667
+      effects:
+      - effect: SOUND
+        targets: players
+        sound: ITEM_TOTEM_USE
+        sound_volume: 1.5
+        sound_pitch: 0.8
+      - effect: ADD_POTION
+        targets: players
+        potion: darkness
+        amp: 0
+        duration_ticks: 0
+    - id: 4
+      hp_below: 0.3334
+      effects:
+      - effect: SOUND
+        targets: players
+        sound: ITEM_TOTEM_USE
+        sound_volume: 1.5
+        sound_pitch: 0.8
+      - effect: SOUND
+        targets: self
+        sound: ENTITY_EVOKER_CAST_SPELL
+        sound_volume: 1.6
+        sound_pitch: 0.7
+      - effect: PARTICLE_RING
+        targets: self
+        origin: self
+        radius: 16
+        particle: EXPLOSION_HUGE
+        count: 1
+      - effect: CLEAR_POTIONS
+        targets: players
+        clear_potions:
+        - darkness
+      - effect: CURSE_PLAYERS
+        targets: players
+        attr: MAX_HEALTH
+        op: PERCENT
+        value: -0.5
+      - effect: CURSE_PLAYERS
+        targets: players
+        attr: RELOAD_SPEED
+        op: ADD
+        value: -33
+    clearReward:
+    - item: maggoteers:true_trophy
+      amount: 1
+    - item: maggoteers:trophy
+      amount: 1
+    steps:
+    - point: '1'
+      type: PILLAGER
+      count: 2
+      delay: 10
+      coeff:
+        hp: 4.2
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_crossbow_power5
+    - point: '2'
+      type: PILLAGER
+      count: 2
+      delay: 10
+      coeff:
+        hp: 4.2
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_crossbow_power5
+    - point: '3'
+      type: PILLAGER
+      count: 2
+      delay: 10
+      coeff:
+        hp: 4.2
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_crossbow_power5
+    - point: '4'
+      type: PILLAGER
+      count: 2
+      delay: 10
+      coeff:
+        hp: 4.2
+      equipment:
+      - slot: HAND
+        item: maggoteers:mob_crossbow_power5
+    - point: '1'
+      type: VINDICATOR
+      count: 2
+      delay: 10
+      coeff:
+        hp: 3.4
+      skills:
+      - sharp_five
+    - point: '2'
+      type: VINDICATOR
+      count: 2
+      delay: 10
+      coeff:
+        hp: 3.4
+      skills:
+      - sharp_five
+    - point: '3'
+      type: VINDICATOR
+      count: 2
+      delay: 10
+      coeff:
+        hp: 3.4
+      skills:
+      - sharp_five
+    - point: '4'
+      type: VINDICATOR
+      count: 2
+      delay: 10
+      coeff:
+        hp: 3.4
+      skills:
+      - sharp_five
+    - point: '1'
+      type: VINDICATOR
+      count: 1
+      delay: 10
+      coeff:
+        hp: 8
+      skills:
+      - plastic
+    - point: '1'
+      type: WITCH
+      count: 1
+      delay: 0
+      coeff:
+        hp: 4
+      skills:
+      - healer
+      name: <green>医师</green>
+    - point: '2'
+      type: VINDICATOR
+      count: 1
+      delay: 10
+      coeff:
+        hp: 8
+      skills:
+      - plastic
+    - point: '3'
+      type: VINDICATOR
+      count: 1
+      delay: 10
+      coeff:
+        hp: 8
+      skills:
+      - plastic
+    - point: '4'
+      type: WITCH
+      count: 1
+      delay: 0
+      coeff:
+        hp: 4
+      skills:
+      - healer
+      name: <green>医师</green>
+    - point: boss
+      type: EVOKER
+      name: <dark_purple>“门扉缔造者”</dark_purple>
+      count: 1
+      coeff:
+        hp: 125
+        scale: 2
+      delay: 0
+      boss_bar: true
+      bar_color: PURPLE
+      bar_overlay: NOTCHED_20
+      skills:
+      - storm
+      - doorweaver_anchor
+      - doorweaver_vex
+      - doorweaver_ward
+      - doorweaver_hush
+      - doorweaver_gaze
+      - doorweaver_fang
+      - doorweaver_fang_in
+      - doorweaver_fang_star

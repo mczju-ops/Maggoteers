@@ -1,0 +1,387 @@
+# rewardplan 护符映射（bundle 仅映射父选项 id；跨池同藏品共用同一 reward id）
+collectibles:
+  corrupt_can:
+    item: maggoteers:charm_corrupt_can
+  lime_gummy:
+    item: maggoteers:charm_lime_gummy
+  living_flint:
+    item: maggoteers:charm_living_flint
+  b1_atk150:
+    item: maggoteers:charm_b1_atk150
+  b1_frost_tree:
+    item: maggoteers:charm_b1_frost_tree
+  b1_hp20:
+    item: maggoteers:charm_b1_hp20
+  b1_kb1:
+    item: maggoteers:charm_b1_kb1
+  b1_mag150:
+    item: maggoteers:charm_b1_mag150
+  b1_res1:
+    items_by_level:
+      1: maggoteers:charm_b1_res1
+      2: maggoteers:charm_b1_res1
+      3: maggoteers:charm_res3
+  b1_spd15:
+    item: maggoteers:charm_b1_spd15
+  b2_wave_coin:
+    item: maggoteers:charm_b2_wave_coin
+  b1_wave_gapple:
+    item: maggoteers:charm_b1_wave_gapple
+  b1_wave_steak:
+    item: maggoteers:charm_b1_wave_steak
+  b1_wave_tnt:
+    item: maggoteers:charm_b1_wave_tnt
+  ally_invis:
+    item: maggoteers:charm_ally_invis
+  atk35:
+    item: maggoteers:charm_atk35
+  hit_slow:
+    item: maggoteers:charm_hit_slow
+  hp6:
+    item: maggoteers:charm_hp6
+  lost_key:
+    item: maggoteers:charm_lost_key
+  mag35:
+    item: maggoteers:charm_mag35
+  regen1:
+    items_by_level:
+      1: maggoteers:charm_regen1
+      2: maggoteers:charm_regen2
+      3: maggoteers:charm_regen2
+      4: maggoteers:charm_regen4
+  spd5:
+    item: maggoteers:charm_spd5
+  taken_str:
+    item: maggoteers:charm_taken_str
+  wave_atk5:
+    item: maggoteers:charm_wave_atk5
+  wave_atk_mag_atk:
+    item: maggoteers:charm_wave_atk_mag
+  wave_full_heal:
+    item: maggoteers:charm_wave_full_heal
+  wave_mag5:
+    item: maggoteers:charm_wave_mag5
+  act_revive:
+    item: maggoteers:charm_act_revive
+  atk15:
+    item: maggoteers:charm_atk15
+  atk20:
+    item: maggoteers:charm_atk20
+  atk25:
+    item: maggoteers:charm_atk25
+  fangs:
+    item: maggoteers:charm_fangs
+  miaooneal:
+    item: maggoteers:charm_miaooneal
+  fire_res:
+    item: maggoteers:charm_fire_res
+  hit_splash:
+    item: maggoteers:charm_hit_splash
+  hp4a:
+    item: maggoteers:charm_hp4a
+  hp4b:
+    item: maggoteers:charm_hp4b
+  hp4c:
+    item: maggoteers:charm_hp4c
+  kill_invis:
+    item: maggoteers:charm_kill_invis
+  mag15:
+    item: maggoteers:charm_mag15
+  mag20:
+    item: maggoteers:charm_mag20
+  mag25:
+    item: maggoteers:charm_mag25
+  mark_glow:
+    item: maggoteers:charm_mark_glow
+  parting_gift:
+    item: maggoteers:charm_parting_gift
+  spd4a:
+    item: maggoteers:charm_spd4a
+  spd4b:
+    item: maggoteers:charm_spd4b
+  str1:
+    items_by_level:
+      1: maggoteers:charm_str1
+      2: maggoteers:charm_str2
+      3: maggoteers:charm_str3
+  wave_bone:
+    item: maggoteers:charm_wave_bone
+  b2_atk225:
+    item: maggoteers:charm_b2_atk225
+  b2_frost_aura:
+    item: maggoteers:charm_b2_frost_aura
+  b2_hit_heal:
+    item: maggoteers:charm_b2_hit_heal
+  b2_hit_slow10:
+    item: maggoteers:charm_b2_hit_slow10
+  b2_hp30:
+    item: maggoteers:charm_b2_hp30
+  b2_invis:
+    item: maggoteers:charm_b2_invis
+  b2_mag225:
+    item: maggoteers:charm_b2_mag225
+  b2_reach1:
+    item: maggoteers:charm_b2_reach1
+  b2_spd20:
+    item: maggoteers:charm_b2_spd20
+  b2_taken_heal:
+    item: maggoteers:charm_b2_taken_heal
+  b2_taken_lev:
+    item: maggoteers:charm_b2_taken_lev
+  ally_str:
+    item: maggoteers:charm_ally_str
+  arrogance:
+    item: maggoteers:charm_arrogance
+  martyr:
+    item: maggoteers:charm_martyr
+  taken_splash:
+    item: maggoteers:charm_taken_splash
+  wave_potion:
+    item: maggoteers:charm_wave_potion
+  wave_splash:
+    item: maggoteers:charm_wave_splash
+  atk40:
+    item: maggoteers:charm_atk40
+  atk45:
+    item: maggoteers:charm_atk45
+  cursed_blade:
+    item: maggoteers:charm_cursed_blade
+  death_golem:
+    item: maggoteers:charm_death_golem
+  hit_wither:
+    item: maggoteers:charm_hit_wither
+  hp8a:
+    item: maggoteers:charm_hp8a
+  hp8b:
+    item: maggoteers:charm_hp8b
+  kill_boom:
+    item: maggoteers:charm_kill_boom
+  kill_heal:
+    item: maggoteers:charm_kill_heal
+  kill_spd:
+    item: maggoteers:charm_kill_spd
+  kill_str:
+    item: maggoteers:charm_kill_str
+  kill_wither:
+    item: maggoteers:charm_kill_wither
+  mag40:
+    item: maggoteers:charm_mag40
+  mag45:
+    item: maggoteers:charm_mag45
+  reach_a:
+    item: maggoteers:charm_reach_a
+  reach_b:
+    item: maggoteers:charm_reach_b
+  spd10:
+    item: maggoteers:charm_spd10
+  spd8a:
+    item: maggoteers:charm_spd8a
+  spd8b:
+    item: maggoteers:charm_spd8b
+  ally_regen:
+    item: maggoteers:charm_ally_regen
+  atk60:
+    item: maggoteers:charm_atk60
+  atk70:
+    item: maggoteers:charm_atk70
+  atk80:
+    item: maggoteers:charm_atk80
+  hp12:
+    item: maggoteers:charm_hp12
+  hp18:
+    item: maggoteers:charm_hp18
+  hp30:
+    item: maggoteers:charm_hp30
+  kb1b:
+    item: maggoteers:charm_kb1b
+  kill_atk10:
+    item: maggoteers:charm_kill_atk10
+  kill_mag10:
+    item: maggoteers:charm_kill_mag10
+  lust:
+    item: maggoteers:charm_lust
+  mag60:
+    item: maggoteers:charm_mag60
+  mag70:
+    item: maggoteers:charm_mag70
+  mag80:
+    item: maggoteers:charm_mag80
+  reach1b:
+    item: maggoteers:charm_reach1b
+  spd15:
+    item: maggoteers:charm_spd15
+  spd20:
+    item: maggoteers:charm_spd20
+  taken_abs:
+    item: maggoteers:charm_taken_abs
+  taken_res:
+    item: maggoteers:charm_taken_res
+  glass_regen:
+    item: maggoteers:charm_glass_regen
+  imm_poison:
+    item: maggoteers:charm_imm_poison
+  imm_slow:
+    item: maggoteers:charm_imm_slow
+  imm_wither:
+    item: maggoteers:charm_imm_wither
+  class_guard:
+    item: maggoteers:charm_class_guard
+  class_heavy:
+    item: maggoteers:charm_class_heavy
+  class_mage:
+    item: maggoteers:charm_class_mage
+  class_sniper:
+    item: maggoteers:charm_class_sniper
+  class_vanguard:
+    item: maggoteers:charm_class_vanguard
+  class_medical:
+    item: maggoteers:charm_class_medical
+  ascetic:
+    item: maggoteers:charm_ascetic
+  10cd:
+    item: maggoteers:charm_cyan_torch
+  12cd:
+    item: maggoteers:charm_cyan_ink
+  15cd:
+    item: maggoteers:charm_ferryman
+  eerie_campfire:
+    item: maggoteers:charm_eerie_campfire
+  b2_tower_memory:
+    item: maggoteers:charm_b2_tower_memory
+  feast:
+    item: maggoteers:charm_feast
+  40cd:
+    item: maggoteers:charm_petal
+  amethyst_eggplant:
+    item: maggoteers:charm_amethyst_eggplant
+  king_armor:
+    item: maggoteers:charm_king_armor
+  gold_wine_goblet:
+    item: maggoteers:charm_gold_wine_goblet
+  king_new_gun:
+    item: maggoteers:charm_king_new_gun
+  king_extension:
+    item: maggoteers:charm_king_extension
+  king_crown:
+    item: maggoteers:charm_king_crown
+  # 1.3.3 难度负面奖励（诅咒）护符映射——负面池选项附带收藏品
+  curse_hard_limp:
+    item: maggoteers:charm_curse_hard_limp
+  curse_hard_fragile:
+    item: maggoteers:charm_curse_hard_fragile
+  curse_x1_frail:
+    item: maggoteers:charm_curse_x1_frail
+  curse_x1_limp:
+    item: maggoteers:charm_curse_x1_limp
+  curse_x1_fragile:
+    item: maggoteers:charm_curse_x1_fragile
+  curse_x3_cognition:
+    item: maggoteers:charm_curse_x3_cognition
+  curse_hard_weak:
+    item: maggoteers:charm_curse_hard_weak
+  curse_hard_exhaust:
+    item: maggoteers:charm_curse_hard_exhaust
+  curse_hard_sharp:
+    item: maggoteers:charm_curse_hard_sharp
+  curse_x1_exhaust:
+    item: maggoteers:charm_curse_x1_exhaust
+  curse_x2_shield:
+    item: maggoteers:charm_curse_x2_shield
+  curse_x2_coward:
+    item: maggoteers:charm_curse_x2_coward
+  curse_x2_poor:
+    item: maggoteers:charm_curse_x2_poor
+  curse_x3_flesh:
+    item: maggoteers:charm_curse_x3_flesh
+  curse_x3_blood:
+    item: maggoteers:charm_curse_x3_blood
+  curse_x3_nerve:
+    item: maggoteers:charm_curse_x3_nerve
+  curse_hard_awkward:
+    item: maggoteers:charm_curse_hard_awkward
+  curse_x1_thirst:
+    item: maggoteers:charm_curse_x1_thirst
+  25cd:
+    item: maggoteers:charm_25cd
+  28cd:
+    item: maggoteers:charm_28cd
+  30cd:
+    item: maggoteers:charm_30cd
+  35cd:
+    item: maggoteers:charm_35cd
+  45cd:
+    item: maggoteers:charm_45cd
+  60cd:
+    item: maggoteers:charm_60cd
+  b1_50cd:
+    item: maggoteers:charm_b1_50cd
+  b2_70cd:
+    item: maggoteers:charm_b2_70cd
+  22atk:
+    item: maggoteers:charm_22atk
+  42atk:
+    item: maggoteers:charm_42atk
+  65atk:
+    item: maggoteers:charm_65atk
+  22mag:
+    item: maggoteers:charm_22mag
+  42mag:
+    item: maggoteers:charm_42mag
+  65mag:
+    item: maggoteers:charm_65mag
+  15heal:
+    item: maggoteers:charm_15heal
+  45heal:
+    item: maggoteers:charm_45heal
+  70heal:
+    item: maggoteers:charm_70heal
+  35heal:
+    item: maggoteers:charm_35heal
+  100heal:
+    item: maggoteers:charm_100heal
+  b2_200heal:
+    item: maggoteers:charm_b2_200heal
+  20ran:
+    item: maggoteers:charm_20ran
+  40ran:
+    item: maggoteers:charm_40ran
+  60ran:
+    item: maggoteers:charm_60ran
+  b1_100ran:
+    item: maggoteers:charm_b1_100ran
+  holy_city_shelter:
+    item: maggoteers:charm_holy_city_shelter
+  pure_core:
+    item: maggoteers:charm_pure_core
+  turbo_charger:
+    item: maggoteers:charm_turbo_charger
+  heart_vine:
+    item: maggoteers:charm_heart_vine
+  iron_guard_atk:
+    item: maggoteers:charm_iron_guard_atk
+  coin_toy:
+    item: maggoteers:charm_coin_toy
+  # 2026-10-28 新藏品
+  piggy_bank:
+    item: maggoteers:charm_piggy_bank
+  b1_mana_stone:
+    item: maggoteers:charm_b1_mana_stone
+  mango:
+    item: maggoteers:charm_mango
+  demon_banner:
+    item: maggoteers:charm_demon_banner
+  b2_fruit_bundle:
+    item: maggoteers:charm_b2_fruit_bundle
+  frost_pear:
+    item: maggoteers:charm_frost_pear
+  burning_cloak:
+    item: maggoteers:charm_burning_cloak
+  # 防弹胸甲（BOUND_EQUIP）：它本身没有独立护符，护符即第一阶段的胸甲（用户口径 2026-10-30）。
+  # ⚠️ 只用于图鉴/预览图标——RewardService 对 BOUND_EQUIP 不会走 CollectibleService.grant，
+  #    否则会额外发一件胸甲。
+  prot_chest:
+    items_by_level:
+      1: maggoteers:prot_chest_l1
+      2: maggoteers:prot_chest_l2
+      3: maggoteers:prot_chest_l3
+      4: maggoteers:prot_chest_l4

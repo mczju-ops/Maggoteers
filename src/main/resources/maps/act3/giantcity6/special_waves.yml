@@ -1,0 +1,8 @@
+# 本图专属波次（可选）。giantcity6 暂无专属波次：先按 waves.yml pools.act3 的通用池跑。
+#
+# weak:
+#   - { strategy: w_xxx, weight: 2 }
+# strong:
+#   - { strategy: s_xxx, weight: 2 }
+# boss:
+#   - { strategy: b_xxx, weight: 2 }

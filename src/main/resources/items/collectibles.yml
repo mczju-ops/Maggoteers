@@ -1,0 +1,2197 @@
+﻿# rewardplan 护符：RECOVERY_COMPASS 底材 + itemModel 外观 + 功能 lore
+
+maggoteers:charm_b1_atk150:
+  material: RECOVERY_COMPASS
+  itemModel: STONE_AXE
+  customName: "<red>老近卫军之锋"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击+150%"
+    - "<dark_gray>高卢那支已随着帝国一同消亡的传奇禁军留下的锋刃，至今削铁如泥"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b1_frost_tree:
+  material: RECOVERY_COMPASS
+  itemModel: DARK_OAK_SAPLING
+  customName: "<aqua>霜晶树"
+  lore:
+    - "<gold>藏品"
+    - "<gray>击败 Boss 时额外获得 1 枚星石；玩家死亡时该藏品失效"
+    - "<dark_gray>极其珍贵且易碎的工艺藏品"
+maggoteers:charm_b1_hp20:
+  material: RECOVERY_COMPASS
+  itemModel: IRON_CHESTPLATE
+  customName: "<green>破旧的巨型甲胄"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命上限+20"
+    - "<dark_gray>谁也不知道如此大尺寸的甲胄曾属于谁"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b1_kb1:
+  material: RECOVERY_COMPASS
+  itemModel: IRON_BLOCK
+  customName: "<gray>东京湾专属配重块"
+  lore:
+    - "<gold>藏品"
+    - "<gray>击退抗性+1"
+    - "<dark_gray>用于处决夺走大家微笑的坏人"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b1_mag150:
+  material: RECOVERY_COMPASS
+  itemModel: ENDER_CHEST
+  customName: "<light_purple>皇帝的收藏"
+  lore:
+    - "<gold>藏品"
+    - "<gray>魔攻+150"
+    - "<dark_gray>藏于乌萨斯皇宫内的珍贵珠宝，同时也是顶级施术材料"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b1_res1:
+  material: RECOVERY_COMPASS
+  itemModel: IRON_GOLEM_SPAWN_EGG
+  customName: "<gray>铁傀儡突变诱发物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>抗性提升I（可升级！）"
+    - "<dark_gray>注入后会形成坚硬的金属外壳以抵挡伤害"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b1_spd15:
+  material: RECOVERY_COMPASS
+  itemModel: MUSIC_DISC_11
+  customName: "<blue>黑夜呢喃"
+  lore:
+    - "<gold>藏品"
+    - "<gray>速度+15"
+    - "<dark_gray>神秘的黑色唱片，不——要——碰——它！"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b2_wave_coin:
+  material: RECOVERY_COMPASS
+  itemModel: PEONY
+  customName: "<yellow>贪婪护符"
+  lore:
+    - "<gold>藏品"
+    - "<gray>回合结束时，获得1枚额外金币"
+    - "<dark_gray>贪心的人都聪明，聪明的人都贪心，嘎，嘎！"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b1_wave_gapple:
+  material: RECOVERY_COMPASS
+  itemModel: OAK_SAPLING
+  customName: "<gold>赫拉克勒斯的果树"
+  lore:
+    - "<gold>藏品"
+    - "<gray>回合结束时，获得一个金苹果"
+    - "<dark_gray>其实设定上，赫拉克勒斯并没有一棵会结金苹果的果树，他的金苹果是从别人那里偷的"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b1_wave_steak:
+  material: RECOVERY_COMPASS
+  itemModel: PITCHER_PLANT
+  customName: "<red>暴食护符"
+  lore:
+    - "<gold>藏品"
+    - "<gray>回合结束时，获得一块能够恢复全部生命值的牛排"
+    - "<dark_gray>是啊，吃什么"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b1_wave_tnt:
+  material: RECOVERY_COMPASS
+  itemModel: GUNPOWDER
+  customName: "<dark_red>死魂灵之影"
+  lore:
+    - "<gold>藏品"
+    - "<gray>回合结束时，获得一个能够召唤点燃的tnt的消耗性道具"
+    - "<dark_gray>纠缠着无数脾气暴躁的死魂灵的节点——字面意义上的暴躁"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_ally_invis:
+  material: RECOVERY_COMPASS
+  itemModel: LEATHER_HELMET
+  customName: "<gray>捕鳞蓑"
+  lore:
+    - "<gold>藏品"
+    - "<gray>失去50%物理与法术伤害加成，立即获得4次复活机会"
+    - "<dark_gray>凭什么戴个大帽子敌人就看不见你了？"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_atk35:
+  material: RECOVERY_COMPASS
+  itemModel: DAMAGED_ANVIL
+  customName: "<red>开裂的铁砧"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击+35"
+    - "<dark_gray>看起来它的前任主人被下落的铁砧砸死了"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_hit_slow:
+  material: RECOVERY_COMPASS
+  itemModel: SUNFLOWER
+  customName: "<yellow>懒惰护符"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击时为敌人附加10s缓慢II"
+    - "<dark_gray>能让敌人灵机一动开始睡觉"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_hp6:
+  material: RECOVERY_COMPASS
+  itemModel: POTION
+  customName: "<green>解渴的西瓜汁"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命上限+6"
+    - "<dark_gray>冰镇的"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_lost_key:
+  material: RECOVERY_COMPASS
+  itemModel: FILLED_MAP
+  customName: "<gold>失落之钥"
+  lore:
+    - "<gold>藏品"
+    - "<gray>进入新的一层时，获得40物攻和魔攻加成"
+    - "<dark_gray>给予远征以价值"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_mag35:
+  material: RECOVERY_COMPASS
+  itemModel: QUARTZ
+  customName: "<light_purple>纯净的魔晶"
+  lore:
+    - "<gold>藏品"
+    - "<gray>魔攻+35"
+    - "<dark_gray>晶莹剔透的晶体，品相看着不错"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_regen1:
+  material: RECOVERY_COMPASS
+  itemModel: ALLAY_SPAWN_EGG
+  customName: "<green>悦灵突变诱发物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命恢复I（可升级！）"
+    - "<dark_gray>注入后会获得自我修复的魔力"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_spd5:
+  material: RECOVERY_COMPASS
+  itemModel: COBWEB
+  customName: "<blue>捕风网"
+  lore:
+    - "<gold>藏品"
+    - "<gray>速度+5"
+    - "<dark_gray>快如疾风"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_taken_str:
+  material: RECOVERY_COMPASS
+  itemModel: POPPY
+  customName: "<red>暴怒护符"
+  lore:
+    - "<gold>藏品"
+    - "<gray>受击时获得2秒力量III"
+    - "<dark_gray>捏捏捏别挡我的路！邦邦邦 邦~"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_wave_atk5:
+  material: RECOVERY_COMPASS
+  itemModel: PAPER
+  customName: "<gray>清算名单"
+  lore:
+    - "<gold>藏品"
+    - "<gray>回合结束时，获得5物攻加成"
+    - "<dark_gray>青蒜时间到"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_wave_full_heal:
+  material: RECOVERY_COMPASS
+  itemModel: CAMPFIRE
+  customName: "<gold>温暖的篝火"
+  lore:
+    - "<gold>藏品"
+    - "<gray>回合结束时，恢复全部生命值"
+    - "<dark_gray>温暖的光芒驱散着黑暗中的威胁"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_wave_mag5:
+  material: RECOVERY_COMPASS
+  itemModel: SOUL_SAND
+  customName: "<dark_gray>灵魂立方"
+  lore:
+    - "<gold>藏品"
+    - "<gray>回合结束时，获得5魔攻加成"
+    - "<dark_gray>将刀下的灵魂汇集于此"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_act_revive:
+  material: RECOVERY_COMPASS
+  itemModel: VINE
+  customName: "<green>增生藤甲"
+  lore:
+    - "<gold>藏品"
+    - "<gray>进入新的一层时，获得一次复活机会"
+    - "<dark_gray>快对他使用火杀！"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_atk15:
+  material: RECOVERY_COMPASS
+  itemModel: CHIPPED_ANVIL
+  customName: "<red>严重损坏的铁砧"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击+15"
+    - "<dark_gray>捡走用不了几次，丢了又可惜……"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_atk20:
+  material: RECOVERY_COMPASS
+  itemModel: COPPER_INGOT
+  customName: "<red>铜剑刃碎片"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击+20"
+    - "<dark_gray>极易卷曲的剑刃"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_atk25:
+  material: RECOVERY_COMPASS
+  itemModel: MAGMA_CREAM
+  customName: "<red>受潮的力量粉末"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击+25"
+    - "<dark_gray>还勉强能用"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_fangs:
+  material: RECOVERY_COMPASS
+  itemModel: EMERALD
+  customName: "<dark_purple>黑暗宝珠"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击时在敌人脚下召唤一个唤魔者尖牙"
+    - "<dark_gray>如果没有这颗宝珠，唤魔者和普通劫掠者并无区别"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_miaooneal:
+  material: RECOVERY_COMPASS
+  itemModel: MACE
+  customName: "<yellow>妙奥尼尔"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击命中敌人时在目标处召唤闪电"
+    - "<dark_gray>其实这是一个模因污染：你眼前的所有敌人都是萝莉控"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_fire_res:
+  material: RECOVERY_COMPASS
+  itemModel: BLAZE_SPAWN_EGG
+  customName: "<gold>烈焰人突变诱发物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>抗火"
+    - "<dark_gray>注射后会获得对高温的耐受性"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_hit_splash:
+  material: RECOVERY_COMPASS
+  itemModel: GOLDEN_AXE
+  customName: "<red>狂战斧"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击时对半径3格内敌人造成一次6点的魔法伤害"
+    - "<dark_gray>把斧头横过来用不就能顺劈了？现在的史蒂夫怎么都不懂这个道理"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_hp4a:
+  material: RECOVERY_COMPASS
+  itemModel: POTION
+  customName: "<green>热水壶"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命上限+4"
+    - "<dark_gray>我带来了生命与希望"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_hp4b:
+  material: RECOVERY_COMPASS
+  itemModel: BREAD
+  customName: "<green>干硬的面包"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命上限+4"
+    - "<dark_gray>也可以当作武器使用"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_hp4c:
+  material: RECOVERY_COMPASS
+  itemModel: LEATHER
+  customName: "<green>皮革甲片"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命上限+4"
+    - "<dark_gray>能挡下非致命伤害的简易防护"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_kill_invis:
+  material: RECOVERY_COMPASS
+  itemModel: GHAST_TEAR
+  customName: "<gray>瓶装怨灵"
+  lore:
+    - "<gold>藏品"
+    - "<gray>杀敌时获得3秒隐身和速度II"
+    - "<dark_gray>我很神秘"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_mag15:
+  material: RECOVERY_COMPASS
+  itemModel: LAPIS_LAZULI
+  customName: "<light_purple>浑浊的魔晶"
+  lore:
+    - "<gold>藏品"
+    - "<gray>魔攻+15"
+    - "<dark_gray>能提供一点魔力加成的劣质魔晶"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_mag20:
+  material: RECOVERY_COMPASS
+  itemModel: DEAD_BUSH
+  customName: "<light_purple>磨损的杖芯"
+  lore:
+    - "<gold>藏品"
+    - "<gray>魔攻+20"
+    - "<dark_gray>勉强能用的魔杖部件，能提供一点法力值加成"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_mag25:
+  material: RECOVERY_COMPASS
+  itemModel: SPLASH_POTION
+  customName: "<light_purple>平凡的药剂"
+  lore:
+    - "<gold>藏品"
+    - "<gray>魔攻+25"
+    - "<dark_gray>嗝……还有吗"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_mark_glow:
+  material: RECOVERY_COMPASS
+  itemModel: FIREWORK_STAR
+  customName: "<yellow>照明弹"
+  lore:
+    - "<gold>藏品"
+    - "<gray>每 10 秒标记场上所有敌人，使其永续发光"
+    - "<dark_gray>恐惧无所遁形"
+maggoteers:charm_parting_gift:
+  material: RECOVERY_COMPASS
+  itemModel: TRAPPED_CHEST
+  customName: "<dark_red>临别赠礼"
+  lore:
+    - "<gold>藏品"
+    - "<gray>死亡时召唤5个TNT，并使周围半径6格内敌人获得缓慢X"
+    - "<dark_gray>我滴任务，完成辣！"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_spd4a:
+  material: RECOVERY_COMPASS
+  itemModel: COOKED_CHICKEN
+  customName: "<blue>炒鸡肉"
+  lore:
+    - "<gold>藏品"
+    - "<gray>速度+4"
+    - "<dark_gray>注意：这并不是经过炒制的鸡肉"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_spd4b:
+  material: RECOVERY_COMPASS
+  itemModel: BREEZE_ROD
+  customName: "<blue>微风精华"
+  lore:
+    - "<gold>藏品"
+    - "<gray>速度+4"
+    - "<dark_gray>旋风人体内的魔力器官，人类很难完全利用它的能量"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_str1:
+  material: RECOVERY_COMPASS
+  itemModel: PIGLIN_BRUTE_SPAWN_EGG
+  customName: "<red>猪灵蛮兵突变诱发物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>力量I（可升级！）"
+    - "<dark_gray>注入后会获得强壮的蛮力"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_wave_bone:
+  material: RECOVERY_COMPASS
+  itemModel: BOOK
+  customName: "<gray>《德鲁伊入门》"
+  lore:
+    - "<gold>藏品"
+    - "<gray>回合结束时，获得一点生命值上限"
+    - "<dark_gray>战甲慢，德甲快。"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b2_atk225:
+  material: RECOVERY_COMPASS
+  itemModel: OAK_DOOR
+  customName: "<red>迷迭香之拥"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击+225"
+    - "<dark_gray>精英干员迷迭香出任务时，会顺手把门带上"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b2_frost_aura:
+  material: RECOVERY_COMPASS
+  itemModel: POWDER_SNOW_BUCKET
+  customName: "<aqua>寒霜领域"
+  lore:
+    - "<gold>藏品"
+    - "<gray>5格半径范围内敌人持续处于寒冷状态"
+    - "<dark_gray>请别那么匆匆忙忙的"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b2_hit_heal:
+  material: RECOVERY_COMPASS
+  itemModel: TORCHFLOWER
+  customName: "<green>嫉妒护符"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击到敌人时恢复1点生命值"
+    - "<dark_gray>吸血，吸血怎么说？"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b2_hit_slow10:
+  material: RECOVERY_COMPASS
+  itemModel: GLOWSTONE_DUST
+  customName: "<light_purple>安眠迷香"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击时使敌人沉睡1秒"
+    - "<dark_gray>见效极快的迷药，就是药量不太够"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b2_hp30:
+  material: RECOVERY_COMPASS
+  itemModel: NETHERITE_CHESTPLATE
+  customName: "<green>蒸汽骑士的甲胄"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命上限+30"
+    - "<dark_gray>维多利亚曾经拥有一支蒸汽骑士团，如今这块甲胄已是唯一证明它们存在过的证据"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b2_invis:
+  material: RECOVERY_COMPASS
+  itemModel: ELYTRA
+  customName: "<gray>隐身衣"
+  lore:
+    - "<gold>藏品"
+    - "<gray>隐身，Hidesuwa~"
+    - "<dark_gray>死亡三圣器之一，它的主人在迟暮时，淡然面对着曾借此躲避了一生的死神"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b2_mag225:
+  material: RECOVERY_COMPASS
+  itemModel: DIAMOND_BLOCK
+  customName: "<light_purple>璀璨悲泣"
+  lore:
+    - "<gold>藏品"
+    - "<gray>魔攻+225"
+    - "<dark_gray>曾有诗云“昆山玉碎凤凰叫”，大概就是在描绘这种法器施法时的声音"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b2_reach1:
+  material: RECOVERY_COMPASS
+  itemModel: PISTON
+  customName: "<gray>活塞式机械臂"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生物触及距离+1"
+    - "<dark_gray>戳你一下，再戳你一下"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b2_spd20:
+  material: RECOVERY_COMPASS
+  itemModel: PAINTING
+  customName: "<blue>“大静谧”"
+  lore:
+    - "<gold>藏品"
+    - "<gray>速度+20"
+    - "<dark_gray>令观赏者失声的诡异画作"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b2_taken_heal:
+  material: RECOVERY_COMPASS
+  itemModel: SALMON
+  customName: "<aqua>恐鱼生"
+  lore:
+    - "<gold>藏品"
+    - "<gray>受击时恢复2点生命值"
+    - "<dark_gray>可疑的海鲜食物，隐隐散发着生命力"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b2_taken_lev:
+  material: RECOVERY_COMPASS
+  itemModel: FEATHER
+  customName: "<white>天穹尘埃"
+  lore:
+    - "<gold>藏品"
+    - "<gray>受击时使伤害来源获得1s浮空V"
+    - "<dark_gray>驱役泰山，只需一片鸿毛"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_ally_str:
+  material: RECOVERY_COMPASS
+  itemModel: GOAT_HORN
+  customName: "<red>岩角号"
+  lore:
+    - "<gold>藏品"
+    - "<gray>5格半径内友军获得力量II"
+    - "<dark_gray>团结一致，我们不可战胜"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_arrogance:
+  material: RECOVERY_COMPASS
+  itemModel: TORCHFLOWER
+  customName: "<gold>傲慢护符"
+  lore:
+    - "<gold>藏品"
+    - "<gray>回合结束时，你获得100物攻和魔攻加成，当你受到伤害时，清空该选项带来的加成"
+    - "<dark_gray>有时，傲慢也会帮助人类避免犯错。"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_martyr:
+  material: RECOVERY_COMPASS
+  itemModel: RECOVERY_COMPASS
+  customName: "<gold>殉道者"
+  lore:
+    - "<gold>藏品"
+    - "<gray>死亡时为其他所有队友恢复全部生命值，并赋予他们60s力量II、速度II和抗性提升II"
+    - "<dark_gray>除非你认为这一切都值得……"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_taken_splash:
+  material: RECOVERY_COMPASS
+  itemModel: DIAMOND_CHESTPLATE
+  customName: "<aqua>刺猬胸甲"
+  lore:
+    - "<gold>藏品"
+    - "<gray>受击时对周围3格半径内敌人造成一次4点的伤害"
+    - "<dark_gray>宝宝你摸起来扎手"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_wave_potion:
+  material: RECOVERY_COMPASS
+  itemModel: RED_SHULKER_BOX
+  customName: "<red>野战医疗箱"
+  lore:
+    - "<gold>藏品"
+    - "<gray>回合结束时，获得两瓶治疗药水"
+    - "<dark_gray>为什么它能装下那么多药水？"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_wave_splash:
+  material: RECOVERY_COMPASS
+  itemModel: DISPENSER
+  customName: "<aqua>便携生物手雷制造站"
+  lore:
+    - "<gold>藏品"
+    - "<gray>回合结束时，获得两瓶喷溅型治疗II药水"
+    - "<dark_gray>注意：仅对亡灵生物有效"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_atk40:
+  material: RECOVERY_COMPASS
+  itemModel: IRON_SWORD
+  customName: "<red>铁剑刃碎片"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击+40"
+    - "<dark_gray>坚硬的铁质剑刃，打磨打磨还能再砍几个敌人"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_atk45:
+  material: RECOVERY_COMPASS
+  itemModel: BLAZE_POWDER
+  customName: "<red>灼热的力量粉末"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击+45"
+    - "<dark_gray>喝下它后一般会有种砸东西的欲望"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_cursed_blade:
+  material: RECOVERY_COMPASS
+  itemModel: STONE_SWORD
+  customName: "<dark_red>诅咒之刃"
+  lore:
+    - "<gold>藏品"
+    - "<gray>你的攻击造成400%的伤害，但是受伤时额外失去10点生命值"
+    - "<dark_gray>咒多不压身"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_death_golem:
+  material: RECOVERY_COMPASS
+  itemModel: CARVED_PUMPKIN
+  customName: "<gray>便携魔像"
+  lore:
+    - "<gold>藏品"
+    - "<gray>死亡时生成一个铁傀儡"
+    - "<dark_gray>这不是南瓜，这是一个压缩铁傀儡，遇水变大变高"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_hit_wither:
+  material: RECOVERY_COMPASS
+  itemModel: COAL_BLOCK
+  customName: "<dark_gray>腐败之油"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击时为敌人附加10s凋零III"
+    - "<dark_gray>难闻的要死"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_hp8a:
+  material: RECOVERY_COMPASS
+  itemModel: HEAVY_WEIGHTED_PRESSURE_PLATE
+  customName: "<green>防弹插板"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命上限+8"
+    - "<dark_gray>可以抵挡12.7mm亚音速弹在10米内的射击……等等，什么叫监守者的音波攻击？"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_hp8b:
+  material: RECOVERY_COMPASS
+  itemModel: POTION
+  customName: "<green>香香的奶耐"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命上限+8"
+    - "<dark_gray>好喝"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_kill_boom:
+  material: RECOVERY_COMPASS
+  itemModel: CREEPER_HEAD
+  customName: "<dark_green>裂变之颅"
+  lore:
+    - "<gold>藏品"
+    - "<gray>杀敌时对周围敌人造成4点伤害"
+    - "<dark_gray>多看一眼就会爆炸"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_kill_heal:
+  material: RECOVERY_COMPASS
+  itemModel: ZOMBIE_HEAD
+  customName: "<green>肉食之颅"
+  lore:
+    - "<gold>藏品"
+    - "<gray>杀敌时恢复4点生命值"
+    - "<dark_gray>吃，爽！"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_kill_spd:
+  material: RECOVERY_COMPASS
+  itemModel: SKELETON_SKULL
+  customName: "<red>狂暴之颅"
+  lore:
+    - "<gold>藏品"
+    - "<gray>杀敌时获得5s速度II"
+    - "<dark_gray>你跑不过我你信吗"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_kill_str:
+  material: RECOVERY_COMPASS
+  itemModel: PIGLIN_HEAD
+  customName: "<gold>嗜血之颅"
+  lore:
+    - "<gold>藏品"
+    - "<gray>杀敌时获得2s力量II"
+    - "<dark_gray>别动我，我buff要夹断了……"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_kill_wither:
+  material: RECOVERY_COMPASS
+  itemModel: WITHER_SKELETON_SKULL
+  customName: "<dark_gray>凋萎之颅"
+  lore:
+    - "<gold>藏品"
+    - "<gray>杀敌时使3格半径范围内敌人获得凋零I"
+    - "<dark_gray>最好不要轻易使用尸爆术，会比较难洗"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_mag40:
+  material: RECOVERY_COMPASS
+  itemModel: SPRUCE_SAPLING
+  customName: "<light_purple>冬青杖芯"
+  lore:
+    - "<gold>藏品"
+    - "<gray>魔攻+40"
+    - "<dark_gray>救世主同款魔杖杖芯，现清仓大甩卖！"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_mag45:
+  material: RECOVERY_COMPASS
+  itemModel: POTION
+  customName: "<light_purple>魔力药剂"
+  lore:
+    - "<gold>藏品"
+    - "<gray>魔攻+45"
+    - "<dark_gray>喝下后能增加法力的药剂"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_reach_a:
+  material: RECOVERY_COMPASS
+  itemModel: LEAD
+  customName: "<gray>流浪商人的长鞭"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生物触及距离+0.5"
+    - "<dark_gray>其实根本没有什么流浪商人，只是两根这样的长鞭在到处流浪"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_reach_b:
+  material: RECOVERY_COMPASS
+  itemModel: GOLDEN_HOE
+  customName: "<gray>挠痒痒痒痒挠"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生物触及距离+0.5"
+    - "<dark_gray>倒过来也能用"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_regen2:
+  material: RECOVERY_COMPASS
+  itemModel: ALLAY_SPAWN_EGG
+  customName: "<green>悦灵突变诱发物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命恢复II（可升级！）"
+    - "<dark_gray>注入后会获得自我修复的魔力"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_spd10:
+  material: RECOVERY_COMPASS
+  itemModel: CLOCK
+  customName: "<blue>主观缓时"
+  lore:
+    - "<gold>藏品"
+    - "<gray>速度+10"
+    - "<dark_gray>当你在空间中快速移动时，你在时间轴上的速度就会减缓"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_spd8a:
+  material: RECOVERY_COMPASS
+  itemModel: LEATHER_BOOTS
+  customName: "<blue>精致跑鞋"
+  lore:
+    - "<gold>藏品"
+    - "<gray>速度+8"
+    - "<dark_gray>第一次穿出门一定会被踩"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_spd8b:
+  material: RECOVERY_COMPASS
+  itemModel: RABBIT_FOOT
+  customName: "<blue>兔子脚"
+  lore:
+    - "<gold>藏品"
+    - "<gray>速度+8"
+    - "<dark_gray>据说有让人变得幸运的功效"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_str2:
+  material: RECOVERY_COMPASS
+  itemModel: PIGLIN_BRUTE_SPAWN_EGG
+  customName: "<red>猪灵蛮兵突变诱发物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>力量II（可升级！）"
+    - "<dark_gray>注入后会获得强壮的蛮力"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_ally_regen:
+  material: RECOVERY_COMPASS
+  itemModel: ROSE_BUSH
+  customName: "<white>白玫瑰"
+  lore:
+    - "<gold>藏品"
+    - "<gray>5格半径内友军获得生命恢复I"
+    - "<dark_gray>得在皇后发现前把它们染成红的……"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_atk60:
+  material: RECOVERY_COMPASS
+  itemModel: ANVIL
+  customName: "<red>崭新的铁砧"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击+60"
+    - "<dark_gray>还没有魂环的崭新铁砧，忍不住想要放在高处"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_atk70:
+  material: RECOVERY_COMPASS
+  itemModel: NETHERITE_SWORD
+  customName: "<red>合金剑刃碎片"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击+70"
+    - "<dark_gray>极其坚固且锋利的剑刃，据说使用最坚硬的合金打造"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_atk80:
+  material: RECOVERY_COMPASS
+  itemModel: BLAZE_ROD
+  customName: "<red>力量之源"
+  lore:
+    - "<gold>藏品"
+    - "<gray>攻击+80"
+    - "<dark_gray>力量粉末的来源，据说来自于地狱"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_hp12:
+  material: RECOVERY_COMPASS
+  itemModel: COOKED_BEEF
+  customName: "<green>永恒牛排"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命上限+12"
+    - "<dark_gray>一块永远吃不完的牛排"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_hp18:
+  material: RECOVERY_COMPASS
+  itemModel: CHAINMAIL_CHESTPLATE
+  customName: "<green>秘银软甲"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命上限+18"
+    - "<dark_gray>可以穿在衣服里的轻便护甲，却有着惊人的防护性。"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_hp30:
+  material: RECOVERY_COMPASS
+  itemModel: MILK_BUCKET
+  customName: "<green>一大桶奶耐"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命上限+30"
+    - "<dark_gray>一次喝够"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_kb1b:
+  material: RECOVERY_COMPASS
+  itemModel: NETHERITE_BLOCK
+  customName: "<gray>合金配重块"
+  lore:
+    - "<gold>藏品"
+    - "<gray>击退抗性+1"
+    - "<dark_gray>会让你的腿像是灌了铅"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_kill_atk10:
+  material: RECOVERY_COMPASS
+  itemModel: GOLDEN_AXE
+  customName: "<red>嗜血之斧"
+  lore:
+    - "<gold>藏品"
+    - "<gray>杀敌时获得10物攻加成，本回合结束时清空该被动获得的加成"
+    - "<dark_gray>无聊，我要看到血流成河"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_kill_mag10:
+  material: RECOVERY_COMPASS
+  itemModel: REDSTONE_BLOCK
+  customName: "<light_purple>嗜血宝石"
+  lore:
+    - "<gold>藏品"
+    - "<gray>杀敌时获得10魔攻加成，本回合结束时清空该被动获得的加成"
+    - "<dark_gray>这人魔了，是个魔人"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_lust:
+  material: RECOVERY_COMPASS
+  itemModel: LILY_OF_THE_VALLEY
+  customName: "<light_purple>色欲护符"
+  lore:
+    - "<gold>藏品"
+    - "<gray>获得伤害吸收I，但物攻和魔攻-20"
+    - "<dark_gray>这倒是提醒我了……"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_mag60:
+  material: RECOVERY_COMPASS
+  itemModel: AMETHYST_CLUSTER
+  customName: "<light_purple>原初魔晶"
+  lore:
+    - "<gold>藏品"
+    - "<gray>魔攻+60"
+    - "<dark_gray>蕴藏着上古魔力的晶体，十分难以寻找"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_mag70:
+  material: RECOVERY_COMPASS
+  itemModel: PALE_OAK_SAPLING
+  customName: "<light_purple>接骨木杖芯"
+  lore:
+    - "<gold>藏品"
+    - "<gray>魔攻+70"
+    - "<dark_gray>与圣器中的老魔杖同款的杖芯，据说一般人压不住这种材料"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_mag80:
+  material: RECOVERY_COMPASS
+  itemModel: EXPERIENCE_BOTTLE
+  customName: "<light_purple>魔力之源"
+  lore:
+    - "<gold>藏品"
+    - "<gray>魔攻+80"
+    - "<dark_gray>高级魔导师把大量魔力封存在这一小小的瓶子内，供人随时取用"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_reach1b:
+  material: RECOVERY_COMPASS
+  itemModel: STRING
+  customName: "<gray>人偶牵线"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生物触及距离+1"
+    - "<dark_gray>欢迎来到Ave Mujica的世界"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_regen4:
+  material: RECOVERY_COMPASS
+  itemModel: ALLAY_SPAWN_EGG
+  customName: "<green>悦灵突变诱发物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命恢复III（已满级！）"
+    - "<dark_gray>注入后会获得自我修复的魔力"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_res3:
+  material: RECOVERY_COMPASS
+  itemModel: IRON_GOLEM_SPAWN_EGG
+  customName: "<gray>铁傀儡突变诱发物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>抗性提升II（已满级！）"
+    - "<dark_gray>注入后会形成坚硬的金属外壳以抵挡伤害"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_spd15:
+  material: RECOVERY_COMPASS
+  itemModel: WIND_CHARGE
+  customName: "<blue>风神的印记"
+  lore:
+    - "<gold>藏品"
+    - "<gray>速度+15"
+    - "<dark_gray>愿风神保佑你"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_spd20:
+  material: RECOVERY_COMPASS
+  itemModel: IRON_BOOTS
+  customName: "<blue>火箭靴"
+  lore:
+    - "<gold>藏品"
+    - "<gray>速度+20"
+    - "<dark_gray>左脚踩右脚"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_str3:
+  material: RECOVERY_COMPASS
+  itemModel: PIGLIN_BRUTE_SPAWN_EGG
+  customName: "<red>猪灵蛮兵突变诱发物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>力量，可叠加，上限1"
+    - "<dark_gray>注入后会获得强壮的蛮力"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_taken_abs:
+  material: RECOVERY_COMPASS
+  itemModel: WAXED_OXIDIZED_COPPER_TRAPDOOR
+  customName: "<yellow>护心镜"
+  lore:
+    - "<gold>藏品"
+    - "<gray>受击时获得1秒伤害吸收I"
+    - "<dark_gray>第九枪打中他时，父亲的怀表的cd转好了"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_taken_res:
+  material: RECOVERY_COMPASS
+  itemModel: WAXED_OXIDIZED_COPPER
+  customName: "<gray>咒魂护符"
+  lore:
+    - "<gold>藏品"
+    - "<gray>受击时获得1秒抗性提升IV"
+    - "<dark_gray>从某个雪山上的巨型墓穴里面的巨大绿色亡灵身上扒下来的"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_glass_regen:
+  material: RECOVERY_COMPASS
+  itemModel: DIAMOND_HOE
+  customName: "<aqua>自修复玻璃刀"
+  lore:
+    - "<gold>藏品"
+    - "<gray>右键获得一把玻璃刀：【钻石锄，耐久剩余1点，锋利100】；冷却时间120s"
+    - "<dark_gray>我的手牌满了！"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_imm_poison:
+  material: RECOVERY_COMPASS
+  itemModel: CAVE_SPIDER_SPAWN_EGG
+  customName: "<green>洞穴蜘蛛突变诱发物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>免疫中毒、虚弱"
+    - "<dark_gray>注入后能够免疫所有毒素"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_imm_slow:
+  material: RECOVERY_COMPASS
+  itemModel: WARDEN_SPAWN_EGG
+  customName: "<blue>监守者突变诱发物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>免疫黑暗、失明"
+    - "<dark_gray>注入后获得在黑暗中的视力"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_imm_wither:
+  material: RECOVERY_COMPASS
+  itemModel: WITHER_SKELETON_SPAWN_EGG
+  customName: "<dark_gray>凋零骷髅突变诱发物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>免疫凋零、缓慢"
+    - "<dark_gray>注入后获得免疫枯萎衰败的能力"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_class_guard:
+  material: RECOVERY_COMPASS
+  itemModel: SMITHING_TABLE
+  customName: "<yellow>近卫信物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>+2.0触及范围，+100%物攻，+12生命上限，初始获得猪灵蛮兵突变诱发物"
+    - "<dark_gray>擅长对敌人造成大量近战伤害的职业，使用长柄武器"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_class_heavy:
+  material: RECOVERY_COMPASS
+  itemModel: IRON_TRAPDOOR
+  customName: "<blue>重装信物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>+20%物攻，+28生命上限，初始获得圣城庇护"
+    - "<dark_gray>擅长防御和恢复的职业，使用重剑作为武器"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_class_mage:
+  material: RECOVERY_COMPASS
+  itemModel: EMERALD_BLOCK
+  customName: "<green>术师信物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>+30%物攻，+30%魔攻，+20生命上限，回合结束时多恢复20点生命值，初始获得稳定的原石祭坛"
+    - "<dark_gray>兼具远程和近战能力的职业，使用魔剑作为武器"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_class_sniper:
+  material: RECOVERY_COMPASS
+  itemModel: SPYGLASS
+  customName: "<aqua>狙击信物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>+50%魔攻，+12生命上限，初始获得灵魂立方"
+    - "<dark_gray>擅长远距离打击敌人的职业，使用魔法弓弩"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_class_sniper_coin_toy:
+  material: RECOVERY_COMPASS
+  itemModel: COPPER_GOLEM_SPAWN_EGG
+  customName: "<gold>投币玩具"
+  lore:
+    - "<gold>藏品"
+    - "<gray>每回合结束装填速度+3%"
+    - "<dark_gray>每存进去一个舍不得花的硬币，它的笑容便会明亮一点"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_ascetic:
+  material: RECOVERY_COMPASS
+  itemModel: BOWL
+  customName: "<aqua>苦修"
+  lore:
+    - "<gray>移动速度-20，累计经过5个回合后移除移动速度惩罚"
+    - "<gray>并获得20点速度加成和20点生命值上限"
+    - "<dark_gray>循此苦旅，终抵群星"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_class_medical:
+  material: RECOVERY_COMPASS
+  itemModel: BREWING_STAND
+  customName: "<light_purple>医疗信物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>+10%移动速度，+22生命上限，进入新的一层时获得一枚复活币，初始获得纯净核心"
+    - "<dark_gray>擅长治疗与支援的职业，使用双蛇杖作为武器"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_class_vanguard:
+  material: RECOVERY_COMPASS
+  itemModel: RED_BANNER
+  customName: "<gold>先锋信物"
+  lore:
+    - "<gold>藏品"
+    - "<gray>+50%物攻，+24生命上限，击杀敌人时恢复1点生命值，初始获得清算名单"
+    - "<dark_gray>擅长与敌人近战搏斗的职业，使用战斧作为武器"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_cyan_torch:
+  material: RECOVERY_COMPASS
+  itemModel: SOUL_TORCH
+  customName: "<aqua>青色火炬"
+  lore:
+    - "<gold>藏品"
+    - "<gray>装填速度+11%"
+    - "<dark_gray>青色的怒火在跳动"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_cyan_ink:
+  material: RECOVERY_COMPASS
+  itemModel: GLOW_INK_SAC
+  customName: "<aqua>青色墨囊"
+  lore:
+    - "<gold>藏品"
+    - "<gray>装填速度+14%"
+    - "<dark_gray>这种诡异的生物将灵魂像墨汁一般储存在器官中"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_ferryman:
+  material: RECOVERY_COMPASS
+  itemModel: SOUL_LANTERN
+  customName: "<aqua>摆渡人"
+  lore:
+    - "<gold>藏品"
+    - "<gray>装填速度+18%"
+    - "<dark_gray>冥河的波光倒映着成千上万青色的烛火，它们将驶向黑暗"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_eerie_campfire:
+  material: RECOVERY_COMPASS
+  itemModel: SOUL_CAMPFIRE
+  customName: "<aqua>诡异的营火"
+  lore:
+    - "<gold>藏品"
+    - "<gray>装填速度+43%，回合结束时不再恢复生命值"
+    - "<dark_gray>别怕，蓝色的火焰依旧能温暖你冰冷的身躯……"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_petal:
+  material: RECOVERY_COMPASS
+  itemModel: CYAN_DYE
+  customName: "<aqua>片瓣"
+  lore:
+    - "<gold>藏品"
+    - "<gray>装填速度+67%"
+    - "<dark_gray>莲瓣入水而不苦根茎，毋执著"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b2_tower_memory:
+  material: RECOVERY_COMPASS
+  itemModel: BEACON
+  customName: "<aqua>碎片大厦的回忆"
+  lore:
+    - "<gold>藏品"
+    - "<gray>死亡时对全场敌人造成500点伤害，并仅一次获得+100%装填速度"
+    - "<dark_gray>注：并不是指被飞机撞成碎片的大厦"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_feast:
+  material: RECOVERY_COMPASS
+  itemModel: CAKE
+  customName: "<gold>盛宴"
+  lore:
+    - "<gold>藏品"
+    - "<gray>你每击杀50名敌人，获得一次复活机会"
+    - "<dark_gray>他们没有面包了，为什么不吃蛋糕呢？"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_amethyst_eggplant:
+  material: RECOVERY_COMPASS
+  itemModel: PURPLE_DYE
+  customName: "<light_purple>水晶茄子"
+  lore:
+    - "<gold>藏品"
+    - "<gray>每击杀 100 名敌人，获得 1 枚金币"
+    - "<dark_gray>最好不要细想这玩意儿的用途"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_king_armor:
+  material: RECOVERY_COMPASS
+  itemModel: GOLDEN_CHESTPLATE
+  customName: "<gold>国王的铠甲"
+  lore:
+    - "<gold>藏品"
+    - "<gray>失去剩余的复活次数，每失去一次，获得 10 点生命值上限"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_gold_wine_goblet:
+  material: RECOVERY_COMPASS
+  itemModel: BUCKET
+  customName: "<gold>金酒之杯"
+  lore:
+    - "<gold>藏品"
+    - "<gray>背包里每有一枚金币，装填速度+10%"
+    - "<dark_gray>圣人、骑士、虔信之徒，无人不为之疯狂。老天啊，连杯子本身都是纯金的！"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_king_new_gun:
+  material: RECOVERY_COMPASS
+  itemModel: IRON_SWORD
+  customName: "<gold>国王的新枪"
+  lore:
+    - "<gold>藏品"
+    - "<gray>没有剩余复活次数时，装填速度+100%"
+    - "<dark_gray>绝境下的美好祈愿能带给人希望，即使那并不是真相。"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_king_extension:
+  material: RECOVERY_COMPASS
+  itemModel: TRIDENT
+  customName: "<gold>国王的延伸"
+  lore:
+    - "<gold>藏品"
+    - "<gray>没有剩余复活次数时，魔攻 +150%、装填速度+25%"
+    - "<dark_gray>成长，认清现实，用坚韧与笃定武装自己，用包容与慈恩武装朋友。"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_king_crown:
+  material: RECOVERY_COMPASS
+  itemModel: GOLDEN_HELMET
+  customName: "<gold>诸王的冠冕"
+  lore:
+    - "<gold>藏品"
+    - "<gray>没有额外复活次数时，物攻 +150、触及距离 +1"
+    - "<dark_gray>无名的诸王啊，纵使王国毁灭，仍愿您护佑伊比利亚。"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+
+maggoteers:charm_wave_atk_mag:
+  material: RECOVERY_COMPASS
+  itemModel: ENCHANTING_TABLE
+  customName: "<dark_purple>稳定的原石祭坛"
+  lore:
+    - "<gold>藏品"
+    - "<gray>回合结束时，获得3物攻和魔攻加成"
+    - "<dark_gray>顺风圆神逆风圆出"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_25cd:
+  material: RECOVERY_COMPASS
+  itemModel: WAXED_OXIDIZED_CHISELED_COPPER
+  customName: "<gold>青铜历石"
+  lore:
+    - "<gold>藏品"
+    - "<gray>装填速度+33%"
+    - "<dark_gray>古文明用于记日的石碑，砸起人来还是物法混伤。"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_28cd:
+  material: RECOVERY_COMPASS
+  itemModel: WAXED_OXIDIZED_COPPER_TRAPDOOR
+  customName: "<gold>青铜镜"
+  lore:
+    - "<gold>藏品"
+    - "<gray>装填速度+39%"
+    - "<dark_gray>我不认识镜中的倒影"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_30cd:
+  material: RECOVERY_COMPASS
+  itemModel: TIDE_ARMOR_TRIM_SMITHING_TEMPLATE
+  customName: "<gold>断杖-波纹"
+  lore:
+    - "<gold>藏品"
+    - "<gray>装填速度+43%"
+    - "<dark_gray>收下我最后的波纹吧"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_35cd:
+  material: RECOVERY_COMPASS
+  itemModel: EYE_ARMOR_TRIM_SMITHING_TEMPLATE
+  customName: "<gold>残弩-神速"
+  lore:
+    - "<gold>藏品"
+    - "<gray>装填速度+54%"
+    - "<dark_gray>我是狂暴装填手组长"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_45cd:
+  material: RECOVERY_COMPASS
+  itemModel: WAXED_OXIDIZED_COPPER_BULB
+  customName: "<gold>堆芯"
+  lore:
+    - "<gold>藏品"
+    - "<gray>装填速度+82%"
+    - "<dark_gray>什么叫这是三星堆的堆芯？"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_60cd:
+  material: RECOVERY_COMPASS
+  itemModel: WAXED_OXIDIZED_COPPER_LANTERN
+  customName: "<dark_red>喀戎之引"
+  lore:
+    - "<gold>藏品"
+    - "<gray>装填速度+150%，但不再获得金币"
+    - "<dark_gray>浸入这冥河，你将从此与世间断开一切链接，只有你未浸入的脚踝能证明你还活着"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b1_50cd:
+  material: RECOVERY_COMPASS
+  itemModel: RED_CANDLE
+  customName: "<gold>黄金平原"
+  lore:
+    - "<gold>藏品"
+    - "<gray>装填速度+100%"
+    - "<dark_gray>一望无际的金色麦田，微风，欢声笑语，以及你的下一瓶精酿。"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b2_70cd:
+  material: RECOVERY_COMPASS
+  itemModel: BLACK_CANDLE
+  customName: "<dark_purple>第一法则"
+  lore:
+    - "<gold>藏品"
+    - "<gray>装填速度+233%"
+    - "<dark_gray>永远是红酒爱好者们的第一选择"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_22atk:
+  material: RECOVERY_COMPASS
+  itemModel: SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE
+  customName: "<red>折戟-锋刃"
+  lore:
+    - "<gold>藏品"
+    - "<gray>物攻+22%"
+    - "<dark_gray>这已经是你这个月砍坏的第七把刀了！"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_42atk:
+  material: RECOVERY_COMPASS
+  itemModel: VEX_ARMOR_TRIM_SMITHING_TEMPLATE
+  customName: "<red>钝爪-百战"
+  lore:
+    - "<gold>藏品"
+    - "<gray>物攻+42%"
+    - "<dark_gray>眼看着乌压压的敌人逼近，我的脑海里只剩下四个字：“他们完了”"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_65atk:
+  material: RECOVERY_COMPASS
+  itemModel: COAST_ARMOR_TRIM_SMITHING_TEMPLATE
+  customName: "<red>锈刃-研磨"
+  lore:
+    - "<gold>藏品"
+    - "<gray>物攻+65%"
+    - "<dark_gray>日暖月寒，来煎人寿"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_22mag:
+  material: RECOVERY_COMPASS
+  itemModel: WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE
+  customName: "<light_purple>支柱-勤奋"
+  lore:
+    - "<gold>藏品"
+    - "<gray>魔攻+22%"
+    - "<dark_gray>即使是最微小的工作，也应该全力以赴"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_42mag:
+  material: RECOVERY_COMPASS
+  itemModel: SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE
+  customName: "<light_purple>残弩-神准"
+  lore:
+    - "<gold>藏品"
+    - "<gray>魔攻+42%"
+    - "<dark_gray>颗秒！"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_65mag:
+  material: RECOVERY_COMPASS
+  itemModel: RAISER_ARMOR_TRIM_SMITHING_TEMPLATE
+  customName: "<light_purple>断杖-破解"
+  lore:
+    - "<gold>藏品"
+    - "<gray>魔攻+65%"
+    - "<dark_gray>解咒无需施咒人"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_15heal:
+  material: RECOVERY_COMPASS
+  itemModel: MANGROVE_PROPAGULE
+  customName: "<green>胎生苗"
+  lore:
+    - "<gold>藏品"
+    - "<gray>治疗强度+15%"
+    - "<dark_gray>以形补形，请服下这颗充满生机的萌芽"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_45heal:
+  material: RECOVERY_COMPASS
+  itemModel: OPEN_EYEBLOSSOM
+  customName: "<green>眼眸花"
+  lore:
+    - "<gold>藏品"
+    - "<gray>治疗强度+45%"
+    - "<dark_gray>只有眼睁开的那几小时药效充足"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_70heal:
+  material: RECOVERY_COMPASS
+  itemModel: NETHER_WART
+  customName: "<green>活体疣"
+  lore:
+    - "<gold>藏品"
+    - "<gray>治疗强度+70%"
+    - "<dark_gray>炼制药剂的基本材料"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_35heal:
+  material: RECOVERY_COMPASS
+  itemModel: WILD_ARMOR_TRIM_SMITHING_TEMPLATE
+  customName: "<green>医者-妙手"
+  lore:
+    - "<gold>藏品"
+    - "<gray>治疗强度+35%"
+    - "<dark_gray>青山有碍，心摧不弃"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_100heal:
+  material: RECOVERY_COMPASS
+  itemModel: RESPAWN_ANCHOR
+  customName: "<dark_purple>巫术增幅器"
+  lore:
+    - "<gold>藏品"
+    - "<gray>治疗强度+100%，生命上限-50%"
+    - "<dark_gray>注：长期使用会对健康产生不可逆的后果"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b2_200heal:
+  material: RECOVERY_COMPASS
+  itemModel: SCULK_SENSOR
+  customName: "<green>涌动之餐"
+  lore:
+    - "<gold>藏品"
+    - "<gray>治疗强度+200%，装填速度+11%"
+    - "<dark_gray>我知道良药苦口，可这个好像已经不是苦不苦的问题了"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_20ran:
+  material: RECOVERY_COMPASS
+  itemModel: LIGHTNING_ROD
+  customName: "<yellow>铜增幅器"
+  lore:
+    - "<gold>藏品"
+    - "<gray>施法范围+20%"
+    - "<dark_gray>一般也能增幅到被放生的闪电"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_40ran:
+  material: RECOVERY_COMPASS
+  itemModel: COMPARATOR
+  customName: "<yellow>石英增幅器"
+  lore:
+    - "<gold>藏品"
+    - "<gray>施法范围+40%"
+    - "<dark_gray>十分精密的仪器，千万不要上手去碰"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_60ran:
+  material: RECOVERY_COMPASS
+  itemModel: CALIBRATED_SCULK_SENSOR
+  customName: "<yellow>紫晶增幅器"
+  lore:
+    - "<gold>藏品"
+    - "<gray>施法范围+60%"
+    - "<dark_gray>也许这样就能让整个镇子的人欣赏我高雅的音乐品味了"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b1_100ran:
+  material: RECOVERY_COMPASS
+  itemModel: SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE
+  customName: "<yellow>断杖-苦难巫咒"
+  lore:
+    - "<gold>藏品"
+    - "<gray>施法范围+100%，生命上限-12"
+    - "<dark_gray>我们的咒言在绝境中呼唤着和平"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_holy_city_shelter:
+  material: RECOVERY_COMPASS
+  itemModel: GLOBE_BANNER_PATTERN
+  customName: "<gold>圣城庇护"
+  lore:
+    - "<gold>藏品"
+    - "<gray>每秒治疗5格内所有友方1点生命"
+    - "<dark_gray>光芒消失了，但我们仍在战斗"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_pure_core:
+  material: RECOVERY_COMPASS
+  itemModel: CONDUIT
+  customName: "<aqua>纯净核心"
+  lore:
+    - "<gold>藏品"
+    - "<gray>回合结束时治疗强度+5%"
+    - "<dark_gray>似乎能永远净化邪祟……"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_turbo_charger:
+  material: RECOVERY_COMPASS
+  itemModel: FURNACE_MINECART
+  customName: "<aqua>涡轮增压机"
+  lore:
+    - "<gold>藏品"
+    - "<gray>回合结束时速度+2%"
+    - "<dark_gray>往前压往前压！你们在干什么？为什么没有人奶我！"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_heart_vine:
+  material: RECOVERY_COMPASS
+  itemModel: PITCHER_POD
+  customName: "<dark_red>恋心草"
+  lore:
+    - "<gold>藏品"
+    - "<gray>受伤时额外受到10点伤害；每波获得1枚金币"
+    - "<dark_gray>“你不怕亏钱吗？” “怕，但更怕坏了规矩”"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_iron_guard_atk:
+  material: RECOVERY_COMPASS
+  itemModel: SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE
+  customName: "<red>铁卫-侵略"
+  lore:
+    - "<gold>藏品"
+    - "<gray>物攻+150%，生命上限-20"
+    - "<dark_gray>有时候，杀掉一个人往往才能拯救更多人。"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_coin_toy:
+  material: RECOVERY_COMPASS
+  itemModel: GOLD_NUGGET
+  customName: "<gold>投币玩具"
+  lore:
+    - "<gold>藏品"
+    - "<gray>获得金币时，装填速度+3%"
+    - "<dark_gray>有钱能使鬼推磨"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_piggy_bank:
+  material: RECOVERY_COMPASS
+  itemModel: PIGLIN_SPAWN_EGG
+  customName: "<gold>猪灵存钱罐"
+  lore:
+    - "<gold>藏品"
+    - "<gray>回合结束时，额外获得 1 枚金币"
+    - "<gray>你第一次花掉金币时，该藏品失效"
+    - "<dark_gray>我宁愿一穷二白也不想打碎它"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b1_mana_stone:
+  material: RECOVERY_COMPASS
+  itemModel: CHARCOAL
+  customName: "<gray>魔法石"
+  lore:
+    - "<gold>藏品"
+    - "<gray>拾起时，立刻获得 2 次复活机会"
+    - "<dark_gray>能够制作长生不老药的魔法材料，不要被它平庸的外表欺骗了"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_mango:
+  material: RECOVERY_COMPASS
+  itemModel: YELLOW_DYE
+  customName: "<yellow>芒果"
+  lore:
+    - "<gold>藏品"
+    - "<gray>每击败 100 名敌人，获得 10 点生命值上限"
+    - "<dark_gray>那些往里面加辣椒粉的家伙一定是疯了"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_frost_pear:
+  material: RECOVERY_COMPASS
+  itemModel: LIGHT_GRAY_DYE
+  customName: "<aqua>冻梨"
+  lore:
+    - "<gold>藏品"
+    - "<gray>每击败 100 名敌人，获得 1 枚星石"
+    - "<dark_gray>我发现怪物对冻得梆硬的这玩意过敏"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_b2_fruit_bundle:
+  material: RECOVERY_COMPASS
+  itemModel: LIME_BUNDLE
+  customName: "<green>袋装水果什锦"
+  lore:
+    - "<gold>藏品"
+    - "<gray>每击败 100 名敌人，获得 100% 物攻、100% 魔攻与 100% 装填速度加成"
+    - "<dark_gray>似乎从里面可以取出无限的水果——可以永控医生了"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_burning_cloak:
+  material: RECOVERY_COMPASS
+  itemModel: LEATHER_CHESTPLATE
+  customName: "<red>燃烧披风"
+  lore:
+    - "<gold>藏品"
+    - "<gray>物理伤害 ×2"
+    - "<gray>但每攻击 20 次，失去 20% 物攻加成"
+    - "<dark_gray>大数字爱好者点了个赞"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_demon_banner:
+  material: RECOVERY_COMPASS
+  itemModel: PURPLE_BANNER
+  customName: "<light_purple>魔王的旗帜"
+  lore:
+    - "<gold>藏品"
+    - "<gray>拾起时，如果你拥有 4 次以上复活次数，额外获得 5 次复活次数"
+    - "<dark_gray>胜券在王了"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+
+maggoteers:charm_corrupt_can:
+  material: RECOVERY_COMPASS
+  itemModel: SALMON_BUCKET
+  customName: "<dark_green>腐败罐头"
+  lore:
+    - "<gold>藏品"
+    - "<gray>6格半径范围内的敌人持续处于凋零II"
+    - "<dark_gray>你*俚语*的快把这玩意丢了，这怎么能是食物呢？"
+  glint: true
+  enchantments:
+    - minecraft:unbreaking: 10
+
+maggoteers:charm_lime_gummy:
+  material: RECOVERY_COMPASS
+  itemModel: ORANGE_BUNDLE
+  customName: "<gold>酸橙味软糖"
+  lore:
+    - "<gold>藏品"
+    - "<gray>4格半径范围内的敌人持续处于漂浮I"
+    - "<dark_gray>那位可爱的信使小姐在默默地帮助你"
+  glint: true
+  enchantments:
+    - minecraft:unbreaking: 10
+
+maggoteers:charm_living_flint:
+  material: RECOVERY_COMPASS
+  itemModel: FLINT_AND_STEEL
+  customName: "<gold>活化火石"
+  lore:
+    - "<gold>藏品"
+    - "<gray>7格半径范围内的敌人持续燃烧"
+    - "<dark_gray>似乎有自我意识的打火石，千万不能放任它不管"
+  glint: true
+  enchantments:
+    - minecraft:unbreaking: 10
+
+# ===== 难度负面奖励（诅咒）护符 =====
+
+maggoteers:charm_curse_x2_shield:
+  material: RECOVERY_COMPASS
+  itemModel: SCULK_SENSOR
+  customName: "<dark_red>干扰·屏蔽"
+  lore:
+    - "<gold>藏品"
+    - "<gray>施法范围 -30%"
+    - "<dark_gray>你的咒言难以施展。"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_curse_x2_coward:
+  material: RECOVERY_COMPASS
+  itemModel: RABBIT_FOOT
+  customName: "<dark_red>干扰·懦弱"
+  lore:
+    - "<gold>藏品"
+    - "<gray>每击杀 50 名敌人，失去 10% 物攻与魔攻"
+    - "<dark_gray>你的行动畏首畏尾。"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+maggoteers:charm_curse_x2_poor:
+  material: RECOVERY_COMPASS
+  itemModel: GOLD_NUGGET
+  customName: "<dark_red>诅咒·贫穷"
+  lore:
+    - "<gold>藏品"
+    - "<gray>失去所有金币"
+    - "<gray>且每 3 个回合再失去 1 枚金币"
+    - "<dark_gray>你的投资满眼绿色。"
+  glint: true
+
+  enchantments:
+    - minecraft:unbreaking: 10
+
+maggoteers:charm_curse_hard_limp:
+  material: RECOVERY_COMPASS
+  itemModel: IRON_CHAIN   # Paper 26.2 无 Material.CHAIN（原版 chain 已改名 iron_chain）
+  customName: "<dark_red>诅咒·蹒跚"
+  lore:
+    - "<gold>藏品"
+    - "<gray>移动速度 -20%"
+    - "<dark_gray>你的脚步沉重迟缓。"
+maggoteers:charm_curse_hard_fragile:
+  material: RECOVERY_COMPASS
+  itemModel: BONE
+  customName: "<dark_red>诅咒·敏感"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命上限 -20"
+    - "<dark_gray>你的伤口难以愈合。"
+maggoteers:charm_curse_x1_frail:
+  material: RECOVERY_COMPASS
+  itemModel: WITHER_ROSE
+  customName: "<dark_red>干扰·虚弱"
+  lore:
+    - "<gold>藏品"
+    - "<gray>失去 2 点物攻；造成的魔法伤害 -20%"
+    - "<dark_gray>你的进攻疲软不堪。"
+maggoteers:charm_curse_x1_limp:
+  material: RECOVERY_COMPASS
+  itemModel: LEAD
+  customName: "<dark_red>干扰·蹒跚"
+  lore:
+    - "<gold>藏品"
+    - "<gray>移动速度 -10%"
+    - "<dark_gray>你的脚步沉重迟缓。"
+maggoteers:charm_curse_x1_fragile:
+  material: RECOVERY_COMPASS
+  itemModel: BONE
+  customName: "<dark_red>干扰·羸弱"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命上限 -12"
+    - "<dark_gray>你的伤口难以愈合。"
+maggoteers:charm_curse_hard_weak:
+  material: RECOVERY_COMPASS
+  itemModel: WOODEN_SWORD
+  customName: "<dark_red>诅咒·虚弱"
+  lore:
+    - "<gold>藏品"
+    - "<gray>造成物理伤害 -30%"
+    - "<dark_gray>你的战刃脆且易折。"
+maggoteers:charm_curse_hard_exhaust:
+  material: RECOVERY_COMPASS
+  itemModel: EXPERIENCE_BOTTLE
+  customName: "<dark_red>诅咒·枯竭"
+  lore:
+    - "<gold>藏品"
+    - "<gray>造成魔法伤害 -30%"
+    - "<dark_gray>你的精神难以集中。"
+maggoteers:charm_curse_hard_sharp:
+  material: RECOVERY_COMPASS
+  itemModel: ARROW
+  customName: "<dark_red>诅咒·尖锐"
+  lore:
+    - "<gold>藏品"
+    - "<gray>受到伤害增加 2 点"
+    - "<dark_gray>你的甲胄形同虚设。"
+maggoteers:charm_curse_x1_exhaust:
+  material: RECOVERY_COMPASS
+  itemModel: EXPERIENCE_BOTTLE
+  customName: "<dark_red>干扰·枯竭"
+  lore:
+    - "<gold>藏品"
+    - "<gray>每回合失去 1% 物攻和魔攻"
+    - "<dark_gray>你的力量缓缓消逝。"
+maggoteers:charm_curse_hard_awkward:
+  material: RECOVERY_COMPASS
+  itemModel: CLOCK
+  customName: "<dark_red>诅咒·愚钝"
+  lore:
+    - "<gold>藏品"
+    - "<gray>装填速度 -50%（冷却 ×2）"
+    - "<dark_gray>你的精神摇摇欲坠。"
+maggoteers:charm_curse_x1_thirst:
+  material: RECOVERY_COMPASS
+  itemModel: CAULDRON
+  customName: "<dark_red>干扰·渴求"
+  lore:
+    - "<gold>藏品"
+    - "<gray>连续 60 秒没有击败敌人，则逐步踏入死亡"
+    - "<dark_gray>你的双手渴求鲜血。"
+maggoteers:charm_curse_x3_cognition:
+  material: RECOVERY_COMPASS
+  itemModel: ENCHANTED_GOLDEN_APPLE
+  customName: "<dark_red>绝境·认知失调"
+  lore:
+    - "<gold>藏品"
+    - "<gray>互换你的物攻和魔攻加成"
+    - "<dark_gray>*随机混乱的词句。"
+maggoteers:charm_curse_x3_flesh:
+  material: RECOVERY_COMPASS
+  itemModel: ROTTEN_FLESH
+  customName: "<dark_red>绝境·血肉畸变"
+  lore:
+    - "<gold>藏品"
+    - "<gray>造成的物理和魔法伤害 -60%"
+    - "<dark_gray>看看我变成了什么东西！。"
+maggoteers:charm_curse_x3_blood:
+  material: RECOVERY_COMPASS
+  itemModel: REDSTONE
+  customName: "<dark_red>绝境·造血障碍"
+  lore:
+    - "<gold>藏品"
+    - "<gray>生命上限 -50%，每秒流失 2 点生命"
+    - "<dark_gray>58……59……60……活下去……"
+maggoteers:charm_curse_x3_nerve:
+  material: RECOVERY_COMPASS
+  itemModel: SPIDER_EYE
+  customName: "<dark_red>绝境·神经退行"
+  lore:
+    - "<gold>藏品"
+    - "<gray>移动速度 -50%，装填速度 -33%"
+    - "<dark_gray>对不起，我好像忘记了……"

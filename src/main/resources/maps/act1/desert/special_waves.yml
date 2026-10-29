@@ -1,0 +1,5 @@
+# 沙漠特色波 — strategy 定义见 waves.yml（全部进强怪池）
+strong:
+  - { strategy: s1_desert_four_camels, weight: 2 }
+  - { strategy: s1_desert_prisoners, weight: 2 }
+  - { strategy: s1_desert_plague, weight: 2 }

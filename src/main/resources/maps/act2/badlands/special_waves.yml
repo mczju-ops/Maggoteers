@@ -1,0 +1,8 @@
+# 恶地特色波 — strategy 定义见 waves.yml
+# 2026-10-29（用户设计案）：
+#   s2_badlands_contamination「本能污染」→ 删除（内容由 s2_academy「育英圣堂」接手，已进 act2 基础强怪池）
+#   s2_controversy「争议频发」（原基础池）→ 删除，位置由 s2_giant_cradle「巨人摇篮」顶上（本图特色）
+strong:
+  - { strategy: s2_badlands_fake_death, weight: 2 }
+  - { strategy: s2_badlands_bully, weight: 2 }
+  - { strategy: s2_giant_cradle, weight: 2 }

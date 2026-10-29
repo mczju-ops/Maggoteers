@@ -1,0 +1,9 @@
+# 相对 act_origins.act1 层原点。structure.nbt 原点角对齐层原点后，按结构内实测改坐标。
+playerSpawn: { x: 6, y: 1, z: 44 }
+spawnPoints:
+  "1": { x: 43, y: 1, z: 45 }
+  "2": { x: 41, y: 1, z: 5 }
+  "3": { x: 44, y: 1, z: 23 }
+  "4": { x: 4, y: 1, z: 8 }
+  "5": { x: 9, y: 6, z: 8 }
+  boss: { x: 24, y: 1, z: 24 }

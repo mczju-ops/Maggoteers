@@ -1,0 +1,158 @@
+# ============================================================
+# 图鉴（/maggoteers codex）内容配置
+# ------------------------------------------------------------
+# 一、pages —— 武器 / 藏品图鉴共用的页序
+#     键 = rewards.yml 里的 reward_pools 池 id，值 = 该页标题（MiniMessage）。
+#     武器书只放该池的 WEAPON、藏品书只放该池里有护符的 STAT；每屏 21 件，
+#     同一池子超过 21 件时自动续到下一页（标题后会自动带 1/2、2/2……），
+#     页与页之间用「上一页 / 下一页」翻。
+#     想加/减页 = 增删这里的条目，不需要改代码。
+#     空池（该池没有这一类的条目）会被自动跳过，例如 act3_boss（只有深渊之钥）。
+#
+# 二、bosses —— Boss 图鉴的文案（图标与血量不在这里）
+#     键 = waves.yml 里 strategies 的 strategy id；图鉴按各层 boss 池的顺序自动排列，
+#     所以这里只写文案，不决定顺序、也不决定图标/血量：
+#       · 图标 = 那只怪自己的刷怪蛋；血量 = 「基础血量 × coeff.hp × 数量 × 轮数」
+#         （单人 · 普通难度）——这些属于 waves.yml 的定义（铁律②定义唯一处），
+#         在这里再抄一份只会在调平衡时漏改。
+#       · 一关有 N 只带血条的怪就摆 N 个刷怪蛋（如同关的「雪牝」「霜牡」），
+#         每只显示自己的血量；一只血条怪都没有的关（纯多波杂兵）合成一个蛋、显示全关合计。
+#       name     可省略；省略时用 waves.yml 的「关卡名称」（有血条名的怪优先用怪自己的名字）
+#       gameplay 玩法描述（一行）
+#       flavor   风味描述（一行）
+#
+# 三、affixes —— 词条图鉴白名单
+#     只有列在这里的 mob_skills.yml 技能 id 才会出现在词条图鉴里。
+#     顺序 = 图鉴里的摆放顺序；name / icon / gameplay / flavor 全部可改。
+# ============================================================
+
+pages:
+  act1_weak:   "<gray>一层 · 弱怪"
+  act1_strong: "<gray>一层 · 强敌"
+  act1_boss:   "<gold>一层 · 首领"
+  act2_weak:   "<gray>二层 · 弱怪"
+  act2_strong: "<gray>二层 · 强敌"
+  act2_boss:   "<gold>二层 · 首领"
+  act3_weak:   "<gray>三层 · 弱怪"
+  act3_strong: "<gray>三层 · 强敌"
+
+bosses:
+  b1_colossus:
+    gameplay: "<gray>拥有伤害吸收和抗性提示的石像，每 20 秒在最近的玩家头顶引下一道落雷。"
+    flavor: "<dark_gray>这台巨像本是作为仆从制造，但糊涂的术师忘记了告诉它应该服务谁……。"
+  b1_eternal_rest:
+    gameplay: "<gray>「圣徒」会释放追踪玩家的凋零骷髅头颅头颅，受到攻击时会向玩家射出箭雨。"
+    flavor: "<dark_gray>在生命彻底燃尽前，他会继续猎杀伊比利亚的敌人。"
+  b1_garden_pavilion:
+    gameplay: "<gray>「编织泪水的术师」拥有一个免伤护盾，在她释放技能时攻击她30次以击碎护盾。"
+    flavor: "<dark_gray>未来的女妖王庭之主，如今正穿越时空站在你面前。"
+  b2_silent_guard:
+    gameplay: "<gray>面对来自绯红森林的大军。"
+    flavor: "<dark_gray>兴，猪灵苦；亡，猪灵苦。"
+  b2_breath:
+    gameplay: "<gray>它是一名监守者。"
+    flavor: "<dark_gray>它听见你了"
+  b2_frost_farewell:
+    gameplay: "<gray>「雪牝」的箭矢与「霜牡」的利刃会冻结玩家。"
+    flavor: "<dark_gray>今夜上演的是，一幕沉痛的悲剧。"
+    units:
+      雪牝:
+        gameplay: "<gray>使用弓箭，造成伤害时会冻结玩家。"
+        flavor: "<dark_gray>雪祀亲卫，渴望有朝一日死于“寒灾”般的敌人之手。"
+      霜牡:
+        gameplay: "<gray>使用利刃，造成伤害时会冻结玩家。"
+        flavor: "<dark_gray>雪祀亲卫，渴望有朝一日死于“邪魔”般的敌人之手。"
+  b2_musketeers:
+    gameplay: "<gray>"
+    flavor: "<dark_gray>"
+    units:
+      桓君:
+        gameplay: "<gray>攻击会使玩家获得虚弱。"
+        flavor: "<dark_gray>横立桥头，怒目圆睁，敌酋军将虽多，无人可过其侧。"
+      文衡君:
+        gameplay: "<gray>会释放音波进行远程穿透打击。"
+        flavor: "<dark_gray>破关斩将，威震九州，纵使兵败身死，忠义闻名天下。"
+      昭烈君:
+        gameplay: "<gray>攻击会为自己恢复生命值，还会持续为周围敌人恢复生命值。"
+        flavor: "<dark_gray>扬善除恶，仁德宽厚，击破数方势力，正统得以归炎。"
+  b3_into_eternal:
+    gameplay: "<gray>"
+    flavor: "<dark_gray>"
+    units:
+      "路加萨尔古斯，万王之王":
+        gameplay: "<gray>释放天基光束锁定目标，优先锁定‘哈兰杜汗，大地之鞭’，锁定过程中降低范围内玩家移动速度，随后对范围内玩家造成大量伤害"
+        flavor: "<dark_gray>在现实的另一侧，过去与未来之王发出号令，死亡与生命一同列阵。"
+      "哈兰杜汗，大地之鞭":
+        gameplay: "<gray>释放天基光束锁定目标，优先锁定‘路加萨尔古斯，万王之王’，锁定过程中对范围内玩家施加失明，随后对范围内玩家造成大量伤害"
+        flavor: "<dark_gray>在时间的另一侧，梦魇可汗天途将尽，黄金彼岸的万顷财富，正等待着他去践踏。"
+  b3_sentinel:
+    gameplay: "<gray>受击时传送至另一怪物出生点，并使玩家的挖掘疲劳效果等级+1。释放技能时清空所有玩家身上的挖掘疲劳效果，并依据消耗的挖掘疲劳等级对玩家造成大量伤害。"
+    flavor: "<dark_gray>邪魔留在这个维度的一只眼，它在等待着入侵的时机。"
+  b3_human_radiance:
+    gameplay: "<gray>吞噬靠近的其他史莱姆。释放技能时，对全场玩家造成大量伤害并使玩家眩晕；每吞噬一只史莱姆，眩晕时间增加2秒。"
+    flavor: "<dark_gray>临近进化奇点的完美生物，进化的建言者与引领者。"
+  b3_holy_city:
+    gameplay: "<gray>拥有厚重的护甲，降低受到的来自远处的伤害。释放技能时，对全场玩家进行三次扫射，造成大量伤害。"
+    flavor: "<dark_gray>守卫圣城大门的教宗骑士，他相信秩序，愿意为律法治下的和平服务。"
+  b4_doorweaver:
+    gameplay: "<gray>四个阶段的读条首领：锚定、沉默、凝视与獠牙星。打断它的读条，否则门就开了。"
+    flavor: "<dark_gray>它在门的另一边织了很久，只为让门这侧的人看清楚自己。"
+
+# 词条图鉴白名单（第一版）：流沙 / 失明 / 火球 / 死灵法师 / 风暴 /
+# 复仇者 / 感染者 / 屏障 / 医师 / 虚无 / 塑料
+affixes:
+  quicksand:
+    name: "<yellow>流沙"
+    icon: SAND
+    gameplay: "<gray>受到攻击时，让攻击者在 4 秒内缓慢。"
+    flavor: "<dark_gray>所有的史莱姆与尸壳拥有该词条。"
+  blinding:
+    name: "<gray>失明"
+    icon: INK_SAC
+    gameplay: "<gray>受到攻击时，让攻击者失明 3 秒。"
+    flavor: "<dark_gray>部分末影螨与流浪者拥有该词条。"
+  ghastly:
+    name: "<red>火球"
+    icon: FIRE_CHARGE
+    gameplay: "<gray>向最近的玩家抛出一枚追踪火球。"
+    flavor: "<dark_gray>部分精英怪与首领拥有该词条。"
+  necromancer:
+    name: "<dark_gray>死灵法师"
+    icon: WITHER_SKELETON_SKULL
+    gameplay: "<gray>召唤一颗追踪玩家的凋灵之首。"
+    flavor: "<dark_gray>部分精英怪与首领拥有该词条。"
+  storm:
+    name: "<blue>风暴"
+    icon: LIGHTNING_ROD
+    gameplay: "<gray>在最近的玩家头顶引下闪电。"
+    flavor: "<dark_gray>部分精英怪与首领拥有该词条。"
+  vengeance:
+    name: "<gold>复仇者"
+    icon: IRON_SWORD
+    gameplay: "<gray>受到攻击时立刻反弹 6 点伤害。"
+    flavor: "<dark_gray>所有命名为“复仇者”的怪物拥有该词条。"
+  infected:
+    name: "<light_purple>感染者"
+    icon: ROTTEN_FLESH
+    gameplay: "<gray>死亡时会生成其他怪物。"
+    flavor: "<dark_gray>所有命名为“感染者”的怪物拥有该词条。"
+  barrier:
+    name: "<aqua>屏障"
+    icon: SHIELD
+    gameplay: "<gray>免疫来自 6 格以外的伤害。"
+    flavor: "<dark_gray>所有命名为“护盾术师”的怪物拥有该词条。"
+  healer:
+    name: "<green>医师"
+    icon: GOLDEN_APPLE
+    gameplay: "<gray>每秒治疗 6 格内所有同伴 6 点生命。"
+    flavor: "<dark_gray>所有命名为“医师”的怪物拥有该词条。。"
+  void:
+    name: "<light_purple>虚无"
+    icon: ENDER_EYE
+    gameplay: "<gray>免疫伤害，受到 10 次攻击后立刻死亡。"
+    flavor: "<dark_gray>所有命名为“虚无”的怪物拥有该词条。"
+  plastic:
+    name: "<white>塑料"
+    icon: SLIME_BALL
+    gameplay: "<gray>出现后 10 秒内短暂地免疫伤害。"
+    flavor: "<dark_gray>所有命名为“塑料”的怪物拥有该词条。"

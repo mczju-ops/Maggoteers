@@ -1,0 +1,164 @@
+# =====================================================================================
+# 成就（进度）
+# -------------------------------------------------------------------------------------
+# 由 MCZJUGameCore 的成就系统承载（注册 → 解锁 → 存档 → 原生进度 toast），
+# 玩家入口：/mgc achievement
+#
+# 字段
+#   name        成就名（纯文本，不要写 MiniMessage 标签——MGC 的成就界面按纯文本渲染）
+#   description 描述（同样纯文本；隐藏成就靠"描述写模糊"来保密，不是靠隐藏字段）
+#   icon        图标材质（Material，必须真实存在；`AchievementSchemaTest` 会校验）
+#   rule        判定规则 id（**代码里有限枚举**；加新规则要写 Java，见 AchievementRules）
+#   value       阈值（按规则解释；缺省 0 表示该规则不需要阈值）
+#   stat        仅 rule: statistic 用，取 MGC 的统计项（WINS/KILLS/GAMES_PLAYED/…）
+#   required    仅部分规则用：需要的 id 列表（如"所有国王藏品"）
+#   rarity      common | legendary —— legendary 解锁时会放音乐 + 全队广播（2026-10-30）
+#
+# ⚠️ 加成就 = 加一段配置；但 rule 必须是已实现的规则，否则加载时会告警并跳过。
+# =====================================================================================
+achievements:
+
+  # 单局花费 50 枚以上的金币（只算 3 选 1 商店花掉的普通货币；被诅咒夺走的不算）
+  spend_50:
+    name: 挥金如土
+    description: 单局花费 50 枚以上的金币
+    icon: GOLD_INGOT
+    rule: spend_coins
+    value: 50
+
+  # 通关瞬间剩余自动复活次数
+  revives_on_win:
+    name: 坚若磐石
+    description: 通关时拥有 5 点以上复活次数
+    icon: SHIELD
+    rule: revives_at_win
+    value: 5
+
+  # 通关瞬间 物攻 / 魔攻 / 装填速度 三个倍率同时达标（面板口径：x3.0 算、x2.9 不算）
+  triple_300:
+    name: 万事俱备
+    description: 通关时物攻、魔攻与装填速度加成同时达到 300% 以上
+    icon: DIAMOND_SWORD
+    rule: triple_multiplier
+    value: 3.0
+
+  # 专家难度 + 通关瞬间四人全在且都存活
+  four_expert_win:
+    name: 不朽盟约
+    description: 以四人满编队伍通关专家难度
+    icon: MAP
+    rule: four_alive_expert
+
+  # 通关瞬间集齐所有「国王」藏品（组合包按父项算）
+  all_king:
+    name: 万王之王
+    description: 通关时集齐所有「国王」藏品
+    icon: GOLDEN_HELMET
+    rule: all_king_collectibles
+    required: [king_new_gun, king_armor, king_extension, king_crown]
+
+  # 通关用时 < 20 分钟（计时口径同最佳时间榜：职业选完 → 终局奖杯）
+  sub20_win:
+    name: 大地之鞭
+    description: 20 分钟内通关
+    icon: WITHER_SKELETON_SKULL
+    rule: run_time_under_sec
+    value: 1200
+
+  # 通关瞬间最大生命值
+  hp_100_win:
+    name: 大胃王
+    description: 通关时拥有 100 点以上最大生命值
+    icon: CAKE
+    rule: max_health_at_least
+    value: 100
+
+  # 通关瞬间速度加成（面板口径：x2.0 起算）
+  speed_200_win:
+    name: 我还记得你
+    description: 通关时拥有 200% 以上速度加成
+    icon: LEATHER_BOOTS
+    rule: speed_at_least
+    value: 2.0
+
+  # 军需处可解锁项全部买下（自动从 rewards.yml 派生，不需要配置列表）
+  unlock_all:
+    name: 军火贩子
+    description: 在军需处解锁全部藏品
+    icon: FIREWORK_ROCKET
+    rule: unlock_all
+
+  # 自己是旁观者（已倒下）时队伍通关
+  spectator_win:
+    name: ！？区区区区？！
+    description: 在旁观状态下通关游戏
+    icon: SILVERFISH_SPAWN_EGG
+    rule: spectator_win
+
+  # 单局用复活币救起死者 5 次（给活人 +1 次数不算）
+  save_five:
+    name: 再世华佗
+    description: 单局救活队友 5 次
+    icon: GOLDEN_APPLE
+    rule: save_teammates
+    value: 5
+
+  # 单次伤害（物理与法术两条通道都算）
+  hit_150:
+    name: 会心一击
+    description: 造成一次 150 点的伤害
+    icon: MACE
+    rule: hit_at_least
+    value: 150
+
+  # 击败隐藏层 Boss（描述保持模糊：只让人知道"有隐藏 Boss"）
+  hidden_boss:
+    rarity: legendary
+    name: 夫暴风前共扉门
+    description: 击败隐藏boss
+    icon: OMINOUS_BOTTLE
+    rule: defeat_hidden_boss
+
+  # 通关瞬间背包里的普通货币数量
+  ten_coins_win:
+    rarity: legendary
+    name: 身外事
+    description: 通关时，身上带有 10 枚以上金币
+    icon: GOLD_BLOCK
+    rule: coins_at_win
+    value: 10
+
+  # 交给 MGC 的统计系统自动累计（本插件不写任何计数代码）
+  win_100:
+    rarity: legendary
+    name: 区区之星
+    description: 通关 100 局游戏
+    icon: NETHER_STAR
+    rule: statistic
+    stat: WINS
+    value: 100
+
+  # 没有复活次数时被自己的自伤类效果打死（描述模糊）
+  self_kill:
+    rarity: legendary
+    name: 魔芋爽
+    description: 「主动放弃」一局游戏
+    icon: PUFFERFISH
+    rule: self_kill_no_revive
+
+  # 专家 + 开局 4 人 + 其余 3 人在一层 Boss 倒下前全部进旁观 + 最终单人通关（描述模糊）
+  solo_expert:
+    rarity: legendary
+    name: 天才少年
+    description: 击败远超正常难度的强敌
+    icon: MUSIC_DISC_13
+    rule: solo_expert
+
+  # 同时拥有的状态效果数量（每秒心跳检查）
+  nine_effects:
+    rarity: legendary
+    name: 你的脑袋怎么尖尖的
+    description: 同时拥有九种状态效果
+    icon: BREWING_STAND
+    rule: potion_count
+    value: 9

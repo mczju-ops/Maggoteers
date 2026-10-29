@@ -1,0 +1,463 @@
+wait:
+  min_players: 1
+lives:
+  default: 2
+
+# 内部测试版开关（正式发布前请改 enabled: false）
+# enabled=true：有 maggoteers.play 即可用 /maggoteers debug（无需 OP）
+# enabled=false：仅 maggoteers.admin（默认 OP）可用 debug
+debug:
+  enabled: false
+  announce: false
+  # 调试探针（/maggoteers debug aura的逐条输出）。默认关闭，排查时再开会刷日志。
+  probe: false
+
+# 全局怪物属性倍率（再叠 waves.yml coeff / affixes）
+mob_attributes:
+  scale: 1.0
+  follow_range: 10.0
+  squad_target_range: 32.0
+  squad_move_speed: 1.0
+  squad_horse_speed: 2.5   # 马/骆驼专属中间档（替代旧 squad_charge_speed 4.0：4.0 太快、1.0 太慢 → 2.5）
+
+# 局内怪物行为规则
+mob_rules:
+  # 禁止本局刷出的蜘蛛 / 洞穴蜘蛛爬墙：
+  block_spider_wall_climb: true
+  # 拦下本局刷出的潜影贝的传送
+  block_shulker_teleport: true
+
+initial_equipment:
+  - maggoteers:detection_radar   # 开局全员探测雷达；职业装仍由 class 池发放
+class_select:
+  timeout_sec: 45
+
+# 可升级 STAT（stack: UPGRADE_LEVEL）的等级上限：option upgrade_max → 池级 upgrade_level_cap → 本默认值
+rewards:
+  upgrade_level_cap_default: 4
+
+# 管理员可自定义：名称(MiniMessage)、材质、描述、光效
+# item_id 须与 waves.yml clearReward / rewards.yml 中引用一致
+items:
+  currency_normal:
+    item_id: maggoteers:currency_normal
+    kind: currency_normal
+    material: GOLD_NUGGET
+    name: "<yellow>金币"
+    lore:
+      - "<gray>可用于在商店购买技能和物品"
+    glint: true
+  currency_boss:
+    item_id: maggoteers:currency_boss
+    kind: currency_boss
+    material: NETHER_STAR
+    name: "<light_purple>星石"
+    lore:
+      - "<gray>可用于在Boss商店购买物品"
+    glint: true
+  class_ticket:
+    item_id: maggoteers:class_ticket
+    kind: class_ticket
+    material: WRITABLE_BOOK
+    name: "<gold>职业选择券"
+    lore:
+      - "<gray>开局选择职业专用"
+      - "<dark_gray>右键重新打开职业菜单"
+    glint: true
+  shop_emerald:
+    item_id: maggoteers:shop_emerald
+    kind: shop_emerald
+    material: EMERALD
+    name: "<green>休整菜单"
+    lore:
+      - "<gray>右键打开休整期菜单"
+      - "<dark_gray>商店与投票跳过休整功能"
+    glint: true
+
+# 局内奖励物品丢弃/放入容器保护（false = 允许丢弃）
+run_items:
+  drop_protection: false
+
+# 层列表（顺序即推进顺序）——层数的唯一真相源。
+# 加一层 = 这里加 id + 配 act_origins.<id> + waves_per_act.<id> + maps/<id>/ + waves.yml pools.<id>
+# 缺任一项会在开局生成剧本时直接报错
+acts: [act1, act2, act3, act4]
+
+# 隐藏结局层（2026-10-26 阶段 5「链路验证」）：
+#   hidden_act:        隐藏层 id（必须已写进上面的 acts:）；留空 = 无隐藏层，行为与旧版完全一致
+#   hidden_gate_after: 清掉这一层的 **Boss 波** 后进入"终局休整"，此时才允许用钥匙进门；
+#                      休整结束/全员跳过 → 正常通关（不进门），只有主动用钥匙才会进隐藏层
+hidden_act: act4
+hidden_gate_after: act3
+# 层特例规则（原先写死在 Java 里，等价于"只有第 3 层特殊"）。改为显式层 id 列表：
+#   shop_always_strong: 该层普通商店恒抽 strong 池（不看上一波档位）
+#   boss_pool_early:    该层清掉 weak（奖励关）后即把 Boss 池粘滞切到本层
+#   curse_hard:         困难难度在这些层发放 curse_hard
+#   curse_expert:       专家难度在这些层发放 curse_expert_<层id>
+act_rules:
+  shop_always_strong: []
+  boss_pool_early: []
+  curse_hard: [act2]
+  curse_expert: [act1, act2, act3]
+act_origins:
+  act1: [0, 64, 0]
+  act2: [1024, 64, 0]
+  act3: [2048, 64, 0]
+  act4: [3072, 64, 0]
+waves_per_act:
+  act1: { weak: 3, strong: 3 }
+  act2: { weak: 3, strong: 3 }
+  act3: { weak: 1, strong: 4 }
+  # Act4 占位（链路验证）：单波 Boss 战，不刷杂兵波；池子仍保留三条（内容守护要求非空）
+  act4: { weak: 0, strong: 0 }  
+rest:
+  duration_sec: 60
+map:
+  fallback_platform: true
+world:
+  time_lock: night   # night | day | midnight | none
+player:
+  night_vision: true   # 玩家夜视
+act_enter:
+  prep_sec: 10       # 每层地图粘贴后、开波前的准备倒计时（秒）
+
+# 魔法武器右键释放：音效 + 粒子预设（handler 内调用 MagicFxService.play）
+# preset: THICK_RING | SPIRAL_RADIUS | RIPPLE_RINGS | AIM_RAY | SMOOTH_EXPAND_RING | DOT_ABOVE
+# particle: FLAME, SOUL_FIRE_FLAME, CRIT, ENCHANT, ELECTRIC_SPARK, END_ROD, …（见 GameRegistries.particle）
+# AURA 携带者脚下粒子：每次 play 为完整单次动画；间隔内不重复触发
+aura:
+  carrier_fx:
+    default_interval_sec: 3
+    by_preset:
+      SMOOTH_EXPAND_RING: 5
+      THICK_RING: 1
+
+# 氛围音效 + 大字广播（进层/波次开始/boss 波，全部可配置）
+# sound: 原版 Sound 枚举名（免下载）
+# title: MiniMessage 模板，{name}=关卡名；留空 = 不广播标题（<bold> 即黑体）
+# title_times: 标题淡入/停留/淡出（tick）
+# repeat: 连播次数；repeat_gap_ticks: 每次间隔（tick）
+ambience:
+  enter_act:
+    sound: AMBIENT_CAVE
+    volume: 1.0
+    pitch: 1.0
+    title: "<bold><white>！？区区恶敌？！"
+    title_times: { fade_in: 5, stay: 45, fade_out: 10 }
+  wave_start:
+    sound: ENTITY_WARDEN_HEARTBEAT
+    volume: 1.0
+    pitch: 1.0
+  boss_start:
+    sound: ENTITY_WARDEN_EMERGE
+    volume: 1.0
+    pitch: 1.0
+    title: "<bold><white>{name}"
+    title_times: { fade_in: 5, stay: 60, fade_out: 10 }
+  final_boss:
+    sound: BLOCK_END_PORTAL_SPAWN
+    repeat: 3
+    repeat_gap_ticks: 12
+    volume: 1.0
+    pitch: 1.0
+    title: "<bold><white>{name}"
+    title_times: { fade_in: 5, stay: 80, fade_out: 15 }
+  victory:
+    sound: UI_TOAST_CHALLENGE_COMPLETE
+    volume: 1.0
+    pitch: 1.0
+    title: "<bold><gold>胜利"
+    title_times: { fade_in: 8, stay: 90, fade_out: 25 }
+
+magic_fx:
+  defaults:
+    sound: ENTITY_PLAYER_ATTACK_SWEEP
+    sound_volume: 0.9
+    sound_pitch: 1.05
+    preset: THICK_RING
+    particle: FLAME
+    radius: 4.5
+    ray_length: 12.0
+    density: 64
+    ripple_rings: 4
+    expand_steps: 28
+    spiral_ticks: 18
+  # 按 use_ability.effect 自动套用（可被 magic_fx.weapons 与 use_ability.fx 覆盖）
+  templates:
+    heal:
+      preset: RIPPLE_RINGS
+      particle: HAPPY_VILLAGER
+      radius: 5.0
+      ripple_rings: 4
+      sound: ENTITY_EXPERIENCE_ORB_PICKUP
+      sound_volume: 0.75
+      sound_pitch: 1.35
+    beam:
+      preset: NONE
+      particle: END_ROD
+      ray_length: 32.0
+      sound: ENTITY_ILLUSIONER_CAST_SPELL
+      sound_volume: 0.85
+      sound_pitch: 1.15
+      density: 48
+    buff:
+      preset: NONE
+      particle: ENCHANT
+      sound: BLOCK_ENCHANTMENT_TABLE_USE
+      sound_volume: 0.7
+      sound_pitch: 1.25
+  weapons:
+    maggoteers:test_blade:
+      preset: SPIRAL_RADIUS
+      radius: 6.0
+      particle: CRIT
+      sound: ENTITY_PLAYER_ATTACK_SWEEP
+      sound_volume: 0.9
+      sound_pitch: 1.1
+      density: 48
+      spiral_ticks: 44
+    maggoteers:excalibur_a3:
+      particle: END_ROD
+      ray_length: 32.0
+      sound: ENTITY_ILLUSIONER_CAST_SPELL
+      density: 64
+scaling:
+  mob_hp:        [1.0, 1.5, 2.0, 3.0]
+  mob_damage:    [1.0, 1.1, 1.2, 1.3]
+  mob_count:     [1.0, 1.0, 1.1, 1.2]
+  # mob_speed:    [1.0, 1.0, 1.0, 1.0]   # 预留：未来 affix 速度扩展；当前速度缩放不生效，取消注释即启用
+# 难度分级（1.3.3）：普通/困难/专家。房主等待阶段 /maggoteers difficulty <n> 选择。
+# 倍率乘在 scaling 人数数组之上（mob_speed 无难度倍率，保持人数数组原值）。
+difficulty:
+  multipliers:
+    normal: { mob_hp: 1.0,  mob_damage: 1.0,  mob_count: 1.0 }
+    hard:   { mob_hp: 1.2,  mob_damage: 1.15, mob_count: 1.1 }
+    expert: { mob_hp: 1.3,  mob_damage: 1.25, mob_count: 1.2 }
+settlement:
+  win_flat: 100
+  fail_per_act: 25
+  fail_per_wave: 1
+  difficulty_multipliers:
+    normal: 1.0
+    hard: 1.25
+    expert: 1.5
+
+messages:
+  game:
+    meta_name: "<gold>区区恶敌？！"
+    meta_author: "<green>_YamatoMaya_"
+    meta_description:
+      - "<aqua>原创多人PVE肉鸽小游戏"
+      - "<gray>支持 1–4 人游玩"
+    world_create_failed: "<red>世界创建失败，对局终止。"
+    plan_generating: "<gray>正在生成剧本…"
+    plan_timeout: "<yellow>剧本生成超时(30s)，终止。"
+    plan_failed: "<red>剧本生成失败{detail}，对局终止。"
+    enter_class_select: "<yellow>已进入游戏 · 请选择职业（右键职业选择券可重新打开菜单）"
+    prep_clause: "  {prep} 秒后开始生成怪物，"
+    ready: "<green>地图已就绪！{prep_clause} 你拥有 {lives} 次复活机会。"
+    settlement_grant: "<yellow>{player} 结算获得 {grant} 点数。"
+    defeat: "<red>你的小队在恶敌面前倒下了。可输入 /mgc leave 离开房间。"
+    curse_arrive: "<dark_red>☠ 诅咒降临：{display}"
+  wave:
+    skip_vote: "<yellow>⏭ 跳过休整投票 {voted}/{total}（{player} 已投）"
+    skip_passed: "<green>⏭ 全员同意，跳过休整！"
+    enter_act: "<gold>▶ 进入第 {act} 层 · {map}"
+    prep: "<yellow>⏳ 地图准备 {prep} 秒…"
+    begin: "<red>▶ 第 {wave} / {wave_count} 波 · {tier}{strategy_clause}"
+    strategy_clause: " · {strategy}"
+    cleared: "<green>✔ 威胁已清除！"
+    cleared_rewarded: "<green>✔ 威胁已清除！"
+    hidden_key_hint: "<dark_purple>🔑 可选择用「深渊之钥」开启隐藏结局层"
+    hidden_enter: "<dark_purple>🔑 已使用深渊之钥，正在进入第四层……"
+    phase_switch: "<dark_purple>阶段 {phase}"
+    hidden_key_denied: "<red>现在不能用钥匙（需在第三层终局休整期、且隐藏层未开启）。"
+    final_rest: "<gold>🏆 最终Boss已清除 "
+    rest_hint: "<gray>正在进入休整期……"
+    victory: "<gold>🏆 恭喜您通关了 区区恶敌？！"
+    phase_prep: "正在准备"
+    phase_spawning: "正在生成怪物"
+    phase_active: "正在战斗"
+    phase_rest: "休整期"
+    phase_done: "游戏结束"
+    phase_defeated: "失败"
+  death:
+    missing_state: "<red>{player} 死亡时无 PlayerState（已强制复活）。请回报此日志。"
+    auto_revive: "<yellow>{player} 力竭了！（剩余 {remaining} 复活次数）"
+    to_spectator: "<red>{player} 力竭了！（可用复活币救援）"
+    to_down_quit: "<red>{player} 退出了对局。"
+  menu:
+    rest:
+      title: "休整 · 升级"
+      normal_name: "<yellow>普通奖励"
+      normal_lore: "消耗 1 金币购买一个藏品"
+      boss_name: "<light_purple>Boss 奖励"
+      boss_lore: "消耗 1 星石购买一个强力藏品"
+      skip_name: "<green>跳过休整"
+      skip_lore: "投票进度 {voted}/{total} · 全员同意立即进入下一波"
+      held: "持有：{count}"
+      click: "<yellow>▶ 点击"
+      rest_only: "<gray>仅休整期可用"
+      pool_missing: "<red>奖励池未配置：{pool}"
+      no_offers: "<red>当前没有可选奖励。"
+      not_enough_currency: "<red>货币不足！"
+    pick:
+      title: "3 选 1"
+      charge_error: "<yellow>扣费异常，请联系管理员。"
+      apply_failed: "<gray>应用失败，货币未扣除。请重试或联系管理员。"
+    class:
+      title: "选择职业"
+      need_ticket: "<red>需要手持职业选择券才能确认！"
+      chosen: "<green>职业已选定！"
+    revive:
+      title: "复活币 · 选择目标"
+      no_coin: "<red>没有复活币了！"
+      not_needed: "<gray>该玩家无需复活。"
+      revived: "<green>{actor} 用复活币救回了 {target}！"
+      add_life: "<green>{actor} 用复活币给 {target} +1 复活次数。"
+      head_down: "<red>{name}（倒下）"
+      head_alive: "<green>{name}（存活）"
+    stats:
+      title: "玩家数值"
+      open_name: "<aqua>查看玩家数值"
+      open_lore: "谁的数值最高？"
+      head: "{name} 的数值"
+      atk: "物理伤害: ×{value}"
+      magic: "魔法伤害: ×{value}"
+      cd: "装填速度: ×{value}"
+      heal: "治疗量: ×{value}"
+      range: "施法范围: ×{value}"
+      speed: "移动速度: ×{value}"
+      maxhp: "生命上限: {value}"
+      reach: "触及距离: {value}"
+    shop:
+      title: "<red>军需处"
+      balance: "<yellow>当前积分：<gold>{balance}"
+      balance_lore: "<gray>通关/失败结算获得，用于解锁商店内物品"
+      already_owned: "<gray>已拥有：{display}"
+      not_enough: "<red>点数不足（需 {cost}）"
+      unlocked: "<green>已解锁：{display}"
+      prev_name: "<yellow>上一页"
+      next_name: "<yellow>下一页"
+      page_lore: "<gray>第 {page}/{pages} 页"
+      page_edge: "<dark_gray>已经到头了（第 {page}/{pages} 页）"
+      confirm_title: "<yellow>确认购买"
+      confirm_item: "<gold>{display} <gray>（{cost} 点）"
+      confirm_item_lore: "<gray>确认后会立刻扣除点数并解锁这件物品"
+      confirm_ok: "<green>确认购买"
+      confirm_ok_lore: "<green>扣除点数，解锁"
+      confirm_cancel: "<red>取消"
+      confirm_cancel_lore: "<red>返回军需处"
+      lore_owned: "已解锁"
+      lore_cost: "花费 {cost} 点数"
+   # 传说成就的庆祝（2026-10-30）：解锁时放音乐 + 大字 + 只向本局参与者广播
+    achievement:
+      legendary_title: "<light_purple>✦ 传说成就 ✦"
+      legendary_subtitle: "<white>{name}"
+      legendary_broadcast: "<light_purple>✦ {player} 完成了传说成就【{name}】"
+      legendary_sound: "music_disc_pigstep"
+      legendary_stinger: "ui_toast_challenge_complete"
+    # 图鉴（/maggoteers codex，2026-10-30；codex.yml 里是条目文案，Boss 可写 units: 给同关每只 Boss 各一段）。
+    codex:
+      title: "图鉴"
+      weapon_title: "图鉴 · 武器"
+      collectible_title: "图鉴 · 藏品"
+      boss_title: "图鉴 · 首领"
+      affix_title: "图鉴 · 词条"
+      weapon_name: "<yellow>武器图鉴"
+      weapon_lore: "<gray>本局可能出现的武器　已获得 {got}/{total}"
+      collectible_name: "<aqua>藏品图鉴"
+      collectible_lore: "<gray>本局可能出现的藏品　已获得 {got}/{total}"
+      boss_name: "<red>首领图鉴"
+      boss_lore: "<gray>各层关底的首领　已遭遇 {got}/{total}"
+      affix_name: "<light_purple>词条图鉴"
+      affix_lore: "<gray>怪物身上的词条　共 {total} 条"
+      exit_name: "<red>退出图鉴"
+      exit_lore: "<gray>关闭菜单"
+      back_name: "<yellow>返回"
+      back_lore: "<gray>回到图鉴目录"
+      prev_name: "<yellow>上一页"
+      prev_lore: "<gray>往前翻一页"
+      next_name: "<yellow>下一页"
+      next_lore: "<gray>往后翻一页"
+      page_edge: "<dark_gray>已经到头了"
+      locked_name: "<dark_gray>？？？"
+      locked_lore_weapon: "<dark_gray>这把武器还在阴影之中"
+      locked_lore_collectible: "<dark_gray>这个藏品还在阴影之中"
+      unseen_weapon: "<dark_gray>你还没有遇见过这把武器"
+      unseen_collectible: "<dark_gray>你还没有遇见过这个藏品"
+      boss_locked_name: "<dark_gray>？？？"
+      boss_locked_lore: "<dark_gray>该首领还潜藏在阴影之中"
+      hp: "<red>最终血量：{hp}"
+      page_progress: "<gray>已收集 {got}/{total}"
+      page_index: "<dark_gray>第 {page}/{pages} 页"
+      act_row: "<gold>第 {act} 层"
+      act_row_lore: "<dark_gray>{id}"
+  item:
+    rest_only: "<gray>仅在波次休整期可打开升级菜单。"
+    shop_emerald_rest_only: "<gray>仅休整期可使用。"
+    class_unavailable: "<gray>当前无法使用职业选择券。"
+    class_already: "<yellow>你已选定职业。"
+    ability_cooldown: "<gray>技能冷却中…"
+    heal_full: "<gray>生命值已满"
+    heal_amount: "<red>♥ +{hearts} 心"
+  reward:
+    gained: "<green>获得：{display}"
+    apply_no_state: "<red>奖励未能应用（本局状态异常）"
+    apply_bad_bundle: "<red>奖励未能应用（组合配置无效）" 
+    apply_failed: "<red>奖励未能应用"
+    apply_error: "<red>奖励应用失败：{id}"
+    click_choose: "<yellow>▶ 点击选择"
+    revive_trade: "<dark_red>国王的铠甲：失去 {count} 次复活，生命上限 +{hp}"
+  scoreboard:
+    title: "<gold>区区恶敌？！"
+    line_act: "<yellow>层 {act} · <white>{map}"
+    line_wave: "<aqua>波 {wave}/{wave_count} · {phase}"
+    line_wave_resting: "<aqua>波 {wave}/{wave_count} · {phase} <gray>({rest}s)"
+    line_strategy: "<white>关卡 · {strategy}"
+    line_mobs: "<red>剩余怪物: {mobs}"
+    separator: "<dark_gray>────────"
+    # 计数器段（2026-10-28）：每位玩家 sidebar 底部列出自己的计数器，{name} 已包含右对齐留白
+    counter_line: "<gray>{name}<white>{value}"
+    counter_ready: " <gold>✦"
+    status_fight: "<green>[战]"
+    status_spec: "<light_purple>[观]"
+    player_line: "{status} <white>{name} <yellow>♥{revives} <gray>✖{kills}"
+    class_vanguard: "<red>[锋]"
+    class_mage: "<green>[术]"
+    class_sniper: "<aqua>[狙]"
+    class_heavy: "<blue>[重]"
+    class_medical: "<light_purple>[医]"
+    class_guard: "<yellow>[战]"
+    class_header: "<yellow>选职业 · 开局休整"
+    class_hint: "<gray>右键职业选择券"
+    class_chosen: "<green>[已选]"
+    class_pending: "<yellow>[待选]"
+    time_record_best: "<yellow>🏆 新纪录！本次通关用时 {time}，刷新个人最佳！"
+    time_record_top: "<aqua>🏆 本次通关用时 {time}，位列第 {rank} 名！"
+  leaderboard:
+    title: "<gold>区区恶敌？！· 积分榜"
+    subtitle: "<yellow>通关与失败结算的累计获得"
+    empty: "<gray>暂无数据"
+    time_title: "<gold>区区恶敌？！· 最佳通关时间"
+    time_subtitle: "<yellow>用时越短排名越高"
+    time_line: "<gray>{index}. <white>{name} <yellow>{time}"
+    no_record: "<dark_gray>未通关"
+  command:
+    players_only: "<red>仅玩家可用。"
+    usage: "<yellow>/maggoteers <codex|achievements|shop|difficulty|time|reload|debug ...>"
+    time_self: "<green>我的最佳通关时间：<yellow>{time}"
+    time_none: "<gray>尚未通关（无记录）"
+    time_empty: "<gray>排行榜暂无通关记录。"
+    time_list_title: "<gold>— 最佳通关时间 TOP {count} —"
+    time_list_line: "<gray>{index}. <white>{name} <yellow>{time}"
+    difficulty_current: "<aqua>当前难度：<yellow>{difficulty}"
+    difficulty_set: "<green>已设置当局难度：<yellow>{difficulty} <gray>（{host}）"
+    difficulty_broadcast: "<yellow>房主 {host} 已将当局难度设为 <white>{difficulty}"
+    difficulty_not_in_game: "<red>不在对局中。"
+    difficulty_not_host: "<red>仅房主可设置难度。"
+    difficulty_only_waiting: "<red>仅在等待阶段（开局前）可设置难度。"
+    difficulty_unknown: "<red>未知难度：{value}（可选 normal|hard|expert 或 0|1|2）"
+    reload_ok: "<green>区区恶敌？！配置已重载（config / waves / rewards / items / maps / mob_skills）。进行中对局剧本不变，新开局生效新波次与地图池。"
+    reload_fail: "<red>配置重载失败，详见控制台日志。"
+    reload_no_perm: "<red>无权限（需 maggoteers.admin）。"

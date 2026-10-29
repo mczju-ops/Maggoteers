@@ -1,0 +1,9 @@
+# 本图专属波次（可选）。Act4 隐藏层只跑「门扉缔造者」单波 Boss（waves_per_act.act4 = 0/0），
+# 目前不需要专属波次；保留空占位与其它图一致。
+#
+# weak:
+#   - { strategy: w_xxx, weight: 2 }
+# strong:
+#   - { strategy: s_xxx, weight: 2 }
+# boss:
+#   - { strategy: b_xxx, weight: 2 }

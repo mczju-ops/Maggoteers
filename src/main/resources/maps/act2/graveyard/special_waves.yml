@@ -1,0 +1,5 @@
+# 墓园特色波 — strategy 定义见 waves.yml（全部进强怪池）
+strong:
+  - { strategy: s2_grave_blind_box, weight: 2 }
+  - { strategy: s2_grave_march, weight: 2 }
+  - { strategy: s2_grave_phantoms, weight: 2 }
