@@ -2,7 +2,7 @@
 
 一个 Paper 服务器的 **4 人合作 PvE 小游戏**：清波、打 Boss、层层推进，波间三选一拿强化，越打越强——打不过就换 build。
 
-游戏内中文名 **区区恶敌？！**（口头和搜索用「区区恶敌」），游戏 id `maggoteers`。本插件是 [MCZJUGameCore](https://github.com/mczju-ops/MCZJUGameCore)（下称 MGC）的子插件：大厅、房间、组队、玩家档案、排行榜、成就都由 MGC 负责，本插件只实现玩法本身。
+游戏内中文名 **区区恶敌？！**（曾用名「卫戍协议」），游戏 id `maggoteers`。本插件是 [MCZJUGameCore](https://github.com/mczju-ops/MCZJUGameCore)（下称 MGC）的子插件：大厅、房间、组队、玩家档案、排行榜、成就都由 MGC 负责，本插件只实现玩法本身。
 
 > 当前版本：**1.4.0**（Paper 26.2 / Java 25 / MGC 1.5.0）
 
